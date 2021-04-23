@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Xzomark Business</title>
+    <!-- Favicon -->
+    <link href="assets/img/favicon.ico" rel="shortcut icon">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="assets/css/themify-icons.css">
+    <!-- video popup -->
+    <link rel="stylesheet" type="text/css" href="assets/css/colorbox.css">
+    <!-- swiper slider -->
+    <link rel="stylesheet" type="text/css" href="assets/css/swiper.min.css">
+    <!-- Animate Css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+    <!-- CSS -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/rank/rank.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/js/easyui.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/icon.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../demo.css"> -->
+</head>
+
+<body>
+    <!-- Pre-loader -->
+    <div class="preloader">
+        <div class="loader">
+        </div>
+    </div>
+
+    <!-- Start Header Section -->
+    <header class="header_wrap header_wrap_2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="mega_nav navbar navbar-expand-md p-0 justify-content-between">
+                        <div class="nav_left">
+                            <a class="navbar-brand" href=#>RANK</a>
+                            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mega_menu">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="p-lg-0 nav_wrapper ml-auto">
+                            <ul class="navbar-nav m-auto collapse navbar-collapse" id="mega_menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.html">首页</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="time.html">靶机状态</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="rank.html">排名</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="guide.html">指南</a>
+                                </li>
+                                <li class="nav-item dropdown_item">
+                                    <a class="nav-link collapsed " href="#mega_blog" data-toggle="collapse">公告</a>
+                                    <div id="mega_blog" class="dropdown_content ">
+                                        <ul class="">
+                                            <li><a href="blog.html">Blog</a></li>
+                                            <li><a href="blog_details.html">Blog Details</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="contact.html">得分趋势图</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav_right d-lg-block d-none">
+                            <a href="#" class="btn">登陆</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End Header Section -->
+
+    <!-- 排名 -->
+    <section class="service_area section_padding_2" style="padding-top: 127px;">
+        <div style="margin:20px 0;"></div>
+        <table class="easyui-datagrid" title="队伍排名" style="width:100%;height: 430px;" data-options="autoRowHeight:true,fitColumns:true,singleSelect:true,collapsible:true,url:'assets/rank/datagrid_data1.json',method:'get'">
+            <thead>
+                <tr>
+                    <th data-options="field:'itemid',width:80">排名</th>
+                    <th data-options="field:'productid',width:100">队伍</th>
+                    <th data-options="field:'listprice',width:80,align:'right'">分数</th>
+
+                </tr>
+            </thead>
+        </table>
+    </section>
+
+    <!--jQuery JS-->
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Colorbox video poput -->
+    <script src="assets/js/jquery.colorbox-min.js"></script>
+    <!-- Swiper Slider -->
+    <script src="assets/js/swiper.min.js"></script>
+    <!-- waypoints  -->
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <!-- Counterup  -->
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <!-- Custom js -->
+    <script src="assets/js/main.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.easyui.min.js"></script>
+</body>
+
+</html>
