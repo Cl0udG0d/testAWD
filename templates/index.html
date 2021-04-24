@@ -74,13 +74,19 @@
                                     <a class="nav-link" href="announcement.html">公告</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">得分趋势图</a>
+                                    <a class="nav-link" href="trend.html">得分趋势图</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="data_screen.html">数据大屏</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="nav_right d-lg-block d-none">
+                        <div class="nav_right d-lg-block d-none" id="login">
                             <a href="#" class="btn">登陆</a>
                         </div>
+                        <!-- <div class="nav_right d-lg-block d-none" id="sign_out">
+                            <a href="#" class="btn">退出</a>
+                        </div> -->
                     </nav>
                 </div>
             </div>
@@ -365,6 +371,11 @@
         })(jQuery)
 
         $('.line').slideUp()
+
+        var login = document.querySelector('#login');
+        login.onclick = function() {
+            window.location = 'login.html';
+        }
     </script>
 
 </body>
