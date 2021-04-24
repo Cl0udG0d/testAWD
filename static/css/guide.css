@@ -1,0 +1,204 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+ :root {
+    --accent-color: #45494E;
+    --gradient-color: #FBFBFB;
+}
+
+a:after {
+    content: "";
+    background: #FBFBFB;
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+    height: 3px;
+    width: 0;
+    transition: .5s;
+    transition-delay: .2s;
+}
+
+.menu {
+    position: fixed;
+    top: 150px;
+    left: 100px;
+    width: 100px;
+    font-size: 12px;
+    z-index: 999;
+}
+
+.menu>ol {
+    list-style: none;
+    padding: 0;
+}
+
+.menu>ol>li {
+    background: #3c3c3c;
+    border-left: 5px solid var(--gradient-color);
+    margin-bottom: 1px;
+    position: relative;
+    transition: .5s;
+}
+
+.menu>ol>li:nth-child(1) {
+    --accent-color: #4c55c4;
+    /* --accent-color: #FDA085; */
+    /* --gradient-color: #F6D365; */
+}
+
+.menu>ol>li:nth-child(2) {
+    --accent-color: #4c55c4;
+    /* --accent-color: #BFF098;
+    --gradient-color: #6FD6FF; */
+}
+
+.menu>ol>li:nth-child(3) {
+    --accent-color: #4c55c4;
+    /* --accent-color: #EA8D8D;
+    --gradient-color: #A890FE; */
+}
+
+.menu>ol>li:nth-child(4) {
+    --accent-color: #4c55c4;
+    /* --accent-color: #D8B5FF;
+    --gradient-color: #1EAE98; */
+}
+
+.menu>ol>li:nth-child(5) {
+    --accent-color: #4c55c4;
+    /* --accent-color: #C6EA8D;
+    --gradient-color: #FE90AF; */
+}
+
+.menu>ol>li:nth-child(6) {
+    --accent-color: #4c55c4;
+    /* --accent-color: #8dbaea;
+    --gradient-color: #FE90AF; */
+}
+
+.menu>ol>li a {
+    color: #FBFBFB;
+    display: block;
+    padding: 15px;
+    position: relative;
+    text-decoration: none;
+    z-index: 1;
+}
+
+.menu>ol>.active:after {
+    background: linear-gradient(to left, var(--accent-color), var(--gradient-color));
+    max-width: 800px;
+}
+
+.menu>ol>li:focus .sub-menu,
+.menu>ol>li:focus-within .sub-menu {
+    max-height: 500px;
+}
+
+.menu>ol>li:after {
+    background: #3c3c3c;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: .5s;
+    max-width: 0;
+    overflow: hidden;
+}
+
+a:hover:after {
+    width: 50px;
+}
+
+a:after {
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.active>a:after {
+    width: 50px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.menu>ol {
+    display: block;
+    max-width: none;
+    text-align: center;
+}
+
+.menu>ol>li {
+    border-top: 5px solid var(--accent-color);
+    border-left: 0;
+    display: inline-block;
+    margin-left: -5px;
+    vertical-align: top;
+    width: 150px;
+}
+
+.menu>ol>.active:after {
+    background: linear-gradient(to bottom, var(--accent-color), var(--gradient-color));
+    border-radius: 3px;
+    top: -5px;
+    bottom: -5px;
+    left: -5px;
+    right: -5px;
+}
+
+.container-div {
+    margin: 0;
+    padding: 0;
+}
+
+.content1 {
+    padding: 0 250px;
+    height: 700px;
+    background: -webkit-linear-gradient(to bottom, #fda0856b, #f6d36585);
+    /* background: linear-gradient(to bottom, #fda0856b, #f6d36585); */
+}
+
+.content2 {
+    padding: 0 250px;
+    height: 700px;
+    background: -webkit-linear-gradient(to bottom, #bff0986b, #6fd6ff85);
+    /* background: linear-gradient(to bottom, #bff0986b, #6fd6ff85); */
+}
+
+.content3 {
+    padding: 0 250px;
+    height: 700px;
+    background: -webkit-linear-gradient(to bottom, #ea8d8d6b, #a890fe85);
+    /* background: linear-gradient(to bottom, #ea8d8d6b, #a890fe85); */
+}
+
+.content4 {
+    padding: 0 250px;
+    height: 700px;
+    background: -webkit-linear-gradient(to bottom, #d8b5ff6b, #1eae9885);
+    /* background: linear-gradient(to bottom, #d8b5ff6b, #1eae9885); */
+}
+
+.content5 {
+    padding: 0 250px;
+    height: 700px;
+    background: -webkit-linear-gradient(to bottom, #c6ea8d6b, #fe90af85);
+    /* background: linear-gradient(to bottom, #c6ea8d6b, #fe90af85); */
+}
+
+.content6 {
+    padding: 0 250px;
+    height: 700px;
+    background: -webkit-linear-gradient(to bottom, #8dbaea6b, #fe90af85);
+    /* background: linear-gradient(to bottom, #8dbaea6b, #fe90af85); */
+}
