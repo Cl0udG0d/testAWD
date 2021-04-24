@@ -61,11 +61,14 @@
                                     <a class="nav-link" href="announcement.html">公告</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">得分趋势图</a>
+                                    <a class="nav-link" href="trend.html">得分趋势图</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="data_screen.html">数据大屏</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="nav_right d-lg-block d-none">
+                        <div class="nav_right d-lg-block d-none" id="login">
                             <a href="#" class="btn">登陆</a>
                         </div>
                     </nav>
@@ -220,6 +223,12 @@
     <!-- Custom js -->
     <script src="../static/js/main.js"></script>
     <script src="../static/js/time.js"></script>
+    <script>
+        var login = document.querySelector('#login');
+        login.onclick = function() {
+            window.location = 'login.html';
+        }
+    </script>
 </body>
 
 </html>

@@ -64,11 +64,14 @@
                                     <a class="nav-link" href="announcement.html">公告</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">得分趋势图</a>
+                                    <a class="nav-link" href="trend.html">得分趋势图</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="data_screen.html">数据大屏</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="nav_right d-lg-block d-none">
+                        <div class="nav_right d-lg-block d-none" id="login">
                             <a href="#" class="btn">登陆</a>
                         </div>
                     </nav>
@@ -96,12 +99,13 @@
     </nav>
 
     <div class="container-div" style="background-color: white;">
-        <div class="text content1" style="margin-top: 140px;margin-left: 20px;">
+        <div class="text content1" style="margin-top: 147px;margin-left: 20px;">
             <!--main-->
             <main id="article01">
                 <div class="ax-padding">
                     <h2>比赛介绍</h2>
                     AWD(Attack With Defense，攻防兼备)模式是一个非常有意思的模式，你需要在一场比赛里要扮演攻击方和防守方，攻者得分，失守者会被扣分。也就是说，攻击别人的靶机可以获取 Flag 分数时，别人会被扣分，同时你也要保护自己的主机不被别人得分，以防扣分。
+                    <img src="../static/image/awd1.png" style="width:100%;">
                     <div class="ax-break"></div>
                     <div class="ax-break"></div>
                 </div>
@@ -170,6 +174,12 @@
     <!-- Custom js -->
     <script src="../static/js/main.js"></script>
     <script src="../static/js/guide.js"></script>
+    <script>
+        var login = document.querySelector('#login');
+        login.onclick = function() {
+            window.location = 'login.html';
+        }
+    </script>
 </body>
 
 </html>
