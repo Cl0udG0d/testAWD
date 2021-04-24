@@ -1,74 +1,29 @@
-span {
-    color: inherit;
-}
-
-* {
+div,
+ul,
+li {
     margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    vertical-align: baseline;
+    padding: 0
 }
 
-* {
-    box-sizing: border-box;
-    -o-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    -icab-box-sizing: border-box;
-    -khtml-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+
+/*先初始化一下默认样式*/
+
+.notice {
+    width: 300px;
+    /*单行显示，超出隐藏*/
+    height: 35px;
+    /*固定公告栏显示区域的高度*/
+    padding: 0 30px;
+    background-color: #b3effe;
+    overflow: hidden;
 }
 
-* {
-    outline: 0;
-}
-
-a {
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.nav-main .nav-span .nav-active,
-.datav-nav .nav-main .nav-span .nav-link:hover {
-    color: #00baff !important;
-}
-
-.nav-main .nav-span .nav-link {
-    text-decoration: none !important;
+.notice ul li {
+    list-style: none;
+    line-height: 35px;
+    /*以下为了单行显示，超出隐藏*/
     display: block;
-    color: #fff;
-    width: auto;
-    min-width: 140px;
-    line-height: 40px;
-    font-size: 14px;
-    text-align: left;
-    cursor: pointer;
-    padding: 0 40px;
-}
-
-.datav-icon {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.datav-font {
-    font-family: "datav-font" !important;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.nav-main .nav-icon {
-    padding-right: 5px;
-    font-size: 20px;
-}
-
-.nav-main {
-    z-index: 10;
-    display: flex;
-    top: 200px;
-    position: fixed;
-    width: 100%;
-    min-width: 1024px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

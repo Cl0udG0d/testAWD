@@ -1,0 +1,363 @@
+/* 公共样式表css */
+
+html,
+body {
+    color: #333;
+    margin: 0;
+    height: 100%;
+    font-family: "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+img {
+    border: 0;
+}
+
+body {
+    background: #fff;
+    color: #666;
+    font: 12px/150% Arial, Verdana, "microsoft yahei";
+}
+
+html,
+body,
+div,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+button,
+fieldset,
+form,
+input,
+legend,
+textarea,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #08acee;
+}
+
+button {
+    outline: 0;
+}
+
+img {
+    border: 0;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    color: #666;
+}
+
+a:hover {
+    color: #eee;
+}
+
+.clearfix::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.clearfix {}
+
+
+/* 必要布局样式css */
+
+.solution-box {
+    background: #262c50;
+}
+
+.solution-bj {
+    background: url("../images/bg.jpg");
+    background-size: cover;
+}
+
+.solution-header {
+    max-width: 1210px;
+    padding: 50px 15px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.solution-header h2 {
+    margin-bottom: 10px;
+    font-size: 36px;
+    line-height: 46px;
+    text-align: center;
+    color: #FAFBFE;
+    font-weight: inherit;
+}
+
+.solution-header p {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
+    opacity: 0.6;
+}
+
+.solution-content {
+    max-width: 1172px;
+    margin: 0 auto;
+}
+
+.solution-list {
+    width: 300px;
+    float: left;
+}
+
+.solution-list ul li {
+    width: 240px;
+    height: 72px;
+    background: rgba(255, 255, 255, 0.15);
+    padding-left: 30px;
+    margin: 0 10px;
+    position: relative;
+}
+
+.solution-list ul li h2 {
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height: 72px;
+    font-weight: inherit;
+}
+
+.solution-list ul .on {
+    width: 260px;
+    margin: 0;
+    padding-left: 40px;
+    background-image: linear-gradient(-180deg, #F67E78 0%, #F56F69 63%);
+    filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#F67E78, endColorstr=#F56F69);
+    /*IE<9>*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#F67E78, endColorstr=#F56F69)";
+    /*IE8+*/
+}
+
+.solution-item {
+    margin-left: 300px;
+    display: block;
+    padding: 20px 10px 0 10px;
+    overflow: hidden;
+}
+
+.solution-item ul li {
+    padding: 20px 0;
+}
+
+.solution-item ul li h2 {
+    font-size: 22px;
+    line-height: 28px;
+    color: #FFFFFF;
+    margin: 0 0 15px 0;
+    font-weight: inherit;
+}
+
+.solution-item ul li p {
+    opacity: 0.8;
+    font-size: 14px;
+    color: #FFFFFF;
+    line-height: 22px;
+}
+
+.s-btn {
+    display: inline-block;
+    color: #36383C;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 4px 20px;
+    cursor: pointer;
+    border: 1px solid #d4d5d7;
+    position: relative;
+    letter-spacing: normal;
+}
+
+.solution-more {
+    border: 1px solid #FAFBFE;
+    border-radius: 4px;
+    height: 40px;
+    width: 140px;
+    margin: 20px 0 0 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: #FAFBFE;
+    padding-left: 30px;
+}
+
+.solution-more em {
+    width: 13px;
+    height: 8px;
+    margin-left: 10px;
+    display: inline-block;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAJCAYAAADpeqZqAAAAAXNSR0IArs4c6QAAAGRJREFUGBm1jkEKgDAMBKtYf+JJ3yM+UrS+RlD8inEivVr2YmAgbWeThvBHmVmCBRp5PnILF5zee7BS0lnecW/o3xCXB4dOGYCT1E0ReQbfNEK5+EWEDVbvy3Z+RZxggFoKfEkPa309oQKxul4AAAAASUVORK5CYII=") no-repeat;
+    background-size: cover;
+    transition: margin-left 0.3s ease-out;
+}
+
+.solution-more:hover {
+    color: #fa6f66;
+    border: 1px solid #fa6f66;
+}
+
+.solution-more:hover em {
+    margin-left: 15px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAJCAYAAADpeqZqAAAAAXNSR0IArs4c6QAAAI1JREFUGBljYCADMBLS87sgfQPDf4Z/LIKSYYwNDX9A6pkIaWIRkAz7z8ig//vDs+v/GxrYQOoJ2gRSBFL8+8Pz60DWP1YBKW2wpl/56beAAqogBYQAIyPDBuJsmpnG+uc6wxqggf9YNBnCCGr6j64hfdZvFkLO+XuDKZiFhaGagUfiGmN6wz9C6nHKAwAcay6AxWqjRQAAAABJRU5ErkJggg==") no-repeat;
+}
+
+.solution-title {
+    position: relative;
+}
+
+.solution-title h3 {
+    font-size: 18px;
+    color: #FFFFFF;
+    width: 135px;
+    font-weight: inherit;
+}
+
+.solution-title span {
+    border-top: 1px solid white;
+    opacity: 0.2;
+    display: inline-block;
+    width: 100%;
+    position: absolute;
+    margin-left: 135px;
+    top: 12px;
+}
+
+.solution-brand {
+    width: 100%;
+    position: relative;
+}
+
+.solution-brand-item {
+    padding: 15px 20px 10px 0;
+    width: 213px;
+    float: left;
+}
+
+.solution-brand-item a {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    height: 40px;
+    padding-left: 50px;
+    display: block;
+    position: relative;
+}
+
+.solution-brand-item a i {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 20px;
+    top: 8px;
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.solution-item .solution-brand-item a p {
+    font-size: 14px;
+    color: #FFFFFF;
+    line-height: 40px
+}
+
+.solution-brand-item .solution-more {
+    width: auto;
+    margin-top: 0;
+}
+
+.solution-brand-item a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.solution-more-wrap {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    display: block;
+}
+
+.solution-more-wrap .solution-more {
+    width: auto;
+    margin-top: 0;
+    color: #999;
+    font-size: 18px;
+    border: none;
+}
+
+.solution-more-wrap .solution-more:hover {
+    color: #F56F69;
+}
+
+.solution-brand-item a i img {
+    width: 22px;
+    height: 22px;
+    display: block;
+    border: none;
+}
+
+.clear a {
+    border: none;
+    padding-left: 20px;
+}
+
+.clear a:hover {
+    background: none;
+}
+
+.clear a img {
+    width: 130px;
+}
+
+.clear {
+    padding-top: 32px;
+}
+
+.solution-item ul {
+    display: none;
+}

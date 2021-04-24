@@ -7,7 +7,7 @@
     <title>Document</title>
     <style>
         body {
-            background: url('{{url_for('static',filename='image/login.png')}}') no-repeat;
+            background: url('../static/image/login.png') no-repeat;
             background-size: 100% auto;
         }
         
@@ -97,7 +97,7 @@
 <script>
     var signIn = document.querySelector('#sign_in');
     signIn.addEventListener('click', function() {
-        window.location.href = "../index/index.html";
+        window.location.href = "index.html";
     })
 </script>
 

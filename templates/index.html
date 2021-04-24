@@ -1,226 +1,378 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zxx">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>首页</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/index.css')}}">
-    <!-- <script src="./index.js" type="text/javascript"></script> -->
+    <!-- Favicon -->
+    <!-- <link href="assets/img/favicon.ico" rel="shortcut icon"> -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="../static/css/themify-icons.css">
+    <!-- video popup -->
+    <link rel="stylesheet" type="text/css" href="../static/css/colorbox.css">
+    <!-- swiper slider -->
+    <link rel="stylesheet" type="text/css" href="../static/css/swiper.min.css">
+    <!-- Animate Css -->
+    <link rel="stylesheet" type="text/css" href="../static/css/animate.css">
+    <!-- CSS -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/swiper.css" />
+
+    <style>
+        .line {
+            background-color: gray;
+            height: 30px;
+            overflow: hidden;
+            line-height: 30px;
+        }
+    </style>
+
 </head>
 
-<body style="background: #222;margin:0;padding:0px;">
-    <div class="nav-main" style="position: fixed; top: 0;">
-        <canvas id="canvas-2761" style="position: absolute; z-index: -1; left: 0px;"></canvas>
-        <span class="nav-span"><a class="nav-link nav-active" aria-current="true" href="javascript:canvasnav._toggle(0);"
-             data-spm-anchor-id="datav.10712463.0.0" ><i
-            class="datav-font datav-icon icon-ArtboardCopy9 nav-icon"></i><!-- react-text: 60 -->首页 
-      <!-- /react-text --></a></span>
-
-        <span class="nav-span"><a  class="nav-link" aria-current="false" href="javascript:canvasnav._toggle(1);" 
-            data-spm-anchor-id="datav.10712463.0.0"><i class="datav-font datav-icon icon-ArtboardCopy10 nav-icon"
-        data-spm-anchor-id="datav.10712463.0.i0.6f053967skiQbA"></i><!-- react-text: 64 -->靶机状态<!-- /react-text --></a>
-        </span>
-
-        <span class="nav-span"><a class="nav-link" aria-current="false" href="javascript:canvasnav._toggle(2);"
-                            data-spm-anchor-id="datav.10712463.0.0"><i
-        class="datav-font datav-icon icon-ArtboardCopy12 nav-icon"></i><!-- react-text: 68 -->排名 
-      <!-- /react-text --></a></span>
-
-        <span class="nav-span"><a  class="nav-link" aria-current="false" href="javascript:canvasnav._toggle(3);"
-                              data-spm-anchor-id="datav.10712463.0.0"><i
-            class="datav-font datav-icon icon-ArtboardCopy11 nav-icon"></i><!-- react-text: 72 -->指南 
-      <!-- /react-text --></a></span>
-
-        <span class="nav-span"><a  class="nav-link" aria-current="false" href="javascript:canvasnav._toggle(4);"
-                              data-spm-anchor-id="datav.10712463.0.0"><i
-            class="datav-font datav-icon icon-ArtboardCopy11 nav-icon"></i>公告</a></span>
-
-        <span class="nav-span"><a  class="nav-link" aria-current="false" href="javascript:canvasnav._toggle(5);"
-                data-spm-anchor-id="datav.10712463.0.0"><i
-             class="datav-font datav-icon icon-ArtboardCopy11 nav-icon"></i>得分趋势图</a></span>
-
-        <span class="nav-span"><a  class="nav-link" aria-current="false" href="javascript:canvasnav._toggle(6);"
-                data-spm-anchor-id="datav.10712463.0.0"><i
-             class="datav-font datav-icon icon-ArtboardCopy11 nav-icon"></i>数据大屏</a></span>
+<body style="background-color: white;">
+    <!-- Pre-loader -->
+    <div class="preloader">
+        <div class="loader">
+        </div>
     </div>
 
+    <!-- Start Header Section -->
+    <header class="header_wrap header_wrap_2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="mega_nav navbar navbar-expand-md p-0 justify-content-between">
+                        <div class="nav_left">
+                            <a class="navbar-brand" href=#>HOME</a>
+                            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mega_menu">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        </div>
+                        <div class="p-lg-0 nav_wrapper ml-auto">
+                            <ul class="navbar-nav m-auto collapse navbar-collapse" id="mega_menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.html">首页</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="time.html">靶机状态</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="rank.html">排名</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="guide.html">指南</a>
+                                </li>
+                                <li class="nav-item dropdown_item">
+                                    <a class="nav-link collapsed " href="#mega_blog" data-toggle="collapse">公告</a>
+                                    <div id="mega_blog" class="dropdown_content ">
+                                        <ul class="">
+                                            <li><a href="blog.html">Blog</a></li>
+                                            <li><a href="blog_details.html">Blog Details</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="contact.html">得分趋势图</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav_right d-lg-block d-none">
+                            <a href="#" class="btn">登陆</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End Header Section -->
+
+    <!-- Start Hero Section -->
+    <section class="hero_area">
+        <div class="row align-items-center">
+            <div class="col-lg-7 col-md-6">
+                <div class="video_wrapper">
+                    <div class="swiper">
+                        <ul class="pic">
+                            <li class="now">
+                                <a href="#"><img src="../static/image/t1.png" alt="" /></a>
+                            </li>
+                            <li class="next">
+                                <a href="#"><img src="../static/image//t2.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="../static/image/t3.png" alt="" /></a>
+                            </li>
+                            <li>
+                                <a href="#"><img src="../static/image/t4.png" alt="" /></a>
+                            </li>
+                        </ul>
+                        <ol class="cricle"></ol>
+                        <div class="btns">
+                            <a href="javascript:;" class="leftbtn" style="float: left; margin-left: 6px;"></a>
+                            <a href="javascript:;" class="rightbtn" style="float: right; margin-right: 6px;"></a>
+                        </div>
+                        <div class="leftBox"></div>
+                        <div class="rightBox"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Hero Section -->
+    <!-- 消息 -->
+    <!-- <section class="service_area section_padding_2">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                    <div class="section_title text-center">
+                        <h2>消息推送</h2>
+                    </div>
+                </div>
+            </div>
+            <ul class="line">
+                <li><a href="#">好消息好消息</a></li>
+                <li><a href="#">大佬救救我</a></li>
+                <li><a href="#">回家放牛了</a></li>
+            </ul>
+        </div>
+    </section> -->
+
+    <!-- Start Blog Section -->
+    <section class="blog_area section_padding_2">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                    <div class="section_title text-center">
+                        <h2>实时消息推送</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="single_blog_item">
+                        <div class="blog_content">
+                            <span class="meta_date">16 Dec, 2019</span>
+                            <h2><a href="#" class="boxed_btn">What should you need do to get personal loan ver
+                                easay.</a></h2>
+                            <p>That’s why you easily choose between options you can change the and layout to the are customizer.
+                            </p>
+                        </div>
+                        <!-- <div class="blog_img"> <img src="assets/img/blog/1.png" alt="blog"></div> -->
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="single_blog_item">
+                        <div class="blog_content">
+                            <span class="meta_date">16 Dec, 2019</span>
+                            <h2><a href="#" class="boxed_btn">What should you need do to get personal loan ver
+                                easay.</a></h2>
+                            <p>That’s why you easily choose between options you can change the and layout to the are customizer.
+                            </p>
+                        </div>
+                        <!-- <div class="blog_img"> <img src="assets/img/blog/2.png" alt="blog"></div> -->
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="single_blog_item">
+                        <div class="blog_content">
+                            <span class="meta_date">16 Dec, 2019</span>
+                            <h2><a href="#" class="boxed_btn">What should you need do to get personal loan ver
+                                easay.</a></h2>
+                            <p>That’s why you easily choose between options you can change the and layout to the are customizer.
+                            </p>
+                        </div>
+                        <!-- <div class="blog_img"> <img src="assets/img/blog/3.png" alt="blog"></div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Blog Section -->
+
+    <!-- Start client Section -->
+    <div class="client_area section_padding">
+        <div class="container">
+            <div class="row  justify-content-center">
+                <div class="col-md-12">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper d-flex align-items-center">
+                            <div class="swiper-slide">
+                                <div class="client_img d-flex justify-content-center align-items-center">
+                                    <a href="#"><img src="../static/image/clients/1.png" alt=" client"></a>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="client_img d-flex justify-content-center align-items-center">
+                                    <a href="#"><img src="../static/image/clients/2.png" alt=" client"></a>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="client_img d-flex justify-content-center align-items-center">
+                                    <a href="#"><img src="../static/image/clients/3.png" alt=" client"></a>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="client_img d-flex justify-content-center align-items-center">
+                                    <a href="#"><img src="../static/image/clients/4.png" alt=" client image"></a>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="client_img d-flex justify-content-center align-items-center">
+                                    <a href="#"><img src="../static/image/clients/5.png" alt=" client image"></a>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="client_img d-flex justify-content-center align-items-center">
+                                    <a href="#"><img src="../static/image/clients/6.png" alt=" client image"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End client Section -->
+
+    <!-- Start Footer Section -->
+    <footer class="simple_clean">
+        <div class="container">
+            <div class="footer_top">
+                <div class="row d-flex justify-content-center justify-content-md-start align-items-center">
+                    <div class="col-md-3 col-lg-4 pr-md-0">
+                        <div class="f_widget_1">
+                            <h4 class="sub_heading">Get in Touch</h4>
+                            <p class="footer_text">Get new customers orem keep your visitor attention people.</p>
+                            <ul class="social_link">
+                                <li><a href="#"><i class="ti-facebook"></i></a></li>
+                                <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
+                                <li><a href="#"><i class="ti-pinterest"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-6">
+                        <div class="f_widget_2">
+                            <h4 class="sub_heading">Company info</h4>
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Carrear</a></li>
+                                <li><a href="#">We are hiring</a></li>
+                                <li><a href="#">Blog</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-6">
+                        <div class="f_widget_3">
+                            <h4 class="sub_heading">Features</h4>
+                            <ul>
+                                <li><a href="#">Business Marketing</a></li>
+                                <li><a href="#">User Analytics</a></li>
+                                <li><a href="#">Live Chat</a></li>
+                                <li><a href="#">Unlimited Support</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2 p-lg-0">
+                        <div class="f_widget_4">
+                            <h4 class="sub_heading">Resources</h4>
+                            <ul>
+                                <li><a href="#">iOS & Android Apps</a></li>
+                                <li><a href="#">Watch a Demo</a></li>
+                                <li><a href="#">Customers</a></li>
+                                <li><a href="#">Integrations & API</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer_bottom d-flex justify-content-center align-items-center">
+            <div class="row ">
+                <div class="col-md-12">
+                    <div class="copy_right_text">
+                        <p>&copy; 2019 <i class="ti-heart"></i> Xyz Company All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Section -->
+
+    <!-- Start Scroll to top -->
+    <div class="scrolltop">
+        <i class="ti-angle-up"></i>
+    </div>
+    <!-- End Scroll to top -->
+    <!--jQuery JS-->
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- Colorbox video poput -->
+    <script src="../static/js/jquery.colorbox-min.js"></script>
+    <!-- Swiper Slider -->
+    <script src="../static/js/swiper.min.js"></script>
+    <!-- waypoints  -->
+    <script src="../static/js/jquery.waypoints.min.js"></script>
+    <!-- Counterup  -->
+    <script src="../static/js/jquery.counterup.min.js"></script>
+    <!-- Custom js -->
+    <script src="../static/js/main.js"></script>
+    <!-- <script src="assets/index/index.js"></script> -->
+    <script src="../static/js/index.js"></script>
+    <script src="../static/js/swiper.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <script>
-        var canvasnav = (function() {
-            var c = Math.min,
-                h = Math.sign,
-                m = Math.max,
-                n = Math.abs,
-                j = .85,
-                k = 10,
-                l = 4;
-            var opt = {};
-            opt.currentIndex = 1;
-            opt.canvas = document.getElementById('canvas-2761');
+        /**
+         * 公告轮播插件
+         * @param  {number} $ liHeight  li元素的高度 
+         * @param  {number} $ time  轮播间隔时间
+         * @param  {number} $ movetime  轮播持续时间
+         */
+        (function($) {
+            $.fn.extend({
+                "slideUp": function(value) {
 
+                    var docthis = this;
+                    //默认参数
+                    value = $.extend({
+                            "liHeight": "30",
+                            "time": 2000,
+                            "movetime": 1000
+                        }, value)
+                        //向上滑动动画
+                    function autoplay() {
+                        $("li:first", docthis).animate({
+                            "margin-top": -value.liHeight
+                        }, value.movetime, function() {
+                            $(this).css("margin-top", 0).appendTo(".line");
+                        })
+                    }
 
-            var calcAVGSpeed = function(a) {
-                var b = (l * j * a + k * (1 - j) * a) / (k * l * 20);
-                return b = m(n(b), 2.5) * h(b), b
-            }
-            var getCurSpeed = function(a, b) {
-                var c = n(a) > n(j * b) ? l * opt.avgSpeed : k * opt.avgSpeed;
-                return c
-            }
+                    //自动间隔时间向上滑动
+                    var anifun = setInterval(autoplay, value.time);
 
-
-            var _calCurve = function(a, b, c, d, e, f) {
-                //console.log(a + f,b,c-f,d,c,d);
-                e.bezierCurveTo(a + f, b, c - f, d, c, d)
-            }
-
-            var _initCanvas = function(canvas, width, height) {
-                var devicePixelRatio = window.devicePixelRatio,
-                    canvasObj = canvas.getContext("2d");
-                canvas.width = width * devicePixelRatio, canvas.height = height * devicePixelRatio, canvas.style.width = width + "px", canvas.style.height = height + "px", canvasObj.scale(devicePixelRatio, devicePixelRatio)
-            }
-
-            var resize = function() {
-                //resize发生
-                opt.timer && cancelAnimationFrame(opt.timer);
-                _calcTabs();
-                _initCanvas(opt.canvas, opt.width, opt.height), draw(0)
-            }
-
-
-            var _calcTabs = function() {
-                var a = document.querySelectorAll(".nav-main .nav-span"),
-                    b = [],
-                    c = 0;
-                Array.prototype.forEach.call(a, function(a) {
-                    b.push(c), c += a.offsetWidth
-                }), b[0] = -20, b.push(c), opt.tabWidthList = b, opt.tabHeight = a[0].offsetHeight + 0, opt.height = opt.tabHeight + 20, opt.width = window.innerWidth
-            }
-
-
-            var _toggle = function(navindex) {
-
-                "undefined" !== typeof navindex && navindex !== opt.currentIndex && opt.tabWidthList && opt.tabWidthList.length && (!opt.animating || navindex !== opt.nextIndex) && (opt.animating = true, opt.distance = opt.tabWidthList[navindex] - opt.tabWidthList[opt.currentIndex], opt.avgSpeed = calcAVGSpeed(opt.distance), opt.curDisX = 0, opt.nextIndex = navindex)
-                return false;
-
-            }
-
-
-            var _createPattern = function(a) {
-                var b = 140,
-                    c = 63,
-                    d = 1,
-                    e = document.createElement("canvas");
-                e.width = b, e.height = c, e.style.width = b / d + "px", e.style.height = c / d + "px";
-                var f = e.getContext("2d");
-                //缩放 宽高 100%
-                f.scale(d, d);
-                f.lineWidth = .4;
-                for (var g = 3, h = .8, j = 1; 30 > j; j++) {
-                    //设置或返回用于笔触的颜色、渐变或模式
-                    f.strokeStyle = "RGBA(22, 120, 160, " + h + ")";
-                    //开始一条路径
-                    f.beginPath();
-                    //把路径移动到画布中的指定点，不创建线条
-                    f.moveTo(0, j * g);
-                    //添加一个新点，然后在画布中创建从该点到最后指定点的线条
-                    f.lineTo(b, j * g);
-                    //绘制已定义的路径
-                    f.stroke();
-                    //创建从当前点回到起始点的路径
-                    f.closePath();
-                    10 < j && (h -= .1);
+                    //悬停时停止滑动，离开时继续执行
+                    $(docthis).children("li").hover(function() {
+                        clearInterval(anifun); //清除自动滑动动画
+                    }, function() {
+                        anifun = setInterval(autoplay, value.time); //继续执行动画
+                    })
                 }
-                var i = a.getContext("2d").createPattern(e, "repeat-x");
-                opt.pattern = i, e = null
-            }
+            })
+        })(jQuery)
 
-            var _drawHightlight = function(a) {
-                //a = 0
-                var b = opt.canvas.getContext("2d"),
-                    d = .3;
-                //clearRect 在给定的矩形内清除指定的像素,这里清完了
-                b.clearRect(0, 0, 2 * opt.width, 2 * opt.height);
-                b.shadowColor = "rgba(0, 193, 220, 1)";
-                b.shadowBlur = 5;
-                b.strokeStyle = "#004CB3";
-                b.lineWidth = .8;
-                b.fillStyle = "none";
-                _draw(b, false);
-                //这里绘制了外围边框线条
-                //return false;
-                var e = b.createLinearGradient(0, 0, opt.width, opt.height),
-                    f = a - d;
-                e.addColorStop(c(1, m(0, 0 + f)), "rgba(0,0,0,0)");
-                e.addColorStop(c(1, m(0, 0 + f + .1)), "#8ED6FF");
-                e.addColorStop(c(1, 0 + f + d), "#8ED6FF");
-                e.addColorStop(c(1, 0 + f + d + .1), "rgba(0,0,0,0)");
-                e.addColorStop(1, "rgba(0,0,0,0)");
-                b.lineWidth = 1.5;
-                b.strokeStyle = e;
-                b.fillStyle = opt.pattern;
-                _draw(b, true)
-
-            }
-
-
-            var draw = function(a) {
-                //console.log(a);
-                _drawHightlight(a);
-                //return false;
-
-                opt.timer = requestAnimationFrame(function() {
-                    //console.log(a);
-                    draw((a + .005) % 1.6)
-                })
-
-
-            }
-
-            var _draw = function(canvasObj, trueorfalse) {
-                var navindex = opt.currentIndex,
-                    tableHeight = opt.tabHeight,
-                    f = 0,
-                    g = 40,
-                    i = 20,
-                    j = .5,
-                    k = 2.5,
-                    l = 0;
-                if (canvasObj.beginPath(), canvasObj.moveTo(-50, opt.height + 10), canvasObj.lineTo(-50, tableHeight + j), opt.animating) {
-                    var m = getCurSpeed(opt.curDisX, opt.distance);
-                    l = c(n(opt.distance), n(opt.curDisX + m)) * h(m)
-                }
-                if (canvasObj.lineTo(f + opt.tabWidthList[navindex] + l - g / 2, tableHeight + j), _calCurve(f + opt.tabWidthList[navindex] + l - g / 2, tableHeight + j, f + opt.tabWidthList[navindex] + l + g / 2, k + j, canvasObj, i), opt.animating) {
-                    var o = opt.tabWidthList[opt.nextIndex + 1] - opt.tabWidthList[opt.nextIndex];
-                    canvasObj.lineTo(f + opt.tabWidthList[navindex] + o + l - g / 2, k + j), _calCurve(f + opt.tabWidthList[navindex] + o + l - g / 2, k + j, f + opt.tabWidthList[navindex] + o + l + g / 2, tableHeight + j, canvasObj, i)
-                } else {
-                    //lineTO添加一个新点 宽度长度
-                    canvasObj.lineTo(f + opt.tabWidthList[navindex + 1] + l - g / 2, k + j);
-                    _calCurve(f + opt.tabWidthList[navindex + 1] + l - g / 2, k + j, f + opt.tabWidthList[navindex + 1] + l + g / 2, tableHeight + j, canvasObj, i);
-                }
-
-                canvasObj.lineTo(opt.width + 10, tableHeight + j);
-                canvasObj.lineTo(opt.width + 10, opt.height + 10);
-                canvasObj.closePath();
-                canvasObj.stroke();
-                trueorfalse && canvasObj.fill();
-                opt.animating && trueorfalse && (opt.curDisX = l, n(l) >= n(opt.distance) && (opt.animating = false, opt.currentIndex = opt.nextIndex))
-            }
-
-            _toggle(1);
-            _calcTabs();
-            _initCanvas(opt.canvas, opt.width, opt.height);
-            _createPattern(opt.canvas);
-            draw(0);
-
-            window.onresize = function() {
-                resize();
-            };
-            return {
-                "_toggle": _toggle
-            }
-
-        })()
+        $('.line').slideUp()
     </script>
+
 </body>
 
 </html>
