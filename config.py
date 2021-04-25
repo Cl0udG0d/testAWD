@@ -1,6 +1,8 @@
 import os
 
 
+FLAG_START="BiuCtf{"
+FLAG_END="}"
 
 DEBUG = True
 # DEBUG = False

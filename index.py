@@ -1,4 +1,4 @@
-from flask import request,render_template,redirect,url_for
+from flask import request,render_template,redirect,url_for,session
 from init import app
 from models import *
 from operator import attrgetter
@@ -45,6 +45,13 @@ def notice():
     for i in notice1:
         print(i.content)
     return render_template('announcement.html',notice1=notice1)
+
+#测试路由
+@app.route('/test/')
+def test():
+    session['test']=1
+    print(session.get('test'))
+    return "hi!"
 
 if __name__ == "__main__":
     app.run(debug=True)
