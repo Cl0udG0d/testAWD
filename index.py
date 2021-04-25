@@ -1,6 +1,7 @@
 from flask import request,render_template,redirect,url_for
 from init import app
 from models import *
+from operator import attrgetter
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -40,10 +41,10 @@ def adminLogin():
 @app.route('/announcement/')
 def notice():
     notice1=Notice.query.filter(Notice.content !=None).all()
-    notice2=notice1.sort(reverse=False)
-    # for i in notice2:
-    #     print(notice1.id)
-    return render_template('announcement.html')
+    notice1 =sorted(notice1,key=attrgetter('id'),reverse=True)
+    for i in notice1:
+        print(i.content)
+    return render_template('announcement.html',notice1=notice1)
 
 if __name__ == "__main__":
     app.run(debug=True)

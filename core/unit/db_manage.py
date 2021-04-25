@@ -93,4 +93,4 @@ def DeleteAdminData(id):
         db.session.commit()
 
 if __name__ == '__main__':
-    insertNoticeData('今天要交遗传算法实验')
+    insertNoticeData('4月2号交数据挖掘课设')
