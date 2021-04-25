@@ -30,7 +30,7 @@ ______         ______
 
 `项目结构：`
 
-![项目结构]()
+![项目结构](https://github.com/Cl0udG0d/testAWD/blob/main/static/image/process.jpg)
 
 ### 安装
 
