@@ -74,14 +74,21 @@
         <form action="" method="post">
         <div id="form">
             <div id="input_box">
+<<<<<<< HEAD
                 <input type="text" placeholder="Username" name="username">
             </div>
             <div id="input_box">
                 <input type="password" placeholder="Password" name="password">
+=======
+                <input type="text" placeholder="Username" id="name">
+            </div>
+            <div id="input_box">
+                <input type="password" placeholder="Password" id="pass">
+>>>>>>> 834c4ffd770e44035579dd4121790fcc0f1fb134
             </div>
         </div>
         <div>
-            <button id="sign_in" style="height: 32px;">Sign in</button>
+            <button id="sign_in" style="height: 32px;" onclick="login()">Sign in</button>
             <button id="sign_up" style="height: 32px;">Sign up</button>
         </div>
             </form>
@@ -97,10 +104,24 @@
 </body>
 
 <script>
-    var signIn = document.querySelector('#sign_in');
-    signIn.addEventListener('click', function() {
-        window.location.href = "index.html";
-    })
+    // var signIn = document.querySelector('#sign_in');
+    // signIn.addEventListener('click', function() {
+    //     window.location.href = "index.html";
+    // })
+
+    function login() {
+        var username = document.getElementById("name").value;
+        var password = document.getElementById("pass").value;
+        if (username == "123456" && password == "123456") {
+            // alert("登录成功");
+            window.location  = "index.html";
+            return false;
+        } else {
+            alert("账号或密码错误");
+            window.location.href = "login.html";
+            return false;
+        }
+    }
 </script>
 
 </html>
