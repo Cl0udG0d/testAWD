@@ -2,11 +2,11 @@ from datetime import datetime
 
 from exts import db
 
-class User (db.Model):
-    __tablename__ = 'user'
-    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-    username = db.Column(db.String(128),nullable=False)
-    password = db.Column(db.String(128), nullable=False)
+# class User (db.Model):
+#     __tablename__ = 'user'
+#     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+#     username = db.Column(db.String(128),nullable=False)
+#     password = db.Column(db.String(128), nullable=False)
 
 class Admin (db.Model):
     __tablename__ = 'admin'
@@ -45,7 +45,14 @@ class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     teamname=db.Column(db.String(128),nullable=False)
     password=db.Column(db.String(128),nullable=False)
-    sshpass=db.Column(db.String(128),nullable=False)
     token=db.Column(db.String(128),nullable=False)
-    userlist=db.Column(db.Text)
-    vulhub=db.Column(db.Text)
+
+class Vulhub(db.Model):
+    __tablename__='vulhub'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    tid=db.Column(db.Integer, nullable=False)
+    title=db.Column(db.String(128),nullable=False)
+    sshpass = db.Column(db.String(128), nullable=False)
+    status=db.Column(db.Boolean,nullable=False)
+    addr=db.Column(db.String(64),nullable=False)
+    detail=db.Column(db.Text)

@@ -8,7 +8,7 @@ def getRandomStr():
     返回一个长度为8的随机字符串，其组成最终的flag
     :return:
     '''
-    return ''.join(random.sample('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',8))
+    return ''.join(random.sample('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',8))
 
 def createFlagModel():
     '''

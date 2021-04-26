@@ -4,6 +4,11 @@ import os
 FLAG_START="BiuCtf{"
 FLAG_END="}"
 
+SSHPASS="123456"
+
+TOKEN_LENGTH=32
+PASSWORD_LENGTH=16
+
 DEBUG = True
 # DEBUG = False
 SECRET_KEY = os.urandom(24)
