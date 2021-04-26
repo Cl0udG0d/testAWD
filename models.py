@@ -43,3 +43,9 @@ class AttackRecord(db.Model):
 class Team(db.Model):
     __tablename__='team'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    teamname=db.Column(db.String(128),nullable=False)
+    password=db.Column(db.String(128),nullable=False)
+    sshpass=db.Column(db.String(128),nullable=False)
+    token=db.Column(db.String(128),nullable=False)
+    userlist=db.Column(db.Text)
+    vulhub=db.Column(db.Text)
