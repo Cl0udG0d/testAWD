@@ -30,8 +30,8 @@ def adminLogin():
     else:
         adminname = request.form.get('adminname')
         password = request.form.get('password')
-        print("{} {}".format(adminname,password))
-        admin1 = Admin.query.filter(User.username == adminname).filter(Admin.password==password).first()
+        # print("{} {}".format(adminname,password))
+        admin1 = Admin.query.filter(Admin.adminname == adminname).filter(Admin.password==password).first()
         if admin1:
             return redirect(url_for('index'))
         else:
