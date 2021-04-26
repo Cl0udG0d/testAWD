@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>数据大屏</title>
+    <!-- Favicon -->
+    <!-- <link href="assets/img/favicon.ico" rel="shortcut icon"> -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="../static/css/themify-icons.css">
+    <!-- video popup -->
+    <link rel="stylesheet" type="text/css" href="../static/css/colorbox.css">
+    <!-- swiper slider -->
+    <link rel="stylesheet" type="text/css" href="../static/css/swiper.min.css">
+    <!-- Animate Css -->
+    <link rel="stylesheet" type="text/css" href="../static/css/animate.css">
+    <!-- CSS -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/css/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/demo.css">
+
+    <style>
+        .left {
+            border: 1px solid #4c55c4;
+            border-radius: 5px;
+            width: 760px;
+            height: 755px;
+            margin: 0 10px;
+        }
+        
+        .right {
+            /* border: 1px solid #4c55c4; */
+            border-radius: 5px;
+            width: 536px;
+            height: 575px;
+        }
+        
+        .flag {
+            border: 1px solid #4c55c4;
+            border-radius: 5px;
+            width: 536px;
+            height: 180px;
+            margin: 10px 0;
+            display: flex;
+        }
+        
+        .content {
+            margin-top: 155px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .text {
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: 500;
+            margin-left: 40px;
+        }
+        
+        .information {
+            border-top: 1px solid gainsboro;
+        }
+        
+        .details {
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .flag1 {
+            height: 100%;
+            font-size: 20px;
+            margin-top: 20px;
+            margin-left: 10px;
+        }
+        
+        .num {
+            margin-bottom: 60px;
+            font-size: 50px;
+            text-align: center;
+            color: #4c55c4;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Pre-loader -->
+    <div class="preloader">
+        <div class="loader">
+        </div>
+    </div>
+
+    <!-- Start Header Section -->
+    <header class="header_wrap header_wrap_2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="mega_nav navbar navbar-expand-md p-0 justify-content-between">
+                        <div class="nav_left">
+                            <a class="navbar-brand" href=#>DATA SCREEN</a>
+                            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mega_menu">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        </div>
+                        <div class="p-lg-0 nav_wrapper ml-auto">
+                            <ul class="navbar-nav m-auto collapse navbar-collapse" id="mega_menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="dataScreen_manager.html">数据大屏</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="systemCon_manager.html">系统配置</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="rank.html">题目管理</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="guide.html">靶机管理</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="announcement.html">flag管理</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="trend.html">公告管理</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="data_screen.html">账号管理</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="data_screen.html">日志信息</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav_right d-lg-block d-none" id="login" style="width: 0;">
+                            <a href="#" class="btn" style="width: 100px;" onclick="loginMan()">登出</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End Header Section -->
+
+    <!-- 数据显示 -->
+    <div class="content">
+        <div class="left">
+            <div class="text">距离第250轮结束还有5分30秒</div>
+            <div class="easyui-progressbar" data-options="value:80" style="width:90%;margin: 10px 40px;"></div>
+            <div class="information">
+                <div class="details">[2021/4/26_上午1:30:02] [WARNING] 第62433 轮分数结算完成!耗时0. 025891342 s。
+                </div>
+                <div class="details">[2021/4/26_上午1:30:02] [WARNING] 第62433 轮分数结算完成!耗时0. 025891342 s。
+                </div>
+                <div class="details">[2021/4/26_上午1:30:02] [WARNING] 第62433 轮分数结算完成!耗时0. 025891342 s。
+                </div>
+            </div>
+        </div>
+        <div class="team">
+            <div class="right">
+                <table class="easyui-datagrid" title="队伍分数" style="width:100%;height:100%;" data-options="singleSelect:true,collapsible:true,url:'../static/datagrid_data1.json',method:'get'">
+                    <thead>
+                        <tr>
+                            <th data-options="field:'itemid',width:80">编号</th>
+                            <th data-options="field:'productid',width:300">队伍</th>
+                            <th data-options="field:'listprice',width:150,align:'right'">分数</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="flag">
+                <div class="flag1">
+                    <div class="num">0</div>
+                    正确提交Flag
+                </div>
+                <div class="flag1">
+                    <div class="num">0</div>CheckDown次数
+                </div>
+                <div class="flag1">
+                    <div class="num">0</div>占用内存</div>
+                <div class="flag1">
+                    <div class="num">0</div>Goroutine数</div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--jQuery JS-->
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- Colorbox video poput -->
+    <script src="../static/js/jquery.colorbox-min.js"></script>
+    <!-- Swiper Slider -->
+    <script src="../static/js/swiper.min.js"></script>
+    <!-- waypoints  -->
+    <script src="../static/js/jquery.waypoints.min.js"></script>
+    <!-- Counterup  -->
+    <script src="../static/js/jquery.counterup.min.js"></script>
+    <!-- Custom js -->
+    <script src="../static/js/main.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.easyui.min.js"></script>
+    <script>
+        var login = document.querySelector('#login');
+        login.onclick = function() {
+            window.location = 'login_manager.html';
+        }
+
+        // 进度条
+        // var value = $('#p').progressbar('getValue');
+        // if (value < 100) {
+        //     value += Math.floor(Math.random() * 10);
+        //     $('#p').progressbar('setValue', value);
+        //     setTimeout(arguments.callee, 200);
+        // }
+    </script>
+</body>
+
+</html>

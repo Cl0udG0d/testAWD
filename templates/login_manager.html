@@ -32,9 +32,9 @@
                     <div class="login-center-input-text">密码</div>
                 </div>
             </div>
-            <div class="login-button" onclick="loginMan()">
+            <button class="login-button" style="border: 0; margin: 10px 43px; outline: none;">
                 登陆
-            </div>
+            </button>
         </div>
         <div class="sk-rotating-plane"></div>
     </div>
@@ -45,22 +45,10 @@
     <script type="text/javascript">
         // var loginManager = document.querySelector('.login-button');
         // loginManager.addEventListener('click', function() {
-        //         window.location.href = "index.html";
-        //     })
+        //     window.location.href = "index.html";
+        // })
 
-        function loginMan() {
-            var username = document.getElementById("name").value;
-            var password = document.getElementById("pass").value;
-            if (username == "123456" && password == "123456") {
-                // alert("登录成功");
-                window.location  = "index.html";
-                return false;
-            } else {
-                alert("账号或密码错误");
-                window.location.href = "login_manager.html";
-                return false;
-            }
-        }
+
         // function hasClass(elem, cls) {
         //     cls = cls || '';
         //     if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
