@@ -14,6 +14,7 @@
 <body>
 
     <div id="particles-js">
+         <form action="{{url_for('adminLogin')}}" method="post">
         <div class="login">
             <div class="login-top">
                 登录
@@ -22,6 +23,7 @@
                 <div class="login-center-img"><img src="../static/image/login_manager/name.png" /></div>
                 <div class="login-center-input">
                     <input type="text" id="name" name="" value="" placeholder="请输入您的用户名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的用户名'" />
+
                     <div class="login-center-input-text">用户名</div>
                 </div>
             </div>
@@ -29,6 +31,7 @@
                 <div class="login-center-img"><img src="../static/image/login_manager/password.png" /></div>
                 <div class="login-center-input">
                     <input type="password" id="pass" name="" value="" placeholder="请输入您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'" />
+
                     <div class="login-center-input-text">密码</div>
                 </div>
             </div>
@@ -37,12 +40,25 @@
             </button>
         </div>
         <div class="sk-rotating-plane"></div>
+             </form>
     </div>
+
 
     <!-- scripts -->
     <script src="../static/js/particles.min.js"></script>
     <script src="../static/js/app.js"></script>
     <script type="text/javascript">
+<<<<<<< HEAD
+        var loginManager = document.querySelector('.login-button');
+        loginManager.addEventListener('click', function() {
+                window.location.href = "{{url_for('adminLogin')}}";
+            })
+            // function hasClass(elem, cls) {
+            //     cls = cls || '';
+            //     if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
+            //     return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
+            // }
+=======
         // var loginManager = document.querySelector('.login-button');
         // loginManager.addEventListener('click', function() {
         //     window.location.href = "index.html";
@@ -54,6 +70,7 @@
         //     if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
         //     return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
         // }
+>>>>>>> 834c4ffd770e44035579dd4121790fcc0f1fb134
 
         // function addClass(ele, cls) {
         //     if (!hasClass(ele, cls)) {
