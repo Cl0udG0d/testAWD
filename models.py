@@ -20,3 +20,22 @@ class Notice (db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, default=datetime.now)
+
+class Flag(db.Model):
+    __tablename__='flag'
+    id=db.Column(db.Integer, primary_key=True, autoincrement=True)
+    tid=db.Column(db.Integer, nullable=False)
+    flag=db.Column(db.String(128),nullable=False)
+
+class Source(db.Model):
+    __tablename__='source'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    tid = db.Column(db.Integer, nullable=False)
+    source=db.Column(db.Integer, nullable=False)
+
+class AttackRecord(db.Model):
+    __tablename__='attackrecord'
+    id=db.Column(db.Integer, primary_key=True, autoincrement=True)
+    sourcetid=db.Column(db.Integer, nullable=False)
+    goaltid=db.Column(db.Integer, nullable=False)
+    round=db.Column(db.Integer, nullable=False)
