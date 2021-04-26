@@ -39,3 +39,7 @@ class AttackRecord(db.Model):
     sourcetid=db.Column(db.Integer, nullable=False)
     goaltid=db.Column(db.Integer, nullable=False)
     round=db.Column(db.Integer, nullable=False)
+
+class Team(db.Model):
+    __tablename__='team'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
