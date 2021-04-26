@@ -1,3 +1,5 @@
+import json
+
 from flask import request,render_template,redirect,url_for,session
 from init import app
 from models import *
@@ -45,6 +47,17 @@ def notice():
     for i in notice1:
         print(i.content)
     return render_template('announcement.html',notice1=notice1)
+
+@app.route('/flag',methods=['POST'])
+def flag():
+    Authorization=request.headers.get('Authorization')
+    flag=json.loads(request.get_data().decode('ascii'))
+    if not Authorization:
+        return "hi!"
+    teamToken=""
+    print(Authorization)
+    print(flag['flag'])
+    return "1"
 
 #测试路由
 @app.route('/test/')
