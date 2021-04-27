@@ -9,6 +9,9 @@ SSHPASS="123456"
 TOKEN_LENGTH=32
 PASSWORD_LENGTH=16
 
+Suffer_Source=50
+CheckDown_Source=200
+
 DEBUG = True
 # DEBUG = False
 SECRET_KEY = os.urandom(24)
