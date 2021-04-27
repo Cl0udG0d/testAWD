@@ -43,8 +43,8 @@ def adminLogin():
 
 @app.route('/announcement/')
 def notice():
-    notice1=Notice.query.filter(Notice.content !=None).all()
-    notice1 =sorted(notice1,key=attrgetter('id'),reverse=True)
+    notice1=Notice.query.filter(Notice.content !=None).order_by(Notice.id.desc()).all()
+    # notice1 =sorted(notice1,key=attrgetter('id'),reverse=True)
     for i in notice1:
         print(i.content)
     return render_template('announcement.html',notice1=notice1)
