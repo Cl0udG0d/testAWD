@@ -21,10 +21,30 @@ def createFlagModel():
     return flag
 
 def createFlagIndex():
-    teamList
+    '''
+    为每个队伍在 flag表中创建对应的flag信息
+    :return:
+    '''
+    teamList=Team.query.all()
+    for tempteam in teamList:
+        tid=tempteam.id
+        flag=createFlagModel()
+        with app.app_context():
+            tempFlag = Flag(tid=tid, flag=flag)
+            db.session.add(tempFlag)
+            db.session.commit()
     return
 
-def saveFlag2Mysql():
+def updateFlagIndex():
+    '''
+    更新 flag 表中的每个 flag
+    :return:
+    '''
+    flaglist=Flag.query.all()
+    with app.app_context():
+        for tempflag in flaglist:
+            tempflag.flag=createFlagModel()
+            db.session.commit()
     return
 
 if __name__ == '__main__':
