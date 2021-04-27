@@ -4,6 +4,7 @@ from flask import request,render_template,redirect,url_for,session
 from init import app
 from models import *
 from operator import attrgetter
+from core.flag.saveFlag import authorizationSaveFlag
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -50,14 +51,17 @@ def notice():
 
 @app.route('/flag',methods=['POST'])
 def flag():
-    Authorization=request.headers.get('Authorization')
-    flag=json.loads(request.get_data().decode('ascii'))
-    if not Authorization:
-        return "hi!"
-    teamToken=""
-    print(Authorization)
-    print(flag['flag'])
-    return "1"
+    try:
+        Authorization=request.headers.get('Authorization')
+        flag=json.loads(request.get_data().decode('ascii'))['flag']
+        if not Authorization:
+            return "need Authorization"
+        status=authorizationSaveFlag(flag,Authorization)
+        if status==0:
+            return "error flag"
+        return "you are right!"
+    except:
+        return "error"
 
 #测试路由
 @app.route('/test/')
