@@ -1,7 +1,10 @@
+import json
+
 from flask import request,render_template,redirect,url_for,session
 from init import app
 from models import *
 from operator import attrgetter
+from core.flag.saveFlag import authorizationSaveFlag
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -30,8 +33,8 @@ def adminLogin():
     else:
         adminname = request.form.get('adminname')
         password = request.form.get('password')
-        print("{} {}".format(adminname,password))
-        admin1 = Admin.query.filter(User.username == adminname).filter(Admin.password==password).first()
+        # print("{} {}".format(adminname,password))
+        admin1 = Admin.query.filter(Admin.adminname == adminname).filter(Admin.password==password).first()
         if admin1:
             return redirect(url_for('index'))
         else:
@@ -45,6 +48,20 @@ def notice():
     for i in notice1:
         print(i.content)
     return render_template('announcement.html',notice1=notice1)
+
+@app.route('/flag',methods=['POST'])
+def flag():
+    try:
+        Authorization=request.headers.get('Authorization')
+        flag=json.loads(request.get_data().decode('ascii'))['flag']
+        if not Authorization:
+            return "need Authorization"
+        status=authorizationSaveFlag(flag,Authorization)
+        if status==0:
+            return "error flag"
+        return "you are right!"
+    except:
+        return "error"
 
 #测试路由
 @app.route('/test/')
