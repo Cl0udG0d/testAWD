@@ -15,12 +15,12 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     else:
-        username = request.form.get('username')
+        teamname = request.form.get('username')
         password = request.form.get('password')
         #print("{} {}".format(username,password))
-        user1 = User.query.filter(User.username == username).filter(User.password==password).first()
+        team1 = Team.query.filter(Team.username == teamname).filter(Team.password==password).first()
         #print(user1)
-        if user1:
+        if team1:
             return redirect(url_for('index'))
         else:
             return render_template('login.html')
@@ -66,9 +66,16 @@ def flag():
 #测试路由
 @app.route('/test/')
 def test():
-    session['test']=1
-    print(session.get('test'))
+    a=1/0
     return "hi!"
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'),404
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('500.html'),500
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
