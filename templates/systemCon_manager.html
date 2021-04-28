@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>数据大屏</title>
+    <title>系统配置</title>
     <!-- Favicon -->
     <!-- <link href="assets/img/favicon.ico" rel="shortcut icon"> -->
     <!-- Bootstrap CSS -->
@@ -23,6 +23,102 @@
     <link rel="stylesheet" type="text/css" href="../static/css/easyui.css">
     <link rel="stylesheet" type="text/css" href="../static/css/icon.css">
     <link rel="stylesheet" type="text/css" href="../static/css/demo.css">
+    <style>
+        /*渐变背景样式*/
+        
+        body {
+            height: 100vh;
+            width: 100%;
+            /* overflow: hidden; */
+            /* background-image: linear-gradient(125deg, #F44336, #E91E63, #9C27B0, #3F51B5, #2196F3); */
+            background-size: 400%;
+            font-family: "montserrat";
+            animation: bganimation 15s infinite;
+        }
+        
+        @keyframes bganimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        /*表单样式*/
+        
+        .form {
+            width: 85%;
+            max-width: 600px;
+            /* max-height: 700px; */
+            background-color: rgba(255, 255, 255, .05);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px #000;
+            text-align: center;
+            font-family: "微软雅黑";
+            color: #fff;
+            margin-top: 130px;
+            margin-bottom: 20px;
+        }
+        /*表单标题样式*/
+        
+        .form h1 {
+            margin-top: 0;
+            font-weight: 200;
+            font-size: 24px;
+        }
+        
+        .form .txtb {
+            border: 1px solid #aaa;
+            margin: 8px 0;
+            padding: 12px 18px;
+            border-radius: 10px;
+        }
+        
+        .txtb label {
+            display: block;
+            text-align: left;
+            color: black;
+            font-size: 14px;
+        }
+        /*姓名 手机 邮箱 备注框样式*/
+        
+        .txtb input,
+        .txtb textarea {
+            width: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            margin-top: 6px;
+            font-size: 18px;
+            color: #4c55c4;
+        }
+        /*备注框样式*/
+        
+        .txtb textarea {
+            max-height: 300px;
+        }
+        /*提交按钮样式*/
+        
+        .btn_submit {
+            display: block;
+            background-color: #4c55c4;
+            padding: 14px 0;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 8px;
+            width: 100%;
+            border: 1px solid #aaa;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -39,7 +135,7 @@
                 <div class="col-md-12">
                     <nav class="mega_nav navbar navbar-expand-md p-0 justify-content-between">
                         <div class="nav_left">
-                            <a class="navbar-brand" href=#>DATA SCREEN</a>
+                            <a class="navbar-brand" href=#>System</a>
                             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mega_menu">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -55,28 +151,25 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="systemCon_manager.html">系统配置</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="rank.html">题目管理</a>
+                                <li class="nav-item dropdown_item">
+                                    <a class="nav-link collapsed " href="#mega_pages" data-toggle="collapse">管理相关</a>
+                                    <div id="mega_pages" class="dropdown_content ">
+                                        <ul>
+                                            <li> <a href="topic_management.html">题目管理</a></li>
+                                            <li><a href="target_management.html">靶机管理</a></li>
+                                            <li><a href="flag_management.html">flag管理</a></li>
+                                            <li><a href="announcement_management.html">公告管理</a></li>
+                                            <li><a href="account_management.html">账号管理</a></li>
+                                        </ul>
+                                    </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="guide.html">靶机管理</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="announcement.html">flag管理</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="trend.html">公告管理</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="data_screen.html">账号管理</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="data_screen.html">日志信息</a>
+                                    <a class="nav-link" href="log_information.html">日志信息</a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="nav_right d-lg-block d-none" id="login" style="width: 0;">
-                            <a href="#" class="btn" style="width: 100px;" onclick="loginMan()">登出</a>
+                        <div class="nav_right d-lg-block d-none" id="login">
+                            <a href="#" class="btn" onclick="loginMan()">登出</a>
                         </div>
                     </nav>
                 </div>
@@ -86,61 +179,84 @@
     <!-- End Header Section -->
 
     <!-- 表单 -->
-    <div class="easyui-panel" title="New Topic" style="width:100%;max-width:400px;padding:30px 60px;">
-        <form id="ff" method="post">
-            <div style="margin-bottom:20px">
-                <input class="easyui-textbox" name="name" style="width:100%" data-options="label:'Name:',required:true">
+    <!-- <div style="margin: auto; width: 500px;margin-top: 150px;">
+        <div class="easyui-panel" title="系统配置" style="width:100%;padding:30px 60px;">
+            <form id="ff" method="post" style="width: 100%;text-align: center;">
+                <div style="margin-bottom:20px">
+                    <input class="easyui-textbox" name="name" style="width:100%" data-options="label:'config.database_ version:',required:true">
+                </div>
+                <div style="margin-bottom:20px">
+                    <input class="easyui-textbox" name="email" style="width:100%" data-options="label:'比赛名:',required:true,validType:'email'">
+                </div>
+                <div style="margin-bottom:20px">
+                    <input class="easyui-textbox" name="subject" style="width:100%" data-options="label:'Flag 前缀:',required:true">
+                </div>
+                <div style="margin-bottom:20px">
+                    <input class="easyui-textbox" name="message" style="width:100%;height:60px" data-options="label:'Flag 后缀:',multiline:true">
+                </div>
+                <div style="margin-bottom:20px">
+                    <select class="easyui-combobox" name="language" label="Language" style="width:100%"><option value="ar">Arabic</option><option value="bg">Bulgarian</option><option value="ca">Catalan</option><option value="zh-cht">Chinese Traditional</option><option value="cs">Czech</option><option value="da">Danish</option><option value="nl">Dutch</option><option value="en" selected="selected">English</option><option value="et">Estonian</option><option value="fi">Finnish</option><option value="fr">French</option><option value="de">German</option><option value="el">Greek</option><option value="ht">Haitian Creole</option><option value="he">Hebrew</option><option value="hi">Hindi</option><option value="mww">Hmong Daw</option><option value="hu">Hungarian</option><option value="id">Indonesian</option><option value="it">Italian</option><option value="ja">Japanese</option><option value="ko">Korean</option><option value="lv">Latvian</option><option value="lt">Lithuanian</option><option value="no">Norwegian</option><option value="fa">Persian</option><option value="pl">Polish</option><option value="pt">Portuguese</option><option value="ro">Romanian</option><option value="ru">Russian</option><option value="sk">Slovak</option><option value="sl">Slovenian</option><option value="es">Spanish</option><option value="sv">Swedish</option><option value="th">Thai</option><option value="tr">Turkish</option><option value="uk">Ukrainian</option><option value="vi">Vietnamese</option></select>
+                </div>
+            </form>
+            <div style="text-align:center;padding:5px 0">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">Clear</a>
             </div>
-            <div style="margin-bottom:20px">
-                <input class="easyui-textbox" name="email" style="width:100%" data-options="label:'Email:',required:true,validType:'email'">
-            </div>
-            <div style="margin-bottom:20px">
-                <input class="easyui-textbox" name="subject" style="width:100%" data-options="label:'Subject:',required:true">
-            </div>
-            <div style="margin-bottom:20px">
-                <input class="easyui-textbox" name="message" style="width:100%;height:60px" data-options="label:'Message:',multiline:true">
-            </div>
-            <div style="margin-bottom:20px">
-                <select class="easyui-combobox" name="language" label="Language" style="width:100%"><option value="ar">Arabic</option><option value="bg">Bulgarian</option><option value="ca">Catalan</option><option value="zh-cht">Chinese Traditional</option><option value="cs">Czech</option><option value="da">Danish</option><option value="nl">Dutch</option><option value="en" selected="selected">English</option><option value="et">Estonian</option><option value="fi">Finnish</option><option value="fr">French</option><option value="de">German</option><option value="el">Greek</option><option value="ht">Haitian Creole</option><option value="he">Hebrew</option><option value="hi">Hindi</option><option value="mww">Hmong Daw</option><option value="hu">Hungarian</option><option value="id">Indonesian</option><option value="it">Italian</option><option value="ja">Japanese</option><option value="ko">Korean</option><option value="lv">Latvian</option><option value="lt">Lithuanian</option><option value="no">Norwegian</option><option value="fa">Persian</option><option value="pl">Polish</option><option value="pt">Portuguese</option><option value="ro">Romanian</option><option value="ru">Russian</option><option value="sk">Slovak</option><option value="sl">Slovenian</option><option value="es">Spanish</option><option value="sv">Swedish</option><option value="th">Thai</option><option value="tr">Turkish</option><option value="uk">Ukrainian</option><option value="vi">Vietnamese</option></select>
-            </div>
-        </form>
-        <div style="text-align:center;padding:5px 0">
-            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">Clear</a>
         </div>
+    </div> -->
+
+    <div class="form">
+        <form action="">
+            <h1>系统配置</h1>
+            <div class="txtb">
+                <label for="">config.database_ version:</label>
+                <input type="text"></div>
+            <div class="txtb">
+                <label for="">比赛名:</label>
+                <input type="email"></div>
+            <div class="txtb">
+                <label for="">Flag 前缀:</label>
+                <input type="text">
+            </div>
+            <div class="txtb">
+                <label for="">Flag 后缀:</label>
+                <input type="text">
+            </div>
+            <span class="btn_submit">保存配置</span>
+        </form>
+    </div>
 
 
+    <!--jQuery JS-->
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- Colorbox video poput -->
+    <script src="../static/js/jquery.colorbox-min.js"></script>
+    <!-- Swiper Slider -->
+    <script src="../static/js/swiper.min.js"></script>
+    <!-- waypoints  -->
+    <script src="../static/js/jquery.waypoints.min.js"></script>
+    <!-- Counterup  -->
+    <script src="../static/js/jquery.counterup.min.js"></script>
+    <!-- Custom js -->
+    <script src="../static/js/main.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.easyui.min.js"></script>
+    <script>
+        var login = document.querySelector('#login');
+        login.onclick = function() {
+            window.location = 'login_manager.html';
+        }
 
-        <!--jQuery JS-->
-        <script src="../static/js/jquery-3.3.1.min.js"></script>
-        <script src="../static/js/popper.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="../static/js/bootstrap.min.js"></script>
-        <!-- Colorbox video poput -->
-        <script src="../static/js/jquery.colorbox-min.js"></script>
-        <!-- Swiper Slider -->
-        <script src="../static/js/swiper.min.js"></script>
-        <!-- waypoints  -->
-        <script src="../static/js/jquery.waypoints.min.js"></script>
-        <!-- Counterup  -->
-        <script src="../static/js/jquery.counterup.min.js"></script>
-        <!-- Custom js -->
-        <script src="../static/js/main.js"></script>
-        <script type="text/javascript" src="../static/js/jquery.easyui.min.js"></script>
-        <script>
-            var login = document.querySelector('#login');
-            login.onclick = function() {
-                window.location = 'login_manager.html';
-            }
-
-            // 进度条
-            // var value = $('#p').progressbar('getValue');
-            // if (value < 100) {
-            //     value += Math.floor(Math.random() * 10);
-            //     $('#p').progressbar('setValue', value);
-            //     setTimeout(arguments.callee, 200);
-            // }
-        </script>
+        // 进度条
+        // var value = $('#p').progressbar('getValue');
+        // if (value < 100) {
+        //     value += Math.floor(Math.random() * 10);
+        //     $('#p').progressbar('setValue', value);
+        //     setTimeout(arguments.callee, 200);
+        // }
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>账号管理</title>
+    <!-- Favicon -->
+    <!-- <link href="assets/img/favicon.ico" rel="shortcut icon"> -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="../static/css/themify-icons.css">
+    <!-- video popup -->
+    <link rel="stylesheet" type="text/css" href="../static/css/colorbox.css">
+    <!-- swiper slider -->
+    <link rel="stylesheet" type="text/css" href="../static/css/swiper.min.css">
+    <!-- Animate Css -->
+    <link rel="stylesheet" type="text/css" href="../static/css/animate.css">
+    <!-- CSS -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/css/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/demo.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/color.css">
+
+
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+        
+        .panel {
+            margin-top: 160px;
+            position: absolute;
+            left: 13px;
+        }
+        
+        .window-shadow {
+            background: none;
+            box-shadow: none;
+        }
+        
+        .panel-body {
+            border-color: #f4f4f4;
+        }
+        
+        .panel-header {
+            border-color: #f4f4f4;
+            /* background: white; */
+        }
+        
+        .window {
+            border-color: #f4f4f4;
+        }
+        
+        .checkbox {
+            border: 1px solid #ffa8a8;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Pre-loader -->
+    <div class="preloader">
+        <div class="loader">
+        </div>
+    </div>
+
+    <!-- Start Header Section -->
+    <header class="header_wrap header_wrap_2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="mega_nav navbar navbar-expand-md p-0 justify-content-between">
+                        <div class="nav_left">
+                            <a class="navbar-brand" href=#>ACCOUNT</a>
+                            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mega_menu">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        </div>
+                        <div class="p-lg-0 nav_wrapper ml-auto">
+                            <ul class="navbar-nav m-auto collapse navbar-collapse" id="mega_menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="dataScreen_manager.html">数据大屏</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="systemCon_manager.html">系统配置</a>
+                                </li>
+                                <li class="nav-item dropdown_item">
+                                    <a class="nav-link collapsed " href="#mega_pages" data-toggle="collapse">管理相关</a>
+                                    <div id="mega_pages" class="dropdown_content ">
+                                        <ul>
+                                            <li> <a href="topic_management.html">题目管理</a></li>
+                                            <li><a href="target_management.html">靶机管理</a></li>
+                                            <li><a href="flag_management.html">flag管理</a></li>
+                                            <li><a href="announcement_management.html">公告管理</a></li>
+                                            <li><a href="account_management.html">账号管理</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="log_information.html">日志信息</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav_right d-lg-block d-none" id="login">
+                            <a href="#" class="btn" onclick="loginMan()">登出</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End Header Section -->
+
+    <!-- 表单 -->
+    <table id="dg" title="账号管理" class="easyui-datagrid" style="width:100%;height:100%;" url="/jeasyui/get_users.php" toolbar="#toolbar" pagination="true" rownumbers="true" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+                <th field="account" width="50">账号</th>
+                <th field="check" width="50">Check账号</th>
+                <th field="token" width="50">Token</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">增加</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
+    </div>
+
+    <div id="dlg" class="easyui-dialog" style="width:400px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
+            <!-- <h3>题目信息</h3> -->
+            <div style="margin-bottom:10px">
+                <input name="firstname" class="easyui-textbox" required="true" label="账号:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="lastname" class="easyui-textbox" required="true" label="密码:" style="width:100%">
+            </div>
+            <div style="margin-bottom:20px">
+                <input class="easyui-checkbox" name="check" value="check" label="Check账号:">
+            </div>
+            <!-- <div style="margin-bottom:10px">
+                <input name="phone" class="easyui-textbox" required="true" label="自动更新Flag:" style="width:100%">
+            </div> -->
+            <!-- <div style="margin-bottom:10px">
+                <input name="email" class="easyui-textbox" required="true" validType="email" label="Email:" style="width:100%">
+            </div> -->
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+
+
+    <!--jQuery JS-->
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- Colorbox video poput -->
+    <script src="../static/js/jquery.colorbox-min.js"></script>
+    <!-- Swiper Slider -->
+    <script src="../static/js/swiper.min.js"></script>
+    <!-- waypoints  -->
+    <script src="../static/js/jquery.waypoints.min.js"></script>
+    <!-- Counterup  -->
+    <script src="../static/js/jquery.counterup.min.js"></script>
+    <!-- Custom js -->
+    <script src="../static/js/main.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.easyui.min.js"></script>
+    <script>
+        var login = document.querySelector('#login');
+        login.onclick = function() {
+            window.location = 'login_manager.html';
+        }
+
+        var url;
+
+        function newUser() {
+            $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'New Account');
+            $('#fm').form('clear');
+            url = 'save_user.php';
+        }
+
+        function editUser() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit Account');
+                $('#fm').form('load', row);
+                url = 'update_user.php?id=' + row.id;
+            }
+        }
+
+        function saveUser() {
+            $('#fm').form('submit', {
+                url: url,
+                onSubmit: function() {
+                    return $(this).form('validate');
+                },
+                success: function(result) {
+                    var result = eval('(' + result + ')');
+                    if (result.errorMsg) {
+                        $.messager.show({
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    } else {
+                        $('#dlg').dialog('close'); // close the dialog
+                        $('#dg').datagrid('reload'); // reload the user data
+                    }
+                }
+            });
+        }
+
+        function destroyUser() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $.messager.confirm('Confirm', 'Are you sure you want to destroy this account?', function(r) {
+                    if (r) {
+                        $.post('destroy_user.php', {
+                            id: row.id
+                        }, function(result) {
+                            if (result.success) {
+                                $('#dg').datagrid('reload'); // reload the user data
+                            } else {
+                                $.messager.show({ // show error message
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        }, 'json');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>排名</title>
+    <title>日志信息</title>
+    <!-- Favicon -->
+    <!-- <link href="assets/img/favicon.ico" rel="shortcut icon"> -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
     <!-- themify icon -->
@@ -18,19 +20,16 @@
     <link rel="stylesheet" type="text/css" href="../static/css/animate.css">
     <!-- CSS -->
     <link href="../static/css/style.css" rel="stylesheet">
-    <link href="../static/css/rank.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../static/css/easyui.css">
     <link rel="stylesheet" type="text/css" href="../static/css/icon.css">
-    <!-- <link rel="stylesheet" type="text/css" href="../demo.css"> -->
+    <link rel="stylesheet" type="text/css" href="../static/css/demo.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/color.css">
+
+
     <style>
         html,
         body {
             height: 100%;
-        }
-        
-        .panel {
-            margin-top: 160px;
-            margin-left: 31px;
         }
         
         .window-shadow {
@@ -50,9 +49,22 @@
         .window {
             border-color: #f4f4f4;
         }
-        /* .datagrid-btable {
+        
+        .login_log {
+            margin-top: 160px;
+            /* border: 1px solid #4c55c4; */
+            border-radius: 5px;
             width: 100%;
-        } */
+            height: 400px;
+        }
+        
+        .operating_log {
+            margin-top: 10px;
+            /* border: 1px solid #4c55c4; */
+            border-radius: 5px;
+            width: 100%;
+            height: 400px;
+        }
     </style>
 </head>
 
@@ -70,41 +82,41 @@
                 <div class="col-md-12">
                     <nav class="mega_nav navbar navbar-expand-md p-0 justify-content-between">
                         <div class="nav_left">
-                            <a class="navbar-brand" href=#>RANK</a>
+                            <a class="navbar-brand" href=#>LOG</a>
                             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mega_menu">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                         </div>
                         <div class="p-lg-0 nav_wrapper ml-auto">
                             <ul class="navbar-nav m-auto collapse navbar-collapse" id="mega_menu">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="index.html">首页</a>
+                                    <a class="nav-link" href="dataScreen_manager.html">数据大屏</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="time.html">靶机状态</a>
+                                    <a class="nav-link" href="systemCon_manager.html">系统配置</a>
+                                </li>
+                                <li class="nav-item dropdown_item">
+                                    <a class="nav-link collapsed " href="#mega_pages" data-toggle="collapse">管理相关</a>
+                                    <div id="mega_pages" class="dropdown_content ">
+                                        <ul>
+                                            <li> <a href="topic_management.html">题目管理</a></li>
+                                            <li><a href="target_management.html">靶机管理</a></li>
+                                            <li><a href="flag_management.html">flag管理</a></li>
+                                            <li><a href="announcement_management.html">公告管理</a></li>
+                                            <li><a href="account_management.html">账号管理</a></li>
+                                        </ul>
+                                    </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="rank.html">排名</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="guide.html">指南</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="announcement.html">公告</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="trend.html">得分趋势图</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="data_screen.html">数据大屏</a>
+                                    <a class="nav-link" href="log_information.html">日志信息</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="nav_right d-lg-block d-none" id="login">
-                            <a href="#" class="btn">登陆</a>
+                            <a href="#" class="btn" onclick="loginMan()">登出</a>
                         </div>
                     </nav>
                 </div>
@@ -113,19 +125,29 @@
     </header>
     <!-- End Header Section -->
 
-    <!-- 排名 -->
+    <div class="login_log">
+        <!-- 表单 -->
+        <table id="dg" title="登录日志" class="easyui-datagrid" style="width:100%;height:100%;" url="/jeasyui/get_users.php" toolbar="#toolbar" pagination="true" rownumbers="true" fitColumns="true" singleSelect="true">
+            <thead>
+                <tr>
+                    <th field="account" width="50">账号</th>
+                    <th field="success" width="50">是否成功</th>
+                    <th field="time" width="50">登录时间</th>
+                </tr>
+            </thead>
+        </table>
 
-    <div style="margin:20px 0;"></div>
-    <table class="easyui-datagrid" title="队伍排名" style="width:95%;height: 430px;" data-options="autoRowHeight:true,fitColumns:true,singleSelect:true,collapsible:true,url:'../static/datagrid_data1.json',method:'get'">
-        <thead>
-            <tr>
-                <th data-options="field:'itemid',width:50">排名</th>
-                <th data-options="field:'productid',width:50">队伍</th>
-                <th data-options="field:'listprice',width:50">分数</th>
-
-            </tr>
-        </thead>
-    </table>
+    </div>
+    <div class="operating_log">
+        <table id="dg" title="操作日志" class="easyui-datagrid" style="width:100%;height:100%;" url="/jeasyui/get_users.php" toolbar="#toolbar" pagination="true" rownumbers="true" fitColumns="true" singleSelect="true">
+            <thead>
+                <tr>
+                    <th field="name" width="50">队名</th>
+                    <th field="operating" width="50">操作</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 
 
     <!--jQuery JS-->
@@ -147,7 +169,7 @@
     <script>
         var login = document.querySelector('#login');
         login.onclick = function() {
-            window.location = 'login.html';
+            window.location = 'login_manager.html';
         }
     </script>
 </body>

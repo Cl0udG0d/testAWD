@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>数据大屏</title>
+    <title>公告管理</title>
     <!-- Favicon -->
     <!-- <link href="assets/img/favicon.ico" rel="shortcut icon"> -->
     <!-- Bootstrap CSS -->
@@ -23,70 +23,39 @@
     <link rel="stylesheet" type="text/css" href="../static/css/easyui.css">
     <link rel="stylesheet" type="text/css" href="../static/css/icon.css">
     <link rel="stylesheet" type="text/css" href="../static/css/demo.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/color.css">
+
 
     <style>
-        .left {
-            border: 1px solid #4c55c4;
-            border-radius: 5px;
-            width: 760px;
-            height: 755px;
-            margin: 0 10px;
-        }
-        
-        .right {
-            /* border: 1px solid #4c55c4; */
-            border-radius: 5px;
-            width: 536px;
-            height: 575px;
-        }
-        
-        .flag {
-            border: 1px solid #4c55c4;
-            border-radius: 5px;
-            width: 536px;
-            height: 180px;
-            margin: 10px 0;
-            display: flex;
-        }
-        
-        .content {
-            margin-top: 155px;
-            display: flex;
-            justify-content: center;
-        }
-        
-        .text {
-            margin-top: 10px;
-            font-size: 24px;
-            font-weight: 500;
-            margin-left: 40px;
-        }
-        
-        .information {
-            border-top: 1px solid gainsboro;
-        }
-        
-        .details {
-            margin-top: 20px;
-            font-size: 16px;
-            text-align: center;
-        }
-        
-        .flag1 {
+        html,
+        body {
             height: 100%;
-            font-size: 20px;
-            margin-top: 20px;
-            margin-left: 10px;
         }
         
-        .num {
-            margin-bottom: 60px;
-            font-size: 50px;
-            text-align: center;
-            color: #4c55c4;
+        .panel {
+            margin-top: 160px;
+            position: absolute;
+            left: 13px;
+        }
+        
+        .window-shadow {
+            background: none;
+            box-shadow: none;
+        }
+        
+        .panel-body {
+            border-color: #f4f4f4;
+        }
+        
+        .panel-header {
+            border-color: #f4f4f4;
+            /* background: white; */
+        }
+        
+        .window {
+            border-color: #f4f4f4;
         }
     </style>
-
 </head>
 
 <body>
@@ -103,7 +72,7 @@
                 <div class="col-md-12">
                     <nav class="mega_nav navbar navbar-expand-md p-0 justify-content-between">
                         <div class="nav_left">
-                            <a class="navbar-brand" href=#>DATA SCREEN</a>
+                            <a class="navbar-brand" href=#>ANNOUNCEMENT</a>
                             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mega_menu">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -146,48 +115,44 @@
     </header>
     <!-- End Header Section -->
 
-    <!-- 数据显示 -->
-    <div class="content">
-        <div class="left">
-            <div class="text">距离第250轮结束还有5分30秒</div>
-            <div class="easyui-progressbar" data-options="value:80" style="width:90%;margin: 10px 40px;"></div>
-            <div class="information">
-                <div class="details">[2021/4/26_上午1:30:02] [WARNING] 第62433 轮分数结算完成!耗时0. 025891342 s。
-                </div>
-                <div class="details">[2021/4/26_上午1:30:02] [WARNING] 第62433 轮分数结算完成!耗时0. 025891342 s。
-                </div>
-                <div class="details">[2021/4/26_上午1:30:02] [WARNING] 第62433 轮分数结算完成!耗时0. 025891342 s。
-                </div>
-            </div>
-        </div>
-        <div class="team">
-            <div class="right">
-                <table class="easyui-datagrid" title="队伍分数" style="width:100%;height:100%;" data-options="singleSelect:true,collapsible:true,url:'../static/datagrid_data1.json',method:'get'">
-                    <thead>
-                        <tr>
-                            <th data-options="field:'itemid',width:80">编号</th>
-                            <th data-options="field:'productid',width:300">队伍</th>
-                            <th data-options="field:'listprice',width:150,align:'right'">分数</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-            <div class="flag">
-                <div class="flag1">
-                    <div class="num">0</div>
-                    正确提交Flag
-                </div>
-                <div class="flag1">
-                    <div class="num">0</div>CheckDown次数
-                </div>
-                <div class="flag1">
-                    <div class="num">0</div>占用内存</div>
-                <div class="flag1">
-                    <div class="num">0</div>Goroutine数</div>
-            </div>
-        </div>
+    <!-- 表单 -->
+    <table id="dg" title="公告管理" class="easyui-datagrid" style="width:100%;height:100%;" url="/jeasyui/get_users.php" toolbar="#toolbar" pagination="true" rownumbers="true" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+                <th field="topic" width="50">标题</th>
+                <th field="content" width="50">内容</th>
+                <th field="time" width="50">创建时间</th>
+                <th field="operating" width="50">操作</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">发布</a>
+        <!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a> -->
     </div>
 
+    <div id="dlg" class="easyui-dialog" style="width:400px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
+            <!-- <h3>题目信息</h3> -->
+            <div style="margin-bottom:10px">
+                <input name="firstname" class="easyui-textbox" required="true" label="标题:" style="width:100%;height: 50px;">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="lastname" class="easyui-textbox" required="true" label="内容:" style="width:100%;height: 50px;">
+            </div>
+            <!-- <div style="margin-bottom:10px">
+                <input name="phone" class="easyui-textbox" required="true" label="自动更新Flag:" style="width:100%">
+            </div> -->
+            <!-- <div style="margin-bottom:10px">
+                <input name="email" class="easyui-textbox" required="true" validType="email" label="Email:" style="width:100%">
+            </div> -->
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">发布</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
+    </div>
 
 
     <!--jQuery JS-->
@@ -212,13 +177,65 @@
             window.location = 'login_manager.html';
         }
 
-        // 进度条
-        // var value = $('#p').progressbar('getValue');
-        // if (value < 100) {
-        //     value += Math.floor(Math.random() * 10);
-        //     $('#p').progressbar('setValue', value);
-        //     setTimeout(arguments.callee, 200);
-        // }
+        var url;
+
+        function newUser() {
+            $('#dlg').dialog('open').dialog('center').dialog('setTitle', '新公告');
+            $('#fm').form('clear');
+            url = 'save_user.php';
+        }
+
+        function editUser() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit Topic');
+                $('#fm').form('load', row);
+                url = 'update_user.php?id=' + row.id;
+            }
+        }
+
+        function saveUser() {
+            $('#fm').form('submit', {
+                url: url,
+                onSubmit: function() {
+                    return $(this).form('validate');
+                },
+                success: function(result) {
+                    var result = eval('(' + result + ')');
+                    if (result.errorMsg) {
+                        $.messager.show({
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    } else {
+                        $('#dlg').dialog('close'); // close the dialog
+                        $('#dg').datagrid('reload'); // reload the user data
+                    }
+                }
+            });
+        }
+
+        function destroyUser() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $.messager.confirm('Confirm', 'Are you sure you want to destroy this user?', function(r) {
+                    if (r) {
+                        $.post('destroy_user.php', {
+                            id: row.id
+                        }, function(result) {
+                            if (result.success) {
+                                $('#dg').datagrid('reload'); // reload the user data
+                            } else {
+                                $.messager.show({ // show error message
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        }, 'json');
+                    }
+                });
+            }
+        }
     </script>
 </body>
 
