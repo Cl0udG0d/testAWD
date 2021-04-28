@@ -1,32 +1,32 @@
 from models import *
 from init import app
 #插入用户数据
-def insertUserData(username,password):
+def insertTeamData(teamname,password):
     with app.app_context():
-        user1=User(username=username,password=password)
-        db.session.add(user1)
+        team1=Team(teamname=teamname,password=password)
+        db.session.add(team1)
         #事务提交
         db.session.commit()
 
 #修改用户数据
   #1.先把你要更改的数据查找出来
-def editUserData(id,newusername,newpassword):
+def editTeamData(id,newteamname,newpassword):
     with app.app_context():
-        user1 = User.query.filter(User.id == id ).first()
+        team1 = Team.query.filter(Team.id == id ).first()
         #2.把这条数据，你需要修改的地方进行修改
-        user1.username = newusername
-        user1.password = newpassword
+        team1.username = newteamname
+        team1.password = newpassword
         #3.把事务进行提交
         db.session.commit()
 
 
 #删除用户数据
     #1.把需要删除的数据查找出来
-def DeleteUserData(id):
+def DeleteTeamData(id):
     with app.app_context():
-        user1 = User.query.filter(User.id == id ).first()
+        team1 = Team.query.filter(Team.id == id ).first()
         #2.把这条数据删除掉
-        db.session.delete(user1)
+        db.session.delete(team1)
         #3.做数据的提交
         db.session.commit()
 
@@ -48,7 +48,7 @@ def editAdminData(id,newadminname,newpassword):
         admin1 = Admin.query.filter(Admin.id == id ).first()
         #2.把这条数据，你需要修改的地方进行修改
         admin1.username = newadminname
-        user1.password = newpassword
+        admin1.password = newpassword
         #3.把事务进行提交
         db.session.commit()
 
