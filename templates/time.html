@@ -19,6 +19,13 @@
     <!-- CSS -->
     <link href="../static/css/style.css" rel="stylesheet">
     <link href="../static/css/time.css" rel="stylesheet">
+    <style>
+        /* 宕机时显示的颜色 */
+        
+        .timeline__item__content {
+            background-color: brown !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -66,6 +73,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="data_screen.html">数据大屏</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="submit_flag.html">提交Flag</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="nav_right d-lg-block d-none" id="login">
@@ -86,8 +96,8 @@
                 <div class="timeline__item timeline__item--0">
                     <div class="timeline__item__station"></div>
                     <div class="timeline__item__content">
-                        <h2 class="timeline__item__content__date">{{vulhub.title}}</h2><br>
-                        <h2 class="timeline__item__content__date">{{vulhub.sshpass}}</h2><br>
+                        <h1 class="timeline__item__content__date" style="font-size: 20px;font-weight:bold;">{{vulhub.title}}</h1><br>
+                        <h2 class="timeline__item__content__date" style="font-size: 18px;">{{vulhub.sshpass}}</h2><br>
                         <h2 class="timeline__item__content__date">{{vulhub.status}}</h2><br>
                         <h2 class="timeline__item__content__date">{{vulhub.addr}}</h2><br>
                         <p class="timeline__item__content__description">{{vulhub.detail}}</p>
