@@ -1,17 +1,14 @@
 import json
-
 from flask import request,render_template,redirect,url_for,session
 from init import app
 from models import *
-from operator import attrgetter
 from core.flag.saveFlag import authorizationSaveFlag
-import os
-
-app.config['SECRET_KEY']=os.urandom(24) #产生24位的随机字符串
+from core.unit.decorators import login_required,admin_login_required
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
+
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
@@ -24,11 +21,29 @@ def login():
         team1 = Team.query.filter(Team.username == teamname).filter(Team.password==password).first()
         #print(user1)
         if team1:
+            saveLog(teamname, True)
             session['teamid'] = team1.id
             return redirect(url_for('index'))
         else:
+            saveLog(teamname, False)
             return render_template('login.html')
 
+@app.route('/login_manager/',methods=['GET','POST'])
+def adminLogin():
+    if request.method == 'GET':
+        return render_template('login_manager.html')
+    else:
+        adminname = request.form.get('adminname')
+        password = request.form.get('password')
+        # print("{} {}".format(adminname,password))
+        admin1 = Admin.query.filter(Admin.adminname == adminname).filter(Admin.password==password).first()
+        if admin1:
+            saveLog(adminname, True)
+            session['adminid'] = admin1.id
+            return redirect(url_for('index'))
+        else:
+            saveLog(adminname, False)
+            return render_template('login_manager.html')
 
 
 @app.route('/login_out/')
@@ -43,6 +58,7 @@ def LoginOut():
 
 
 @app.route('/EditPassword/',methods=['POST'])
+@login_required
 def EditTeamPassword():
     team1=Team.query.filter(Team.id==session.get('teamid')).first()
     if request.form.get('oldpassword') == team1.password:
@@ -55,23 +71,8 @@ def EditTeamPassword():
 
 
 
-@app.route('/login_manager/',methods=['GET','POST'])
-def adminLogin():
-    if request.method == 'GET':
-        return render_template('login_manager.html')
-    else:
-        adminname = request.form.get('adminname')
-        password = request.form.get('password')
-        # print("{} {}".format(adminname,password))
-        admin1 = Admin.query.filter(Admin.adminname == adminname).filter(Admin.password==password).first()
-        if admin1:
-            session['adminid'] = admin1.id
-            return redirect(url_for('index'))
-        else:
-            return render_template('login_manager.html')
-
-
 @app.route('/announcement/')
+@login_required
 def notice():
     notice1=Notice.query.filter(Notice.content !=None).order_by(Notice.id.desc()).all()
     # notice1 =sorted(notice1,key=attrgetter('id'),reverse=True)
@@ -79,6 +80,7 @@ def notice():
         print(i.content)
     return render_template('announcement.html',notice1=notice1)
 
+#curl 提交flag的路由
 @app.route('/flag',methods=['POST'])
 def flag():
     try:
@@ -86,7 +88,7 @@ def flag():
         flag=json.loads(request.get_data().decode('ascii'))['flag']
         if not Authorization:
             return "need Authorization"
-        status=authorizationSaveFlag(flag,Authorization)
+        status=authorizationSaveFlag(flag,Authorization,1)
         if status==0:
             return "error flag"
         return "you are right!"
@@ -95,16 +97,20 @@ def flag():
 
 
 
-@app.route('/rank/')
-def Rank():
+@app.route('/showSource/')
+def showSource():
     source1 = Source.query.order_by(Source.source.desc()).all()
     return render_template('rank.html', source1=source1)
 
-#测试路由
-@app.route('/test/')
-def test():
-    print(request.path)
-    return "hi!"
+
+@app.route('/showStatus/')
+@login_required
+def showStatus():
+    teamid=session.get('teamid')
+    vulList=Vulhub.query.filter(tid=teamid).all()
+    return render_template('time.html',vulList=vulList)
+
+
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -115,15 +121,24 @@ def page_not_found(e):
 def page_not_found(e):
     return render_template('500.html'),500
 
-@app.before_request#执行所有装饰器都要执行当前装饰器(简洁版实现同样功能)
-def login_required():
-    if request.path in ['/login/','/login_manager/','/index/']: #如果登录的路由是注册和登录就返会none
-        return None
-    teamid=session.get('teamid') #获取用户登录信息
-    #adminid=session.get('adminid')
-    if not teamid:                 #没有登录就自动跳转到登录页面去
-        return redirect('/login')
-    return None
+
+#测试路由
+@app.route('/test/')
+def test():
+    print(request.path)
+    return "hi!"
+
+
+def saveLog(username,ischeck):
+    '''
+    存储登录日志函数
+    :param username:
+    :param ischeck:
+    :return:
+    '''
+    log=Log(username=username,ischeck=ischeck)
+    db.session.add(log)
+    db.session.commit()
 
 if __name__ == "__main__":
     app.run()

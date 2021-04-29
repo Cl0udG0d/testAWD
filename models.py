@@ -2,11 +2,6 @@ from datetime import datetime
 
 from exts import db
 
-# class User (db.Model):
-#     __tablename__ = 'user'
-#     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-#     username = db.Column(db.String(128),nullable=False)
-#     password = db.Column(db.String(128), nullable=False)
 
 class Admin (db.Model):
     __tablename__ = 'admin'
@@ -18,6 +13,7 @@ class Admin (db.Model):
 class Notice (db.Model):
     __tablename__ = 'notice'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title=db.Column(db.String(128),nullable=False)
     content = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, default=datetime.now)
 
@@ -56,3 +52,10 @@ class Vulhub(db.Model):
     status=db.Column(db.Boolean,nullable=False)
     addr=db.Column(db.String(64),nullable=False)
     detail=db.Column(db.Text)
+
+class Log(db.Model):
+    __tablename__ = 'log'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(128), nullable=False)
+    ischeck = db.Column(db.Boolean, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.now)
