@@ -48,9 +48,12 @@ class Vulhub(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     tid=db.Column(db.Integer, nullable=False)
     title=db.Column(db.String(128),nullable=False)
+    addr = db.Column(db.String(64), nullable=False)
+    sshport=db.Column(db.Integer, nullable=False)
+    sshname = db.Column(db.String(128), nullable=False)
     sshpass = db.Column(db.String(128), nullable=False)
-    status=db.Column(db.Boolean,nullable=False)
-    addr=db.Column(db.String(64),nullable=False)
+    dockerid = db.Column(db.String(128), nullable=False)
+    status=db.Column(db.Boolean,nullable=False,default=True)
     detail=db.Column(db.Text)
 
 class Log(db.Model):

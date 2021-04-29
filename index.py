@@ -9,6 +9,9 @@ from core.unit.decorators import login_required,admin_login_required
 def index():
     return render_template('index.html')
 
+@app.route('/teamIndex', methods=['GET', 'POST'])
+def teamindex():
+    return render_template('teamIndex.html')
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
@@ -58,7 +61,7 @@ def LoginOut():
 
 
 @app.route('/EditPassword/',methods=['POST'])
-@login_required
+@admin_login_required
 def EditTeamPassword():
     team1=Team.query.filter(Team.id==session.get('teamid')).first()
     if request.form.get('oldpassword') == team1.password:
