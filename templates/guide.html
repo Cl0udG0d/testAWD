@@ -23,6 +23,12 @@
     <link rel="stylesheet" href="../static/css/guide.css" />
     <link rel="stylesheet" href="../static/css/guide-content.css">
 </head>
+<style>
+    .header_wrap {
+        position: fixed;
+        background-color: white;
+    }
+</style>
 
 <body>
     <!-- Pre-loader -->
@@ -154,6 +160,16 @@
                 4. 修改权限。比如说 MySQL 用户读表权限，上传目录是否可执行的权限等等。 5. 部署文件监控脚本。监控可读写权限的目录是否新增、删除文件并及时提醒。这里说下，如果被种了不死马的话通常有以下几种克制方法。     - 强行 kill 掉进程后重启服务     - 建立一个和不死马相同名字的文件或者目录     - 写脚本不断删除文件     - 不断写入一个和不死马同名的文件 6. 部署流量监控脚本或开启服务器日志记录。目的主要是为了进行流量回放，看其它大佬如何用我们没发现的漏洞来打我们的机子，抓取到之后把看不懂的流量直接回放到别的机子去，这里还得提到，我们自己在攻击的时候，也要试着混淆一下自己的攻击流量，不能轻易被别人利用。
                 <div class="ax-break"></div>
                 <div class="ax-break"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer_bottom d-flex justify-content-center align-items-center">
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="copy_right_text">
+                    <p>&copy; 2012 <i class="ti-heart"></i> FD Company All rights reserved.</p>
+                </div>
             </div>
         </div>
     </div>

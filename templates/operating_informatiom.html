@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>题目管理</title>
+    <title>操作日志</title>
     <!-- Favicon -->
     <!-- <link href="assets/img/favicon.ico" rel="shortcut icon"> -->
     <!-- Bootstrap CSS -->
@@ -32,12 +32,6 @@
             height: 100%;
         }
         
-        .panel {
-            margin-top: 160px;
-            position: absolute;
-            left: 13px;
-        }
-        
         .window-shadow {
             background: none;
             box-shadow: none;
@@ -54,6 +48,14 @@
         
         .window {
             border-color: #f4f4f4;
+        }
+        
+        .operating_log {
+            margin-top: 160px;
+            /* border: 1px solid #4c55c4; */
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -72,7 +74,7 @@
                 <div class="col-md-12">
                     <nav class="mega_nav navbar navbar-expand-md p-0 justify-content-between">
                         <div class="nav_left">
-                            <a class="navbar-brand" href=#>TOPIC</a>
+                            <a class="navbar-brand" href=#>OPERATING</a>
                             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#mega_menu">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -121,45 +123,15 @@
     </header>
     <!-- End Header Section -->
 
-    <!-- 表单 -->
-    <table id="dg" title="题目管理" class="easyui-datagrid" style="width:100%;height:100%;" url="/jeasyui/get_users.php" toolbar="#toolbar" pagination="true" rownumbers="true" fitColumns="true" singleSelect="true">
-        <thead>
-            <tr>
-                <th field="topic" width="50">题目名</th>
-                <th field="grade" width="50">基础分数</th>
-                <th field="show" width="50">是否可见</th>
-                <th field="flag" width="50">自动更新Flag</th>
-                <th field="flag_shell" width="80">更新Flag Shell命令</th>
-                <th field="time" width="50">创建时间</th>
-            </tr>
-        </thead>
-    </table>
-    <div id="toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">增加</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
-    </div>
-
-    <div id="dlg" class="easyui-dialog" style="width:400px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-        <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
-            <!-- <h3>题目信息</h3> -->
-            <div style="margin-bottom:10px">
-                <input name="firstname" class="easyui-textbox" required="true" label="题目名:" style="width:100%">
-            </div>
-            <div style="margin-bottom:10px">
-                <input name="lastname" class="easyui-textbox" required="true" label="基础分数:" style="width:100%">
-            </div>
-            <!-- <div style="margin-bottom:10px">
-                <input name="phone" class="easyui-textbox" required="true" label="自动更新Flag:" style="width:100%">
-            </div> -->
-            <!-- <div style="margin-bottom:10px">
-                <input name="email" class="easyui-textbox" required="true" validType="email" label="Email:" style="width:100%">
-            </div> -->
-        </form>
-    </div>
-    <div id="dlg-buttons">
-        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">保存</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
+    <div class="operating_log">
+        <table id="dg" title="操作日志" class="easyui-datagrid" style="width:100%;height:100%;" toolbar="#toolbar" pagination="true" rownumbers="true" fitColumns="true" singleSelect="true">
+            <thead>
+                <tr>
+                    <th field="name" width="50">队名</th>
+                    <th field="operating" width="50">操作</th>
+                </tr>
+            </thead>
+        </table>
     </div>
 
 
@@ -183,66 +155,6 @@
         var login = document.querySelector('#login');
         login.onclick = function() {
             window.location = 'login_manager.html';
-        }
-
-        var url;
-
-        function newUser() {
-            $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'New Topic');
-            $('#fm').form('clear');
-            url = 'save_user.php';
-        }
-
-        function editUser() {
-            var row = $('#dg').datagrid('getSelected');
-            if (row) {
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit Topic');
-                $('#fm').form('load', row);
-                url = 'update_user.php?id=' + row.id;
-            }
-        }
-
-        function saveUser() {
-            $('#fm').form('submit', {
-                url: url,
-                onSubmit: function() {
-                    return $(this).form('validate');
-                },
-                success: function(result) {
-                    var result = eval('(' + result + ')');
-                    if (result.errorMsg) {
-                        $.messager.show({
-                            title: 'Error',
-                            msg: result.errorMsg
-                        });
-                    } else {
-                        $('#dlg').dialog('close'); // close the dialog
-                        $('#dg').datagrid('reload'); // reload the user data
-                    }
-                }
-            });
-        }
-
-        function destroyUser() {
-            var row = $('#dg').datagrid('getSelected');
-            if (row) {
-                $.messager.confirm('Confirm', 'Are you sure you want to destroy this user?', function(r) {
-                    if (r) {
-                        $.post('destroy_user.php', {
-                            id: row.id
-                        }, function(result) {
-                            if (result.success) {
-                                $('#dg').datagrid('reload'); // reload the user data
-                            } else {
-                                $.messager.show({ // show error message
-                                    title: 'Error',
-                                    msg: result.errorMsg
-                                });
-                            }
-                        }, 'json');
-                    }
-                });
-            }
         }
     </script>
 </body>
