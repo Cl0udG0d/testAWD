@@ -21,17 +21,3 @@ def checkVulhubSSHConnect(username,password):
     :return:
     '''
     return
-
-
-
-def createVulFlag():
-    return
-
-def updateVulFlag():
-    return
-
-def createTeamMsg():
-    return
-
-def checkVulDown():
-    return
