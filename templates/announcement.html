@@ -93,12 +93,22 @@
     <section class="hero_area_2" style="background-color: white;">
         <div class="container">
             {% for notice in notice1 %}
-             <div class="announce">{{notice.content}}</div>
-          {% endfor %}
+            <div class="announce">{{notice.content}}</div>
+            {% endfor %}
 
 
         </div>
     </section>
+
+    <div class="footer_bottom d-flex justify-content-center align-items-center">
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="copy_right_text">
+                    <p>&copy; 2012 <i class="ti-heart"></i> FD Company All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--jQuery JS-->
     <script src="../static/js/jquery-3.3.1.min.js"></script>

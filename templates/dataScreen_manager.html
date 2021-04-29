@@ -23,6 +23,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/easyui.css">
     <link rel="stylesheet" type="text/css" href="../static/css/icon.css">
     <link rel="stylesheet" type="text/css" href="../static/css/demo.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
     <style>
         .left {
@@ -120,7 +121,8 @@
                                     <a class="nav-link" href="systemCon_manager.html">系统配置</a>
                                 </li>
                                 <li class="nav-item dropdown_item">
-                                    <a class="nav-link collapsed " href="#mega_pages" data-toggle="collapse">管理相关</a>
+                                    <a class="nav-link collapsed " href="#mega_pages" data-toggle="collapse">管理相关<i class="el-icon-arrow-down el-icon--right"></i>
+                                    </a>
                                     <div id="mega_pages" class="dropdown_content ">
                                         <ul>
                                             <li> <a href="topic_management.html">题目管理</a></li>
@@ -131,8 +133,14 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="log_information.html">日志信息</a>
+                                <li class="nav-item dropdown_item">
+                                    <a class="nav-link collapsed " href="#mega_pages" data-toggle="collapse">日志信息<i class="el-icon-arrow-down el-icon--right"></i></a>
+                                    <div id="mega_pages" class="dropdown_content ">
+                                        <ul>
+                                            <li> <a href="operating_informatiom.html">操作日志</a></li>
+                                            <li><a href="log_information.html">登录日志</a></li>
+                                        </ul>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -149,7 +157,7 @@
     <!-- 数据显示 -->
     <div class="content">
         <div class="left">
-            <div class="text">距离第250轮结束还有5分30秒</div>
+            <div class="text" style="font-size:18px;">距离第250轮结束还有5分30秒</div>
             <div class="easyui-progressbar" data-options="value:80" style="width:90%;margin: 10px 40px;"></div>
             <div class="information">
                 <div class="details">[2021/4/26_上午1:30:02] [WARNING] 第62433 轮分数结算完成!耗时0. 025891342 s。
