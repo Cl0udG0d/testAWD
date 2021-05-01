@@ -27,3 +27,17 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(U
                                                                                DATABASE)
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+JOBS = [
+        {
+            'id': 'job1',
+            'func': 'tasks:checkDown',
+            'args': (),
+            'trigger': 'interval',
+            'seconds': 1
+        }
+
+    ]
+
+SCHEDULER_API_ENABLED = True
+

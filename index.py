@@ -143,5 +143,6 @@ def saveLog(username,ischeck):
     db.session.add(log)
     db.session.commit()
 
+
 if __name__ == "__main__":
     app.run()
