@@ -1,133 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/bootstrap-clearmin.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/roboto.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/material-design.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/small-n-flat.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/font-awesome.min.css">
-    <title>Flag管理</title>
-  </head>
-  <body class="cm-no-transition cm-1-navbar">
-    <div id="cm-menu">
-      <nav class="cm-navbar cm-navbar-primary">
-        <div class="cm-flex"></div>
-        <div class="btn btn-primary md-menu-white" data-toggle="cm-menu"></div>
-      </nav>
-      <div id="cm-menu-content">
-        <div id="cm-menu-items-wrapper">
-          <div id="cm-menu-scroller">
-            <ul class="cm-menu-items">
-              <li class="active"><a href="#" class="sf-device-tablet ">数据大屏</a></li>
-                <li class="active"><a href="#" class="sf-file-exe">系统配置</a></li>
-                 <li class="cm-submenu">
-                 <a class="sf-puzzle">管理相关<span class="caret"></span></a>
-                                <ul>
-                                    <li><a href="#">题目管理</a></li>
-                                    <li><a href="#">靶机管理</a></li>
-                                    <li><a href="#">flag管理</a></li>
-                                     <li><a href="#">公告管理</a></li>
-                                    <li><a href="#">账号管理</a></li>
-                                </ul>
-            </li>
-                 <li class="cm-submenu">
-                 <a class="sf-file-note">日志信息<span class="caret"></span></a>
-                                <ul>
-                                    <li><a href="#">操作日志</a></li>
-                                    <li><a href="#">登录日志</a></li>
-                                </ul>
-            </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <header id="cm-header">
-      <nav class="cm-navbar cm-navbar-primary">
-        <div class="btn btn-primary md-menu-white hidden-md hidden-lg" data-toggle="cm-menu"></div>
-        <div class="cm-flex"> <div class="dropdown pull-right">
-                    <button class="btn btn-primary md-account-circle-white" data-toggle="dropdown"></button>
-                    <ul class="dropdown-menu">
-                        <li class="disabled text-center">
-                            <a style="cursor:default;"><strong>Admin</strong></a>
-                        </li>
-                        <li>
-                            <a href="login.html"><i class="fa fa-fw fa-sign-out"></i> Sign out</a>
-                        </li>
-                    </ul>
-                </div>
-        </div>
-      </nav>
-    </header>
+{% extends 'T_admin_base.html' %}
+{% block title %}Flag管理{% endblock %}
+{% block context %}
     <div id="global">
       <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-body demo-btn">
-                       <button type="button" class="btn btn-default">重置Flag</button>
+                       <button type="button" class="btn btn-default" onclick="javascript:window.location.href='{{ url_for('resetFlag') }}'">重置Flag</button>
             </div>
                                       <table class="table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>队伍名</th>
+                                        <th>队伍编号</th>
                                         <th>队伍Flag</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                {% for flag in flagList %}
                                     <tr class="active">
-                                        <th scope="row">1</th>
-                                        <td>active</td>
-                                        <td>Column content</td>
-                                       <td> <button type="button" class="btn btn-default">编辑</button>
+                                        <th scope="row">{{flag.id}}</th>
+                                        <td>{{flag.tid}}</td>
+                                        <td>{{flag.flag}}</td>
+                                       <td> <button type="button" class="btn btn-default" onclick="javascript:window.location.href='{{ url_for('editFlag',fid=flag.id) }}'">编辑</button>
                                        </td>
 
                                     </tr>
-                                    <tr class="active">
-                                        <th scope="row">2</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                         <td>
-                                           <button type="button" class="btn btn-default">编辑</button>
-                                       </td>
-                                    </tr>
-                                    <tr class="active">
-                                        <th scope="row">3</th>
-                                        <td>success</td>
-                                        <td>Column content</td>
-                                         <td>
-                                           <button type="button" class="btn btn-default">编辑</button>
-                                       </td>
-                                    </tr>
-                                    <tr class="active">
-                                        <th scope="row">4</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                         <td>
-                                           <button type="button" class="btn btn-default">编辑</button>
-                                       </td>
-                                    </tr>
-                                    <tr class="active">
-                                        <th scope="row">5</th>
-                                        <td>info</td>
-                                        <td>Column content</td>
-                                         <td>
-                                           <button type="button" class="btn btn-default">编辑</button>
-                                       </td>
-                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
         </div>
       </div>
       <footer class="cm-footer"><span class="pull-right">&copy; 凡渡_AWD攻防对抗平台.</span></footer>
     </div>
-    <script src="../static/assets/js/lib/jquery.min.js"></script>
-    <script src="../static/assets/js/jquery.mousewheel.min.js"></script>
-    <script src="../static/assets/js/jquery.cookie.min.js"></script>
-    <script src="../static/assets/js/fastclick.min.js"></script>
-    <script src="../static/assets/js/bootstrap.min.js"></script>
-    <script src="../static/assets/js/clearmin.min.js"></script>
-  </body>
-</html>
+{% endblock %}

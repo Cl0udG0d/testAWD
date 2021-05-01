@@ -34,7 +34,7 @@ JOBS = [
             'func': 'tasks:checkDown',
             'args': (),
             'trigger': 'interval',
-            'seconds': 1
+            'seconds': 15
         }
 
     ]

@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-body demo-btn">
-                       <button type="button" class="btn btn-default">添加团队</button>
+                       <button type="button" class="btn btn-default" onclick="javascript:window.location.href='{{ url_for('addTeam') }}'">添加团队</button>
             </div>
                                       <table class="table">
                                 <thead>
@@ -24,8 +24,8 @@
                                         <td>{{team.teamname}}</td>
                                         <td>{{team.password}}</td>
                                         <td>{{team.token}}</td>
-                                       <td> <button type="button" class="btn btn-danger">删除</button>
-                                           <button type="button" class="btn btn-default">编辑</button>
+                                       <td> <button type="button" class="btn btn-danger" onclick="javascript:window.location.href='{{ url_for('delTeam',tid=team.id) }}'">删除</button>
+                                           <button type="button" class="btn btn-default" onclick="javascript:window.location.href='{{ url_for('editTeam',tid=team.id) }}'">编辑</button>
                                        </td>
                                     </tr>
                                 {% endfor %}

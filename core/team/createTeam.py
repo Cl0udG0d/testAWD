@@ -38,7 +38,7 @@ def createTeam(teamname):
         db.session.add(tempTeam)
         # 事务提交
         db.session.commit()
-    return
+    
 
 if __name__ == '__main__':
     createTeam("team1")

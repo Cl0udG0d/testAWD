@@ -1,75 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/bootstrap-clearmin.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/roboto.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/material-design.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/small-n-flat.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/font-awesome.min.css">
-    <title>靶机编辑</title>
-      <style>
-          .col-lg-6{
-          float:none;
-          display:block;
-          margin-left:auto;
-          margin-right:auto;
-          margin-top:150px;
-          }
-      </style>
-  </head>
-  <body class="cm-no-transition cm-1-navbar">
-    <div id="cm-menu">
-      <nav class="cm-navbar cm-navbar-primary">
-        <div class="cm-flex"></div>
-        <div class="btn btn-primary md-menu-white" data-toggle="cm-menu"></div>
-      </nav>
-      <div id="cm-menu-content">
-        <div id="cm-menu-items-wrapper">
-          <div id="cm-menu-scroller">
-            <ul class="cm-menu-items">
-              <li class="active"><a href="#" class="sf-device-tablet ">数据大屏</a></li>
-                <li class="active"><a href="#" class="sf-file-exe">系统配置</a></li>
-                 <li class="cm-submenu">
-                 <a class="sf-puzzle">管理相关<span class="caret"></span></a>
-                                <ul>
-                                    <li><a href="#">题目管理</a></li>
-                                    <li><a href="#">靶机管理</a></li>
-                                    <li><a href="#">flag管理</a></li>
-                                     <li><a href="#">公告管理</a></li>
-                                    <li><a href="#">账号管理</a></li>
-                                </ul>
-            </li>
-                 <li class="cm-submenu">
-                 <a class="sf-file-note">日志信息<span class="caret"></span></a>
-                                <ul>
-                                    <li><a href="#">操作日志</a></li>
-                                    <li><a href="#">登录日志</a></li>
-                                </ul>
-            </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <header id="cm-header">
-      <nav class="cm-navbar cm-navbar-primary">
-        <div class="btn btn-primary md-menu-white hidden-md hidden-lg" data-toggle="cm-menu"></div>
-        <div class="cm-flex"> <div class="dropdown pull-right">
-                    <button class="btn btn-primary md-account-circle-white" data-toggle="dropdown"></button>
-                    <ul class="dropdown-menu">
-                        <li class="disabled text-center">
-                            <a style="cursor:default;"><strong>Admin</strong></a>
-                        </li>
-                        <li>
-                            <a href="login.html"><i class="fa fa-fw fa-sign-out"></i> Sign out</a>
-                        </li>
-                    </ul>
-                </div>
-        </div>
-      </nav>
-    </header>
+{% extends 'T_admin_base.html' %}
+{% block title %}靶机编辑{% endblock %}
+{% block context %}
     <div id="global">
         <div class="container-fluid">
             <div class="row cm-fix-height">
@@ -77,50 +8,44 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">靶机编辑</div>
                             <div class="panel-body">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" method="post">
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">队伍名</label>
+                                         <label class="col-sm-2 control-label">靶机名</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control"  placeholder="队伍名">
-                                        </div>
-                                         <label class="col-sm-2 control-label">标题</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control"  placeholder="标题">
+                                            <input name="vulname" class="form-control"  placeholder="靶机名" value="{{vulhub.vulname}}">
                                         </div>
                                          <label class="col-sm-2 control-label">IP</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control"  placeholder="IP">
+                                            <input name="addr" class="form-control"  placeholder="IP" value="{{vulhub.addr}}">
                                         </div>
                                         <label class="col-sm-2 control-label">服务端口</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control"  placeholder="服务端口">
+                                            <input name="serviceport" class="form-control"  placeholder="服务端口" value="{{vulhub.serviceport}}">
                                         </div>
                                         <label class="col-sm-2 control-label">SSH端口</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control"  placeholder="SSH端口">
+                                            <input name="sshport" class="form-control"  placeholder="SSH端口" value="{{vulhub.sshport}}">
                                         </div>
                                         <label class="col-sm-2 control-label">SSHName</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control"  placeholder="SSHName">
+                                            <input name="sshname" class="form-control"  placeholder="SSHName" value="{{vulhub.sshname}}">
                                         </div>
                                         <label class="col-sm-2 control-label">SSHPass</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control"  placeholder="SSHPass">
+                                            <input name="sshpass" class="form-control"  placeholder="SSHPass" value="{{vulhub.sshpass}}">
                                         </div>
                                         <label class="col-sm-2 control-label">DockerId</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control"  placeholder="DockerId">
+                                            <input name="dockerid" class="form-control"  placeholder="DockerId" value="{{vulhub.dockerid}}">
                                         </div>
                                          <label class="col-sm-2 control-label">状态</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control"  placeholder="状态">
+                                            <input name="status" class="form-control"  placeholder="状态" value="{{vulhub.status}}">
                                         </div>
                                         <label class="col-sm-2 control-label">描述</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control"  placeholder="描述">
+                                            <input name="detail" class="form-control"  placeholder="描述" value="{{vulhub.detail}}">
                                         </div>
-
-
                                     </div>
 
                                     <div class="form-group">
@@ -140,11 +65,4 @@
       </div>
       <footer class="cm-footer"><span class="pull-right">&copy; 凡渡_AWD攻防对抗平台.</span></footer>
     </div>
-    <script src="../static/assets/js/lib/jquery.min.js"></script>
-    <script src="../static/assets/js/jquery.mousewheel.min.js"></script>
-    <script src="../static/assets/js/jquery.cookie.min.js"></script>
-    <script src="../static/assets/js/fastclick.min.js"></script>
-    <script src="../static/assets/js/bootstrap.min.js"></script>
-    <script src="../static/assets/js/clearmin.min.js"></script>
-  </body>
-</html>
+{% endblock %}

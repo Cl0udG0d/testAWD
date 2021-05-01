@@ -20,6 +20,7 @@
         <div id="cm-menu-items-wrapper">
           <div id="cm-menu-scroller">
             <ul class="cm-menu-items">
+              <li class="active"><a href="{{url_for('start')}}" class="sf-cat">开始比赛</a></li>
               <li class="active"><a href="#" class="sf-device-tablet ">数据大屏</a></li>
                 <li class="active"><a href="{{url_for('sysInfo')}}" class="sf-file-exe">系统配置</a></li>
                  <li class="cm-submenu">
@@ -38,6 +39,7 @@
                                     <li><a href="{{url_for('loginLog')}}">登录日志</a></li>
                                 </ul>
             </li>
+                <li class="active"><a href="{{url_for('LoginOut')}}" class="md-keyboard-tab">退出</a></li>
             </ul>
           </div>
         </div>

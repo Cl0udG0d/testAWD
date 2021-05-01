@@ -1,94 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/bootstrap-clearmin.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/roboto.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/material-design.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/small-n-flat.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/css/font-awesome.min.css">
-    <title>公告添加</title>
-  </head>
-  <body class="cm-no-transition cm-1-navbar">
-    <div id="cm-menu">
-      <nav class="cm-navbar cm-navbar-primary">
-        <div class="cm-flex"></div>
-        <div class="btn btn-primary md-menu-white" data-toggle="cm-menu"></div>
-      </nav>
-      <div id="cm-menu-content">
-        <div id="cm-menu-items-wrapper">
-          <div id="cm-menu-scroller">
-            <ul class="cm-menu-items">
-              <li class="active"><a href="#" class="sf-device-tablet ">数据大屏</a></li>
-                <li class="active"><a href="#" class="sf-file-exe">系统配置</a></li>
-                 <li class="cm-submenu">
-                 <a class="sf-puzzle">管理相关<span class="caret"></span></a>
-                                <ul>
-                                    <li><a href="#">题目管理</a></li>
-                                    <li><a href="#">靶机管理</a></li>
-                                    <li><a href="#">flag管理</a></li>
-                                     <li><a href="#">公告管理</a></li>
-                                    <li><a href="#">账号管理</a></li>
-                                </ul>
-            </li>
-                 <li class="cm-submenu">
-                 <a class="sf-file-note">日志信息<span class="caret"></span></a>
-                                <ul>
-                                    <li><a href="#">操作日志</a></li>
-                                    <li><a href="#">登录日志</a></li>
-                                </ul>
-            </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <header id="cm-header">
-      <nav class="cm-navbar cm-navbar-primary">
-        <div class="btn btn-primary md-menu-white hidden-md hidden-lg" data-toggle="cm-menu"></div>
-        <div class="cm-flex"> <div class="dropdown pull-right">
-                    <button class="btn btn-primary md-account-circle-white" data-toggle="dropdown"></button>
-                    <ul class="dropdown-menu">
-                        <li class="disabled text-center">
-                            <a style="cursor:default;"><strong>Admin</strong></a>
-                        </li>
-                        <li>
-                            <a href="login.html"><i class="fa fa-fw fa-sign-out"></i> Sign out</a>
-                        </li>
-                    </ul>
-                </div>
-        </div>
-      </nav>
-    </header>
+{% extends 'T_admin_base.html' %}
+{% block title %}公告添加{% endblock %}
+{% block context %}
     <div id="global">
       <div class="container-fluid">
         <div class="panel panel-default">
                     <div class="panel-heading">添加公告</div>
-                    <div class="panel-body">
+            <form method="post">
+                                    <div class="panel-body">
                         <div class="form-group">
-                            <label>Title</label>
-                            <input type="text" class="form-control" placeholder="Enter title">
+                            <label>标题</label>
+                            <input type="text" class="form-control" placeholder="标题" name="title">
                         </div>
-                        <label>Content</label>
-                           <textarea style="width:1175px; height:400px; resize:none">
-
-                               </textarea>
-                        <div id="summernote"></div>
+                        <label>正文</label>
+                           <textarea style="width:1000px; height:400px; resize:none" name="content"></textarea>
                         <div class="form-group text-right" style="margin-top:20px">
-                            <button type="submit" class="btn btn-default">保存</button>
                             <button type="submit" class="btn btn-default">提交</button>
                         </div>
                     </div>
+
+            </form>
                 </div>
             </div>
       <footer class="cm-footer"><span class="pull-right">&copy; 凡渡_AWD攻防对抗平台.</span></footer>
     </div>
-    <script src="../static/assets/js/lib/jquery.min.js"></script>
-    <script src="../static/assets/js/jquery.mousewheel.min.js"></script>
-    <script src="../static/assets/js/jquery.cookie.min.js"></script>
-    <script src="../static/assets/js/fastclick.min.js"></script>
-    <script src="../static/assets/js/bootstrap.min.js"></script>
-    <script src="../static/assets/js/clearmin.min.js"></script>
-  </body>
-</html>
+{% endblock %}

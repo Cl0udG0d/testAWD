@@ -4,7 +4,8 @@ from init import app
 from models import *
 from core.flag.saveFlag import authorizationSaveFlag
 from core.unit.decorators import login_required,admin_login_required
-
+from core.team.createTeam import createTeam
+from core.flag.createFlag import updateFlagIndex
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('K_index.html')
@@ -21,9 +22,10 @@ def loginLog():
 
 @app.route('/delLoginLog', methods=['GET', 'POST'])
 def delLoginLog():
-    logList=Log.query.all()
-    [session.db.delete(log) for log in logList]
-    db.session.commit()
+    with app.app_context():
+        logList=Log.query.all()
+        [db.session.delete(log) for log in logList]
+        db.session.commit()
     return redirect(url_for('loginLog'))
 
 @app.route('/useLog', methods=['GET', 'POST'])
@@ -33,20 +35,47 @@ def useLog():
 
 @app.route('/delUseLog', methods=['GET', 'POST'])
 def delUseLog():
-    ulogList = ULog.query.all()
-    [session.db.delete(log) for log in ulogList]
-    db.session.commit()
+    with app.app_context():
+        ulogList = ULog.query.all()
+        [db.session.delete(log) for log in ulogList]
+        db.session.commit()
     return redirect(url_for('useLog'))
 
 @app.route('/addTeam', methods=['GET', 'POST'])
 def addTeam():
     if request.method=='GET':
-        return render_template('T_show_manage.html')
+        return render_template('T_add_Team.html')
+    else:
+        teamname=request.form.get('teamname')
+        createTeam(teamname)
+        team=Team.query.order_by(Team.id.desc()).first()
+        return render_template('T_show_team.html',team=team)
 
-@app.route('/editTeam', methods=['GET', 'POST'])
-def editTeam():
+@app.route('/delTeam/<tid>', methods=['GET', 'POST'])
+def delTeam(tid):
+    if tid:
+        with app.app_context():
+            team=Team.query.filter(Team.id == tid).first()
+            db.session.delete(team)
+            db.session.commit()
+    return redirect(url_for('teamManage'))
+
+@app.route('/editTeam/<tid>', methods=['GET', 'POST'])
+def editTeam(tid):
+    if not tid:
+        tid=1
+    team=Team.query.filter(Team.id == tid).first()
     if request.method=='GET':
-        return render_template('T_edit_team.html')
+        return render_template('T_edit_team.html',team=team)
+    else:
+        teamname=request.form.get('teamname')
+        password=request.form.get('password')
+        token=request.form.get('token')
+        with app.app_context():
+            team.teamname,team.password,team.token=teamname,password,token
+            db.session.commit()
+        tempteam=Team.query.filter(Team.id == tid).first()
+        return render_template('T_edit_team.html',team=tempteam)
 
 @app.route('/teamManage', methods=['GET', 'POST'])
 def teamManage():
@@ -55,19 +84,129 @@ def teamManage():
 
 @app.route('/noticeManage', methods=['GET', 'POST'])
 def noticeManage():
-    return render_template('T_notice_manage.html')
+    noticeList = Notice.query.all()
+    return render_template('T_notice_manage.html',noticeList=noticeList)
+
+@app.route('/addNotice', methods=['GET', 'POST'])
+def addNotice():
+    if request.method=='GET':
+        return render_template('T_add_notice.html')
+    else:
+        title=request.form.get('title')
+        content=request.form.get('content')
+        with app.app_context():
+            notice=Notice(title=title,content=content)
+            db.session.add(notice)
+            # 事务提交
+            db.session.commit()
+        return redirect(url_for('noticeManage'))
+
+@app.route('/delNotice/<nid>', methods=['GET', 'POST'])
+def delNotice(nid):
+    if nid:
+        with app.app_context():
+            notice=Notice.query.filter(Notice.id == nid).first()
+            db.session.delete(notice)
+            db.session.commit()
+    noticeList = Notice.query.all()
+    return render_template('T_notice_manage.html',noticeList=noticeList)
+
+@app.route('/editNotice/<nid>', methods=['GET', 'POST'])
+def editNotice(nid):
+    if not nid:
+        nid=1
+    notice = Notice.query.filter(Notice.id == nid).first()
+    if request.method=='GET':
+        return render_template('T_edit_notice.html',notice=notice)
+    else:
+        title=request.form.get('title')
+        content=request.form.get('content')
+        with app.app_context():
+            notice.title,notice.content=title,content
+            db.session.commit()
+        notice = Notice.query.filter(Notice.id == nid).first()
+        return render_template('T_edit_notice.html',notice=notice)
 
 @app.route('/flagManage', methods=['GET', 'POST'])
 def flagManage():
-    return render_template('T_flag_manage.html')
+    flagList = Flag.query.all()
+    return render_template('T_flag_manage.html',flagList=flagList)
+
+@app.route('/editFlag/<fid>', methods=['GET', 'POST'])
+def editFlag(fid):
+    if not fid:
+        fid=1
+    flag = Flag.query.filter(Flag.id == fid).first()
+    if request.method == 'GET':
+        return render_template('T_edit_flag.html', flag=flag)
+    else:
+        flag = request.form.get('flag')
+        with app.app_context():
+            flag.flag=flag
+            db.session.commit()
+        flag = Flag.query.filter(Flag.id == fid).first()
+        return render_template('T_edit_flag.html', flag=flag)
+
+@app.route('/resetFlag', methods=['GET', 'POST'])
+def resetFlag():
+    updateFlagIndex()
+    return redirect(url_for('flagManage'))
 
 @app.route('/vulhubManage', methods=['GET', 'POST'])
 def vulhubManage():
-    return render_template('T_vulhub_manage.html')
+    vulhubList = Vulhub.query.all()
+    return render_template('T_vulhub_manage.html',vulhubList=vulhubList)
+
+@app.route('/editVulhub/<vid>', methods=['GET', 'POST'])
+def editVulhub(vid):
+    if not vid:
+        vid=1
+    vulhub = Vulhub.query.filter(Vulhub.id == vid).first()
+    if request.method=='GET':
+        return render_template('T_edit_vulhub.html', vulhub=vulhub)
+    else:
+        vulname=request.form.get('vulname')
+        addr=request.form.get('addr')
+        serviceport=request.form.get('serviceport')
+        sshport=request.form.get('sshport')
+        sshname=request.form.get('sshname')
+        sshpass=request.form.get('sshpass')
+        dockerid=request.form.get('dockerid')
+        status=bool(request.form.get('status'))
+        detail=request.form.get('detail')
+        with app.app_context():
+            vulhub.vulname,vulhub.addr,vulhub.serviceport,vulhub.sshport,vulhub.sshname,vulhub.sshpass,vulhub.dockerid,vulhub.status,vulhub.detail=vulname,addr,serviceport,sshport,sshname,sshpass,dockerid,status,detail
+            db.session.commit()
+        vulhub = Vulhub.query.filter(Vulhub.id == vid).first()
+        return render_template('T_edit_vulhub.html',vulhub=vulhub)
+
+@app.route('/addVulhub', methods=['GET', 'POST'])
+def addVulhub():
+    if request.method=='GET':
+        return render_template('T_add_vulhub.html')
+    else:
+        tid=request.form.get('tid')
+        vulname=request.form.get('vulname')
+        addr=request.form.get('addr')
+        serviceport=request.form.get('serviceport')
+        sshport=request.form.get('sshport')
+        sshname=request.form.get('sshname')
+        sshpass=request.form.get('sshpass')
+        dockerid=request.form.get('dockerid')
+        detail=request.form.get('detail')
+        with app.app_context():
+            vulhub=Vulhub(tid=tid,vulname=vulname,addr=addr,serviceport=serviceport,sshport=sshport,sshname=sshname,sshpass=sshpass,dockerid=dockerid,detail=detail)
+            db.session.add(vulhub)
+            db.session.commit()
+        return redirect(url_for('vulhubManage'))
 
 @app.route('/sysInfo', methods=['GET', 'POST'])
 def sysInfo():
     return render_template('T_SysConfig.html')
+
+@app.route('/start', methods=['GET', 'POST'])
+def start():
+    return render_template('T_admin_index.html')
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
@@ -97,11 +236,11 @@ def adminLogin():
         # print("{} {}".format(adminname,password))
         admin1 = Admin.query.filter(Admin.adminname == adminname).filter(Admin.password==password).first()
         if admin1:
-            saveLog(adminname, True)
+            saveLog(adminname, password,True)
             session['adminid'] = admin1.id
             return redirect(url_for('index'))
         else:
-            saveLog(adminname, False)
+            saveLog(adminname, password,False)
             return render_template('login_manager.html')
 
 
@@ -113,6 +252,8 @@ def LoginOut():
     elif session.get('adminid'):
         session.pop('adminid')
         return redirect(url_for('adminLogin'))
+    else:
+        return redirect(url_for('login'))
 
 
 
