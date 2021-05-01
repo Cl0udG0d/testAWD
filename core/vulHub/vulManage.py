@@ -45,5 +45,6 @@ def delVulhub(dockerid):
     return
 
 
+
 if __name__ == '__main__':
-    delVulhub()
+    checkVulIsDown()

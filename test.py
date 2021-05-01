@@ -7,5 +7,18 @@ def resetVulhubFlag(flag,dockerid):
     os.system(commend)
     return
 
+def checkIsDown():
+    path="./vulhub/"
+    filelist=os.listdir(path)
+    for file in filelist:
+        currdir=os.path.join(path,file)
+        print(currdir)
+        if os.path.isdir(currdir):
+            checkfile=os.path.join(currdir,"check.py")
+            import checkfile
+            checkfile.check()
+    print(filelist)
+    return
+
 if __name__ == '__main__':
-    resetVulhubFlag('flag{test_docker_2}','ab64c51efb59')
+    checkIsDown()

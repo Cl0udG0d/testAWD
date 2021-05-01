@@ -47,8 +47,9 @@ class Vulhub(db.Model):
     __tablename__='vulhub'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     tid=db.Column(db.Integer, nullable=False)
-    title=db.Column(db.String(128),nullable=False)
+    vulname=db.Column(db.String(128),nullable=False)
     addr = db.Column(db.String(64), nullable=False)
+    serviceport = db.Column(db.String(64), nullable=False)
     sshport=db.Column(db.Integer, nullable=False)
     sshname = db.Column(db.String(128), nullable=False)
     sshpass = db.Column(db.String(128), nullable=False)
