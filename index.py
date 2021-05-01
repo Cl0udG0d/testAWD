@@ -35,13 +35,35 @@ def currentSource():
     nowSource['source'] =source.source
     return json.dumps(nowSource)
 
+@app.route('/sourceList',methods=['GET','POST'])
+def sourceList():
+    sourceDict={}
+    sourceList = Source.query.all()
+
+    nowSource={}
+    nowSource['source'] =source.source
+    return json.dumps(nowSource)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('K_index.html')
+    tid = session.get("tid")
+    if not tid:
+        tid = 1
+    team = Team.query.filter(Team.id == tid).first()
+    vulhubList = Vulhub.query.filter(Vulhub.tid == tid)
+    noticeList=Notice.query.all()
+    context={
+        "team":team,
+        "vulhubList":vulhubList,
+        "noticeList":noticeList
+    }
+
+    return render_template('K_index.html',context=context)
 
 @app.route('/indexShow', methods=['GET', 'POST'])
 def indexShow():
     return render_template('index_show.html')
+
 
 @app.route('/adminIndex', methods=['GET', 'POST'])
 def adminIndex():

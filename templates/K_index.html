@@ -36,13 +36,19 @@
                             <li class="tab-button" data-tab="three">
                                 <a href="#">
                                     <span class="nav3"> </span>
-                                    <span> 赛题</span>
+                                    <span> Flag</span>
                                 </a>
                             </li>
                             <li class="tab-button" data-tab="one">
                                 <a href="#">
                                     <span class="nav4"> </span>
                                     <span> 排行榜</span>
+                                </a>
+                            </li>
+                            <li class="tab-button" >
+                                <a href="{{url_for('indexShow')}}">
+                                    <span class="nav5"> </span>
+                                    <span> 数据大屏</span>
                                 </a>
                             </li>
 
@@ -56,6 +62,7 @@
                 </div>
             </div>
             <div class="score">
+                <span>团队名：{{context.team.teamname}}</span>
                 <span>轮次:<label id='currentRound'></label></span>
                 <span>分数:<label id='currentSource'></label></span>
                 <span >倒计时 ：<label id='lasttime'></label></span>
@@ -86,13 +93,6 @@
                                     <th>名次</th>
                                     <th>战队</th>
                                     <th>得分</th>
-                                    <th>unknown</th>
-                                    <th>ad-opensns</th>
-                                    <th>tiangou</th>
-                                    <th>douchat</th>
-                                    <th>httpd</th>
-                                    <th>ad-blog</th>
-                                    <th>变化</th>
                                 </tr>
                             </thead>
                         </table>
@@ -113,7 +113,10 @@
                             </colgroup>
                             
                             <tbody id="team">                                
-
+                                <tr>
+                                  <td>January</td>
+                                  <td>$100</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -125,34 +128,27 @@
                 <div class="mborderimg" style="padding:15px 9px 35px">
                     <div class="table-head" style="padding-left:30px"><h2>公告</h2></div>
                     <ul class="ulist_ul" id='infos'>
-                        <li>
-                        <span>1</span>某环境在哪里有啥洞某环境在哪里有啥洞某环境在哪里有啥洞某环境在哪里有啥</li>
-
-
+                        {% for notice in context.noticeList %}
+                        <li><span>{{notice.date}}</span><span>{{notice.title}}</span>{{notice.content}}</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
             <!--第2个公告div end-->
             <!--第3个赛题div start-->
             <div class="tab-item" id="tab-three">
-
-
                         <div class="linfo fl sborderimg">
                            <div class="ltitle">比赛信息</div>
                            <div class="tktable">
                               <div class="tktable_top">
                                    <table  class="txt" border="0" cellpadding="40" cellspacing="20" style="border-collapse:separate;border-spacing:0px 0px;">
                                 <tr>
-                                    <td>名称</td>
-                                    <td><span id='teamname2'></span></td>
-                                </tr>
-                                <tr>
                                     <td>Token</td>
-                                    <td><span id='ctoken'></span></td>
+                                    <td><span id='ctoken'>{{context.team.token}}</span></td>
                                 </tr>
                                 <tr>
                                     <td>提交flag的URL</td>
-                                    <td>http://xxxx:9000/flag?token=token</td>
+                                    <td>curl -X POST https://localhost:8989/flag -H 'Authorization:your_team_token' -d '{"flag":"your_flag_here"}'</td>
                                 </tr>
                                 <tr>
                                     <td>提交方式</td>
@@ -160,7 +156,7 @@
                                 </tr>
                                 <tr>
                                     <td>提交格式</td>
-                                    <td><span id='mytoken'></span></td>
+                                    <td><span id='mytoken'>{"flag":"your_flag_here"}</span></td>
                                 </tr>
                             </thead>
                         </table>
@@ -207,15 +203,33 @@
                 <table>
                   <thead class="table-head ">
                     <tr>
-                      <th>SERVICE</th>
-                      <th>SSH-USER</th>
-                      <th>SSH-PASS</th>
+                      <th>标题</th>
+                      <th>SSH用户名</th>
+                      <th>SSH密码</th>
                       <th>IP</th>
-                      <th>SSH-PORT</th>
-                      <th>SERVICE-PORT</th>
+                      <th>SSH端口</th>
+                      <th>WEB端口</th>
+                      <th>状态</th>
+                      <th>描述</th>
                     </tr>
                   </thead>
                   <tbody id="ssh_info" class="table-need" >
+                  {% for vulhub in context.vulhubList %}
+                  <tr>
+                      <td>{{vulhub.vulname}}</td>
+                      <td>{{vulhub.sshname}}</td>
+                      <td>{{vulhub.sshpass}}</td>
+                      <td>{{vulhub.addr}}</td>
+                      <td>{{vulhub.sshport}}</td>
+                      <td>{{vulhub.serviceport}}</td>
+                      {% if vulhub.status %}
+                      <td>正常</td>
+                      {% else %}
+                      <td>宕机</td>
+                      {% endif %}
+                      <td>{{vulhub.detail}}</td>
+                    </tr>
+                  {% endfor %}
                   </tbody>
                 </table>
             </div>
