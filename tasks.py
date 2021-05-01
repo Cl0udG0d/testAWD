@@ -14,7 +14,7 @@ def checkDown():
                 status=check1.check(vulhub.addr,vulhub.serviceport)
                 vulhub.status=status
                 db.session.commit()
-    print("check service down :)")
+    # print("check service down :)")
     return
 
 if __name__ == '__main__':

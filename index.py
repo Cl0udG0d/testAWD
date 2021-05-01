@@ -13,6 +13,34 @@ def index():
 def adminIndex():
     return render_template('T_admin_index.html')
 
+@app.route('/loginLog', methods=['GET', 'POST'])
+def loginLog():
+    return render_template('T_Login_log.html')
+
+@app.route('/useLog', methods=['GET', 'POST'])
+def useLog():
+    return render_template('T_Operation_Log.html')
+
+@app.route('/teamManage', methods=['GET', 'POST'])
+def teamManage():
+    return render_template('T_team_manage.html')
+
+@app.route('/noticeManage', methods=['GET', 'POST'])
+def noticeManage():
+    return render_template('T_notice_manage.html')
+
+@app.route('/flagManage', methods=['GET', 'POST'])
+def flagManage():
+    return render_template('T_flag_manage.html')
+
+@app.route('/vulhubManage', methods=['GET', 'POST'])
+def vulhubManage():
+    return render_template('T_vulhub_manage.html')
+
+@app.route('/sysInfo', methods=['GET', 'POST'])
+def sysInfo():
+    return render_template('T_SysConfig.html')
+
 @app.route('/login/',methods=['GET','POST'])
 def login():
     if request.method == 'GET':
