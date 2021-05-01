@@ -9,9 +9,9 @@ from core.unit.decorators import login_required,admin_login_required
 def index():
     return render_template('index.html')
 
-@app.route('/teamIndex', methods=['GET', 'POST'])
-def teamindex():
-    return render_template('teamIndex.html')
+@app.route('/adminIndex', methods=['GET', 'POST'])
+def adminIndex():
+    return render_template('T_admin_index.html')
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
