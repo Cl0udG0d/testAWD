@@ -61,5 +61,12 @@ class Log(db.Model):
     __tablename__ = 'log'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(128), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
     ischeck = db.Column(db.Boolean, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.now)
+
+class ULog(db.Model):
+    __tablename__ = 'ulog'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    text = db.Column(db.String(128), nullable=False)
     date = db.Column(db.DateTime, default=datetime.now)

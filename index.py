@@ -19,15 +19,43 @@ def adminIndex():
 
 @app.route('/loginLog', methods=['GET', 'POST'])
 def loginLog():
-    return render_template('T_Login_log.html')
+    loglist=Log.query.all()
+
+    return render_template('T_Login_log.html',loglist=loglist)
+
+@app.route('/delLoginLog', methods=['GET', 'POST'])
+def delLoginLog():
+    logList=Log.query.all()
+    [session.db.delete(log) for log in logList]
+    db.session.commit()
+    return redirect(url_for('loginLog'))
 
 @app.route('/useLog', methods=['GET', 'POST'])
 def useLog():
-    return render_template('T_Operation_Log.html')
+    loglist = ULog.query.all()
+    return render_template('T_Operation_Log.html',loglist=loglist)
+
+@app.route('/delUseLog', methods=['GET', 'POST'])
+def delUseLog():
+    ulogList = ULog.query.all()
+    [session.db.delete(log) for log in ulogList]
+    db.session.commit()
+    return redirect(url_for('useLog'))
+
+@app.route('/addTeam', methods=['GET', 'POST'])
+def addTeam():
+    if request.method=='GET':
+        return render_template('T_show_manage.html')
+
+@app.route('/editTeam', methods=['GET', 'POST'])
+def editTeam():
+    if request.method=='GET':
+        return render_template('T_edit_team.html')
 
 @app.route('/teamManage', methods=['GET', 'POST'])
 def teamManage():
-    return render_template('T_team_manage.html')
+    teamList=Team.query.all()
+    return render_template('T_team_manage.html',teamList=teamList)
 
 @app.route('/noticeManage', methods=['GET', 'POST'])
 def noticeManage():
@@ -56,11 +84,11 @@ def login():
         team1 = Team.query.filter(Team.username == teamname).filter(Team.password==password).first()
         #print(user1)
         if team1:
-            saveLog(teamname, True)
+            saveLog(teamname, password,True)
             session['teamid'] = team1.id
             return redirect(url_for('index'))
         else:
-            saveLog(teamname, False)
+            saveLog(teamname, password,False)
             return render_template('login.html')
 
 @app.route('/login_manager/',methods=['GET','POST'])
@@ -164,14 +192,14 @@ def test():
     return "hi!"
 
 
-def saveLog(username,ischeck):
+def saveLog(username,password,ischeck):
     '''
     存储登录日志函数
     :param username:
     :param ischeck:
     :return:
     '''
-    log=Log(username=username,ischeck=ischeck)
+    log=Log(username=username,password=password,ischeck=ischeck)
     db.session.add(log)
     db.session.commit()
 
