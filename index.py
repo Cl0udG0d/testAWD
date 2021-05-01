@@ -276,7 +276,7 @@ def login():
         teamname = request.form.get('username')
         password = request.form.get('password')
         #print("{} {}".format(username,password))
-        team1 = Team.query.filter(Team.username == teamname).filter(Team.password==password).first()
+        team1 = Team.query.filter(Team.teamname == teamname).filter(Team.password==password).first()
         #print(user1)
         if team1:
             saveLog(teamname, password,True)
@@ -298,7 +298,7 @@ def adminLogin():
         if admin1:
             saveLog(adminname, password,True)
             session['adminid'] = admin1.id
-            return redirect(url_for('index'))
+            return redirect(url_for('adminIndex'))
         else:
             saveLog(adminname, password,False)
             return render_template('login_manager.html')
