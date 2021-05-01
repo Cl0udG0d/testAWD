@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-body demo-btn">
-                       <button type="button" class="btn btn-default">清空日志</button>
+                       <button type="button" class="btn btn-default" onclick="javascript:window.location.href='{{url_for('delLoginLog')}}'">清空日志</button>
             </div>
                                       <table class="table">
                                 <thead>
@@ -17,60 +17,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                {% for log in loglist%}
+                                    {% if log.ischeck%}
                                     <tr class="active">
-                                        <th scope="row">1</th>
-                                        <td>active</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr class="success">
-                                        <th scope="row">3</th>
-                                        <td>success</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr class="info">
-                                        <th scope="row">5</th>
-                                        <td>info</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">6</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr class="warning">
-                                        <th scope="row">7</th>
-                                        <td>warning</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">8</th>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
-                                    </tr>
+                                        {% else %}
                                     <tr class="danger">
-                                        <th scope="row">9</th>
-                                        <td>danger</td>
-                                        <td>Column content</td>
-                                        <td>Column content</td>
+                                        {% endif %}
+                                        <th scope="row">{{log.id}}</th>
+                                        <td>{{log.username}}</td>
+                                        <td>{{log.password}}</td>
+                                        <td>{{log.date}}</td>
                                     </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
         </div>
