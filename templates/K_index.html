@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <title>AWD攻防练习赛首页</title>
+    <title>凡渡_AWD攻防练习赛首页</title>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 
 </head>
@@ -18,7 +18,7 @@
         <div class="topdiv">
             <div class="header tab-block information-tab">
                 <div class="fl ltag">
-                    <div class="header_logo fl "><span>AWD</span>攻防练习赛</div>
+                    <div class="header_logo fl "><span>凡渡</span>AWD攻防练习赛</div>
                     <div class="header_nav fl  tab-buttons ">
                         <ul>
                             <li class="tab-button cur" data-tab="four">
@@ -56,10 +56,9 @@
                 </div>
             </div>
             <div class="score">
-                <span>RANK:<label id='cround_rank'></label></span>
-                <span>ROUND:<label id='cround'></label></span>
-                <span>SCORE:<label id='cscroe'></label></span>
-                <span class="data fr" id="timecount">倒计时 <b>00:00:00</b></span>
+                <span>轮次:<label id='currentRound'></label></span>
+                <span>分数:<label id='currentSource'></label></span>
+                <span >倒计时 ：<label id='lasttime'></label></span>
             </div>
         </div>
         <!--头部区域 end-->
@@ -195,11 +194,11 @@
                 </div>
                 <div class="attackdiv">
                   <p>攻击检测</p>
-                  <p>每轮成功攻击，攻击队伍可平分该flag的200分，被攻击者扣除200分;选手需要保证己方服务的可用性，服务故障扣除200分，被服务无故障的队伍平分;得分在下一轮开始时计算</p>
+                  <p>每轮成功攻击，攻击队伍可平分该flag的50分，被攻击者扣除50分;选手需要保证己方服务的可用性，服务故障扣除200分，被服务无故障的队伍平分;得分在下一轮开始时计算</p>
                 </div>
                 <div class="otherdiv">
                   <p>其他</p>
-                  <p>选手可以获取所有的攻击情况以及当前的分数;不允许使用任何形式的DOS攻击;各队伍的端口为 3AABB ,其中AA是队伍编号，BB是service port。</p>
+                  <p>选手可以获取所有的攻击情况以及当前的分数;不允许使用任何形式的DOS攻击</p>
                 </div>
               </div>
 
@@ -241,18 +240,8 @@
                           <tbody id="showrounds">
                           </tbody>
                         </table>
-
                 </div>
             </div>
-            <!--第5个攻击榜div end-->
-            <!--第6个趋势div start-->
-            <div class="tab-item" id="tab-six">
-                <center>
-                    <div id="echarts_main" style="width: 1600px;height:700px;"></div>
-                </center>
-            </div>
-            <!--第6个趋势div end-->
-
         </div>
         <!--主体区域 end-->
     </div>
@@ -297,83 +286,44 @@
         return false;
     }
 </script>
-
-
 <script type="text/javascript">
-
-    var myChart = echarts.init(document.getElementById('echarts_main'));
-    //myChart.showLoading();
-    //myChart.hideLoading();
-    //myChart.setOption(option);  
-    function freshscore(){    
-        $.getJSON('/scores',
-        function (result) {
-            var data=[];
-            //console.log(result[0]);
-            
-            for(x in result){
-                var xdata=[];
-                for(i=0;i<result[x].length;i++)
-                    xdata.push('Round:'+i);
-
-                //console.log(x);
-                //console.log(result[x]);
-                data.push({
-                    name: x,
-                    type: 'line',
-                    data: result[x],
-                    smooth: true,
-                    symbol:'none',
-                    lineStyle: {
-                        width: 1
-                    },
-
-                });
-
-            }
-
-            option={
-                legend:{
-                    textStyle:{color:'#ffffff'}, tooltip: {trigger: 'axis',axisPointer:{type:'line'}}
-                },
-                //grid:{show:false},
-               
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        //animation: false,
-                        label: {
-                            backgroundColor: '#505765'
-                        }
-                    },
-                    textStyle:{align:'left'}
-                },
-                backgroundColor: "rgba(128, 128, 128, 0.3",
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    show:false,
-                    data:xdata
-                },
-                //axisSeperateSetting: false,
-                yAxis: {
-                    type: 'value',
-                    show:false,
-                    //splitLine:{show:false},
-                },
-                series:data
-            };
-            myChart.setOption(option);
-                       
-        }
-        );
-    }
-
-  setInterval('freshscore()', 10*1000); // 队伍情况每一秒刷新一次
+     setInterval(
+         function(){
+             $.ajax({
+                 type: "POST",
+                 dataType: "json",
+                 url: "/currentRound",//后端请求url地址
+                 success: function (data) {
+                 document.getElementById('currentRound').innerHTML = data.time;
+                    console.log(data)
+                 }
+             })
+         }, 1000); // 1秒后再次调用
+         setInterval(
+         function(){
+             $.ajax({
+                 type: "POST",
+                 dataType: "json",
+                 url: "/currentSource",//后端请求url地址
+                 success: function (data) {
+                 document.getElementById('currentSource').innerHTML = data.source;
+                    console.log(data)
+                 }
+             })
+         }, 10000); // 10秒后再次调用
+         setInterval(
+         function(){
+             $.ajax({
+                 type: "POST",
+                 dataType: "json",
+                 url: "/lastTime",//后端请求url地址
+                 success: function (data) {
+                 document.getElementById('lasttime').innerHTML = data.time;
+                    console.log(data)
+                 }
+             })
+         }, 1000); // 1秒后再次调用
 
 </script>
-
 </body>
-
 </html>

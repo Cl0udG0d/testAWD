@@ -5,6 +5,15 @@ from init import app
 def job1(a, b):                          # 运行的定时任务的函数
     print(str(a) + ' ' + str(b))
 
+def timeCount():
+    with app.app_context():
+        current=Time.query.filter(Time.id=='1').first()
+        if current:
+            current.timeNow+=1
+            db.session.commit()
+    return
+
+
 
 def checkDown():
     with app.app_context():

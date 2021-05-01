@@ -70,3 +70,8 @@ class ULog(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     text = db.Column(db.String(128), nullable=False)
     date = db.Column(db.DateTime, default=datetime.now)
+
+class Time(db.Model):
+    _tablename__='time'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    timeNow = db.Column(db.Integer, nullable=False,default=0)

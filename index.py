@@ -1,17 +1,46 @@
 import json
-from flask import request,render_template,redirect,url_for,session
-from init import app
+from flask import request, render_template, redirect, url_for, session, jsonify
+from init import app, scheduler
 from models import *
 from core.flag.saveFlag import authorizationSaveFlag
 from core.unit.decorators import login_required,admin_login_required
 from core.team.createTeam import createTeam
 from core.flag.createFlag import updateFlagIndex
+from config import OneRoundSec
+
+
+@app.route('/lastTime',methods=['GET','POST'])
+def lastTime():
+    nowTime = Time.query.filter(Time.id == 1).first()
+    # print(nowTime.timeNow)
+    nowRound = {}
+    nowRound['time'] = int(OneRoundSec-nowTime.timeNow%OneRoundSec )
+    return json.dumps(nowRound)
+
+@app.route('/currentRound',methods=['GET','POST'])
+def currentRound():
+    nowTime=Time.query.filter(Time.id==1).first()
+    # print(nowTime.timeNow)
+    nowRound={}
+    nowRound['time'] = int(nowTime.timeNow/OneRoundSec)+1
+    return json.dumps(nowRound)
+
+@app.route('/currentSource',methods=['GET','POST'])
+def currentSource():
+    tid=session.get('tid')
+    if not tid:
+        tid='1'
+    source = Source.query.filter(Source.tid == tid).first()
+    nowSource={}
+    nowSource['source'] =source.source
+    return json.dumps(nowSource)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('K_index.html')
 
-@app.route('/IndexShow', methods=['GET', 'POST'])
-def IndexShow():
+@app.route('/indexShow', methods=['GET', 'POST'])
+def indexShow():
     return render_template('index_show.html')
 
 @app.route('/adminIndex', methods=['GET', 'POST'])
@@ -208,8 +237,13 @@ def addVulhub():
 def sysInfo():
     return render_template('T_SysConfig.html')
 
+
+
 @app.route('/start', methods=['GET', 'POST'])
 def start():
+    #初始化时钟
+    timeNow=0
+    session['timeNow']=timeNow
     return render_template('T_admin_index.html')
 
 @app.route('/login/',methods=['GET','POST'])

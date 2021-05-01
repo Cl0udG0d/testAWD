@@ -11,6 +11,8 @@ PASSWORD_LENGTH=16
 
 Suffer_Source=50
 CheckDown_Source=200
+#每轮用的时间为 5*60=300秒
+OneRoundSec=5*60
 
 DEBUG = True
 # DEBUG = False
@@ -35,6 +37,13 @@ JOBS = [
             'args': (),
             'trigger': 'interval',
             'seconds': 15
+        },
+        {
+            'id': 'job2',
+            'func': 'tasks:timeCount',
+            'args': (),
+            'trigger': 'interval',
+            'seconds': 1
         }
 
     ]
