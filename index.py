@@ -10,6 +10,10 @@ from core.flag.createFlag import updateFlagIndex
 def index():
     return render_template('K_index.html')
 
+@app.route('/IndexShow', methods=['GET', 'POST'])
+def IndexShow():
+    return render_template('index_show.html')
+
 @app.route('/adminIndex', methods=['GET', 'POST'])
 def adminIndex():
     return render_template('T_admin_index.html')
