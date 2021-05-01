@@ -7,7 +7,7 @@ from core.unit.decorators import login_required,admin_login_required
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return render_template('K_index.html')
 
 @app.route('/adminIndex', methods=['GET', 'POST'])
 def adminIndex():
