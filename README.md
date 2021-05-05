@@ -60,6 +60,11 @@ ______         ______
 
 ### 致谢
 
++ [vulhub](https://github.com/vulhub/vulhub)
++ [vulawdhub](https://github.com/0xs1riu5/vulawdhub)
++ [Cardinal](https://github.com/vidar-team/Cardinal)
++ [AWD_Platform](https://github.com/54only/AWD_Platform)
+
 
 
 ### 使用许可
