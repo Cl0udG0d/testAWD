@@ -22,11 +22,11 @@ ______         ______
 - [致谢](#致谢)
 - [使用许可](#使用许可)
 
-
+### 目前还在测试中！！！！不建议下载使用
 
 ### 简介
 
-
+`AWD(Attack With Defence)`比赛平台
 
 `项目结构：`
 
@@ -34,7 +34,17 @@ ______         ______
 
 ### 安装
 
+安装环境：`Ubuntu`，` Python版本:3.X`，`数据库:MySQL`
 
+1， 从github下载源代码：`git clone https://github.com/Cl0udG0d/testAWD`
+
+2， 安装python所需要的库文件` cd testAWD && pip3 install -r requirements.txt`
+
+3， 修改config.py数据库账号密码为本地账号密码，创建MySQL数据库`fandu_awd`
+
+4， 初始化数据库，数据库导入 `init.sql` 文件
+
+运行`python3 index.py`，浏览器输入`127.0.0.1:5000 `访问AWD攻防对抗平台
 
 ### 使用说明
 
@@ -46,11 +56,11 @@ ______         ______
 
 ### TODO
 
-
++ xxx
 
 ### 维护者
 
-
+[Cl0udG0d](https://github.com/Cl0udG0d)，[sorgenkind](https://github.com/sorgenkind859)，[Piaopiao66](https://github.com/Piaopiao66)
 
 ### 如何贡献
 
@@ -64,6 +74,7 @@ ______         ______
 + [vulawdhub](https://github.com/0xs1riu5/vulawdhub)
 + [Cardinal](https://github.com/vidar-team/Cardinal)
 + [AWD_Platform](https://github.com/54only/AWD_Platform)
++ [clearmin](https://github.com/paomedia/clearmin)
 
 
 
