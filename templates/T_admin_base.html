@@ -21,7 +21,7 @@
           <div id="cm-menu-scroller">
             <ul class="cm-menu-items">
               <li class="active"><a href="{{url_for('start')}}" class="sf-cat">开始比赛</a></li>
-              <li class="active"><a href="#" class="sf-device-tablet ">数据大屏</a></li>
+              <li class="active"><a href="{{url_for('indexShow')}}" class="sf-device-tablet ">数据大屏</a></li>
                 <li class="active"><a href="{{url_for('sysInfo')}}" class="sf-file-exe">系统配置</a></li>
                  <li class="cm-submenu">
                  <a class="sf-puzzle">管理相关<span class="caret"></span></a>
@@ -39,7 +39,6 @@
                                     <li><a href="{{url_for('loginLog')}}">登录日志</a></li>
                                 </ul>
             </li>
-                <li class="active"><a href="{{url_for('LoginOut')}}" class="md-keyboard-tab">退出</a></li>
             </ul>
           </div>
         </div>
@@ -55,7 +54,7 @@
                             <a style="cursor:default;"><strong>Admin</strong></a>
                         </li>
                         <li>
-                            <a href="login.html"><i class="fa fa-fw fa-sign-out"></i> Sign out</a>
+                            <a href="{{url_for('LoginOut')}}"><i class="fa fa-fw fa-sign-out"></i> 退出</a>
                         </li>
                     </ul>
                 </div>
