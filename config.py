@@ -15,7 +15,7 @@ CheckDown_Source=200
 OneRoundSec=5*60
 
 STARTTIME=0
-TIMENOW=0
+TIMENOW=-1
 
 DEBUG = True
 # DEBUG = False
