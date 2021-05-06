@@ -1,7 +1,8 @@
 import json
+import datetime
 from flask import request, render_template, redirect, url_for, session, jsonify
 from init import app, scheduler
-from models import *
+from models import Admin,Notice,Flag,Source,AttackRecord,Team,Vulhub,Log,ULog,Time
 from core.flag.saveFlag import authorizationSaveFlag
 from core.unit.decorators import login_required,admin_login_required
 from core.team.createTeam import createTeam
@@ -11,18 +12,22 @@ from config import OneRoundSec
 
 @app.route('/lastTime',methods=['GET','POST'])
 def lastTime():
-    nowTime = Time.query.filter(Time.id == 1).first()
+    # nowTime = Time.query.filter(Time.id == 1).first()
     # print(nowTime.timeNow)
     nowRound = {}
-    nowRound['time'] = int(OneRoundSec-nowTime.timeNow%OneRoundSec )
+    app.config['NOWTIME'] = datetime.datetime.now()
+    # nowRound['time'] = int(OneRoundSec-app.config['TIMENOW']%OneRoundSec )
+    nowRound['time'] = (app.config['NOWTIME']-app.config['STARTTIME']).seconds
+    # nowRound['time'] = int(app.config['NOWTIME']-app.config['STARTTIME']%OneRoundSec)
     return json.dumps(nowRound)
 
 @app.route('/currentRound',methods=['GET','POST'])
 def currentRound():
-    nowTime=Time.query.filter(Time.id==1).first()
+    # nowTime=Time.query.filter(Time.id==1).first()
     # print(nowTime.timeNow)
     nowRound={}
-    nowRound['time'] = int(nowTime.timeNow/OneRoundSec)+1
+    nowRound['time'] = int(app.config['TIMENOW']/OneRoundSec)+1
+    # app.config['TIMENOW']+=1
     return json.dumps(nowRound)
 
 @app.route('/currentSource',methods=['GET','POST'])
@@ -261,12 +266,12 @@ def sysInfo():
 
 
 
-@app.route('/start', methods=['GET', 'POST'])
-def start():
-    #初始化时钟
-    timeNow=0
-    session['timeNow']=timeNow
-    return render_template('T_admin_index.html')
+# @app.route('/start', methods=['GET', 'POST'])
+# def start():
+#     #初始化时钟
+#     timeNow=0
+#     session['timeNow']=timeNow
+#     return render_template('T_admin_index.html')
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
@@ -385,8 +390,10 @@ def page_not_found(e):
 #测试路由
 @app.route('/test/')
 def test():
-    print(request.path)
-    return "hi!"
+    app.config['STARTTIME']=datetime.datetime.now()
+    app.config['NOWTIME'] = datetime.datetime.now()
+    print(app.config['TIMENOW'])
+    return str(app.config['TIMENOW'])
 
 
 def saveLog(username,password,ischeck):
