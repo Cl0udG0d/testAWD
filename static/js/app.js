@@ -10,9 +10,8 @@ setInterval(
                  }
              })
          }, 1000);
-setInterval(
-         function(){
-             $.ajax({
+var doStuff = function () {
+    $.ajax({
                  type: "POST",
                  dataType: "json",
                  url: "/currentSource",//后端请求url地址
@@ -21,7 +20,9 @@ setInterval(
                     console.log(data)
                  }
              })
-         }, 10000);
+    setTimeout(doStuff, 10000);
+}
+doStuff();
 setInterval(
          function(){
              $.ajax({

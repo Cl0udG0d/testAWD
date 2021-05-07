@@ -41,7 +41,7 @@ def currentSource():
 
     source = Source.query.filter(Source.tid == tid).first()
     nowSource={}
-    nowSource['source'] =source.source
+    nowSource['source'] =1000
     return json.dumps(nowSource)
 
 @app.route('/sourceList',methods=['GET','POST'])

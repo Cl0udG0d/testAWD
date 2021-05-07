@@ -12,7 +12,7 @@ def timeCount():
             pass
         else:
             app.config['TIMENOW']+=1
-    print(app.config['TIMENOW'])
+    # print(app.config['TIMENOW'])
     return
 
 
