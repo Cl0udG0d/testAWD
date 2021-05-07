@@ -1,7 +1,12 @@
 import json
+import datetime
+import time
+
 from flask import request, render_template, redirect, url_for, session, jsonify
+
+from exts import db
 from init import app, scheduler
-from models import *
+from models import Admin,Notice,Flag,Source,AttackRecord,Team,Vulhub,Log,ULog,Time
 from core.flag.saveFlag import authorizationSaveFlag
 from core.unit.decorators import login_required,admin_login_required
 from core.team.createTeam import createTeam
@@ -11,25 +16,29 @@ from config import OneRoundSec
 
 @app.route('/lastTime',methods=['GET','POST'])
 def lastTime():
-    nowTime = Time.query.filter(Time.id == 1).first()
-    # print(nowTime.timeNow)
     nowRound = {}
-    nowRound['time'] = int(OneRoundSec-nowTime.timeNow%OneRoundSec )
+    if app.config['TIMENOW']==-1:
+        nowRound['time']=0
+    else:
+        nowRound['time'] = int(OneRoundSec-app.config['TIMENOW']%OneRoundSec)
     return json.dumps(nowRound)
 
 @app.route('/currentRound',methods=['GET','POST'])
 def currentRound():
-    nowTime=Time.query.filter(Time.id==1).first()
+    # nowTime=Time.query.filter(Time.id==1).first()
     # print(nowTime.timeNow)
     nowRound={}
-    nowRound['time'] = int(nowTime.timeNow/OneRoundSec)+1
+    if app.config['TIMENOW']==-1:
+        nowRound['time']='未开始'
+    else:
+        nowRound['time'] = int(app.config['TIMENOW']/OneRoundSec)+1
+    # app.config['TIMENOW']+=1
     return json.dumps(nowRound)
 
 @app.route('/currentSource',methods=['GET','POST'])
 def currentSource():
     tid=session.get('tid')
-    if not tid:
-        tid='1'
+
     source = Source.query.filter(Source.tid == tid).first()
     nowSource={}
     nowSource['source'] =source.source
@@ -261,12 +270,12 @@ def sysInfo():
 
 
 
-@app.route('/start', methods=['GET', 'POST'])
-def start():
-    #初始化时钟
-    timeNow=0
-    session['timeNow']=timeNow
-    return render_template('T_admin_index.html')
+# @app.route('/start', methods=['GET', 'POST'])
+# def start():
+#     #初始化时钟
+#     timeNow=0
+#     session['timeNow']=timeNow
+#     return render_template('T_admin_index.html')
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
@@ -385,8 +394,8 @@ def page_not_found(e):
 #测试路由
 @app.route('/test/')
 def test():
-    print(request.path)
-    return "hi!"
+    app.config['TIMENOW'] = 0
+    return str(app.config['TIMENOW'])
 
 
 def saveLog(username,password,ischeck):
