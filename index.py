@@ -1,9 +1,5 @@
 import json
-import datetime
-import time
-
 from flask import request, render_template, redirect, url_for, session, jsonify
-
 from exts import db
 from init import app, scheduler
 from models import Admin,Notice,Flag,Source,AttackRecord,Team,Vulhub,Log,ULog,Time
@@ -409,6 +405,20 @@ def saveLog(username,password,ischeck):
     db.session.add(log)
     db.session.commit()
 
+def flushAll():
+    '''
+    每隔一段时间就需要刷新场内的数据，例如分数统计
+    :return:
+    '''
+    return
+
+def newRound():
+    '''
+    新的一轮开始啦
+    需要刷新所有靶机的flag
+    :return:
+    '''
+    return
 
 if __name__ == "__main__":
     app.run()
