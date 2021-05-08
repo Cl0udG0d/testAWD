@@ -89,5 +89,18 @@ def calculateTheScoreIndex(round):
             delDownSource(tid,downNum)
     return
 
+def delTeamVulDownSource():
+    '''
+    在一轮结束后，删除存在宕机靶机队伍对应的分数
+    :return:
+    '''
+    teamlist = Team.query.all()
+    for tempteam in teamlist:
+        tid = tempteam.id
+        downNum = checkVulhubDown(tid)
+        if downNum != 0:
+            delDownSource(tid, downNum)
+    return
+
 if __name__ == '__main__':
     calculateTheScoreIndex()

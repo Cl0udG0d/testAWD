@@ -6,9 +6,20 @@ from models import Admin,Notice,Flag,Source,AttackRecord,Team,Vulhub,Log,ULog,Ti
 from core.flag.saveFlag import authorizationSaveFlag
 from core.unit.decorators import login_required,admin_login_required
 from core.team.createTeam import createTeam
-from core.flag.createFlag import updateFlagIndex
+from core.flag.createFlag import updateFlagIndex,createFlagIndex
 from config import OneRoundSec
+from core.vulHub.vulManage import writeFlag2Vulhub
+from core.flag.calculateTheScore import delTeamVulDownSource
 
+@app.route('/start', methods=['GET', 'POST'])
+def start():
+    #初始化时钟
+    session['TIMENOW']=0
+    # 创建flag
+    createFlagIndex()
+    # 将 flag 写入靶机
+    writeFlag2Vulhub()
+    return render_template('T_admin_index.html')
 
 @app.route('/lastTime',methods=['GET','POST'])
 def lastTime():
@@ -266,13 +277,6 @@ def sysInfo():
 
 
 
-# @app.route('/start', methods=['GET', 'POST'])
-# def start():
-#     #初始化时钟
-#     timeNow=0
-#     session['timeNow']=timeNow
-#     return render_template('T_admin_index.html')
-
 @app.route('/login/',methods=['GET','POST'])
 def login():
     if request.method == 'GET':
@@ -334,17 +338,6 @@ def EditTeamPassword():
         return redirect(url_for('login'))
 
 
-
-
-@app.route('/announcement/')
-@login_required
-def notice():
-    notice1=Notice.query.filter(Notice.content !=None).order_by(Notice.id.desc()).all()
-    # notice1 =sorted(notice1,key=attrgetter('id'),reverse=True)
-    for i in notice1:
-        print(i.content)
-    return render_template('announcement.html',notice1=notice1)
-
 #curl 提交flag的路由
 @app.route('/flag',methods=['POST'])
 def flag():
@@ -359,21 +352,6 @@ def flag():
         return "you are right!"
     except:
         return "error"
-
-
-
-@app.route('/showSource/')
-def showSource():
-    source1 = Source.query.order_by(Source.source.desc()).all()
-    return render_template('rank.html', source1=source1)
-
-
-@app.route('/showStatus/')
-@login_required
-def showStatus():
-    teamid=session.get('teamid')
-    vulList=Vulhub.query.filter(tid=teamid).all()
-    return render_template('time.html',vulList=vulList)
 
 
 
@@ -418,6 +396,13 @@ def newRound():
     需要刷新所有靶机的flag
     :return:
     '''
+    nowround=int(app.config['TIMENOW']/OneRoundSec)+1
+    # 扣除本轮靶机宕机队伍的分数
+    delTeamVulDownSource(nowround)
+    # 创建flag
+    createFlagIndex()
+    # 将 flag 写入靶机
+    writeFlag2Vulhub()
     return
 
 if __name__ == "__main__":

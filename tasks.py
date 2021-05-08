@@ -2,10 +2,17 @@ from core.checkDown import check1
 from models import *
 from init import app
 # from flask import current_app
-def job1(a, b):                          # 运行的定时任务的函数
+
+def job1(a, b):
+    # 运行的定时任务的函数
+    # 测试函数
     print(str(a) + ' ' + str(b))
 
 def timeCount():
+    '''
+    时间递增 定时任务
+    :return:
+    '''
     with app.app_context():
         timeNow=app.config['TIMENOW']
         if timeNow==-1:
@@ -16,8 +23,11 @@ def timeCount():
     return
 
 
-
 def checkDown():
+    '''
+    检测宕机函数
+    :return:
+    '''
     with app.app_context():
         vulhubList=Vulhub.query.all()
         for vulhub in vulhubList:
@@ -27,6 +37,8 @@ def checkDown():
                 db.session.commit()
     # print("check service down :)")
     return
+
+def
 
 if __name__ == '__main__':
     checkDown()

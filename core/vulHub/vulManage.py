@@ -44,7 +44,17 @@ def delVulhub(dockerid):
     os.system(commend)
     return
 
+def writeFlag2Vulhub():
+    '''
+    将 flag 写入到对应对应队伍的 docker 靶机中
+    :return:
+    '''
+    flaglist=Flag.query.all()
+    for tempflag in flaglist:
+        tempVul=Vulhub.query.filter(Vulhub.tid==tempflag.tid).first()
+        resetVulhubFlag(tempflag.flag, tempVul.dockerid)
+    return
 
 
 if __name__ == '__main__':
-    checkVulIsDown()
+    delVulhub()
