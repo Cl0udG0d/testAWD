@@ -38,7 +38,7 @@ def checkDown():
     # print("check service down :)")
     return
 
-def
+
 
 if __name__ == '__main__':
     checkDown()

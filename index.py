@@ -3,7 +3,7 @@ from flask import request, render_template, redirect, url_for, session, jsonify
 from exts import db
 from init import app, scheduler
 from models import Admin,Notice,Flag,Source,AttackRecord,Team,Vulhub,Log,ULog,Time
-from core.flag.saveFlag import authorizationSaveFlag
+from core.flag.saveFlag import authorizationSaveFlag,checkFlagIndex
 from core.unit.decorators import login_required,admin_login_required
 from core.team.createTeam import createTeam
 from core.flag.createFlag import updateFlagIndex,createFlagIndex
@@ -339,17 +339,32 @@ def EditTeamPassword():
 
 
 #curl 提交flag的路由
+#存在两种提交flag的方式
+#一种是网页上直接提交
+#另一种是编写脚本文件进行批量定时提交
+#两种方式各有千秋，推荐编写脚本自动提交，方便拿到shell维权后躺赢
 @app.route('/flag',methods=['POST'])
 def flag():
+    nowRound = int(app.config['TIMENOW'] / OneRoundSec) + 1
     try:
-        Authorization=request.headers.get('Authorization')
-        flag=json.loads(request.get_data().decode('ascii'))['flag']
-        if not Authorization:
-            return "need Authorization"
-        status=authorizationSaveFlag(flag,Authorization,1)
-        if status==0:
-            return "error flag"
-        return "you are right!"
+        if session.get('teamid'):
+            teamid= session.get('teamid')
+            flag = request.form.get('flag')
+            status=checkFlagIndex(teamid,nowRound,flag)
+            return redirect(url_for('index'))
+        elif request.headers.get('Authorization'):
+            Authorization=request.headers.get('Authorization')
+            flag=json.loads(request.get_data().decode('ascii'))['flag']
+            if not Authorization:
+                return "need Authorization"
+            status=authorizationSaveFlag(flag,Authorization,1)
+            if status==0:
+                return "error flag"
+            elif status==2:
+                return "flag already submit"
+            return "flag is right!"
+        else:
+            return "error"
     except:
         return "error"
 

@@ -47,7 +47,7 @@ def getSufferNum(tid,round):
         delSufferTeamSource(tid)
         addAttackTeamSource(tid,round,source)
 
-def checkVulhubDown(tid):
+def checkVulhubDown(tid,nowround):
     '''
     检测某个队伍靶机宕机数量
     :param tid:
@@ -89,7 +89,7 @@ def calculateTheScoreIndex(round):
             delDownSource(tid,downNum)
     return
 
-def delTeamVulDownSource():
+def delTeamVulDownSource(nowround):
     '''
     在一轮结束后，删除存在宕机靶机队伍对应的分数
     :return:
@@ -97,7 +97,7 @@ def delTeamVulDownSource():
     teamlist = Team.query.all()
     for tempteam in teamlist:
         tid = tempteam.id
-        downNum = checkVulhubDown(tid)
+        downNum = checkVulhubDown(tid,nowround)
         if downNum != 0:
             delDownSource(tid, downNum)
     return
