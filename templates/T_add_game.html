@@ -1,0 +1,39 @@
+{% extends 'T_admin_base.html' %}
+{% block title %}新建比赛{% endblock %}
+{% block context %}
+        <div id="global">
+        <div class="container-fluid">
+            <div class="row cm-fix-height">
+                <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">新建比赛</div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" method="post">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">比赛名</label>
+                                        <div class="col-sm-10">
+                                            <input  name="title" class="form-control"  placeholder="比赛名">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">开始时间</label>
+                                        <div class="col-sm-10">
+                                            <input  name="starttime" class="form-control"  placeholder="开始时间">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:0">
+                                        <div class="col-sm-offset-2 col-sm-10 text-right">
+
+                                            <button type="submit" class="btn btn-primary">添加</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+            </div>
+        </div>
+      </div>
+      <footer class="cm-footer"><span class="pull-right">&copy; 凡渡_AWD攻防对抗平台.</span></footer>
+    </div>
+{% endblock %}

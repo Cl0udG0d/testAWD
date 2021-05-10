@@ -3,7 +3,7 @@ import requests
 def check(target_ip, target_port):
     """web_example"""
     try:
-        print(target_ip+":"+target_port)
+        # print(target_ip+":"+target_port)
         res = requests.get('http://{}:{}'.format(target_ip,target_port))
         if res.status_code == 200:
             return True

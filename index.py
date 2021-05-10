@@ -11,15 +11,7 @@ from config import OneRoundSec
 from core.vulHub.vulManage import writeFlag2Vulhub
 from core.flag.calculateTheScore import delTeamVulDownSource
 
-@app.route('/start', methods=['GET', 'POST'])
-def start():
-    #初始化时钟
-    session['TIMENOW']=0
-    # 创建flag
-    createFlagIndex()
-    # 将 flag 写入靶机
-    writeFlag2Vulhub()
-    return render_template('T_admin_index.html')
+
 
 @app.route('/lastTime',methods=['GET','POST'])
 def lastTime():
@@ -75,6 +67,26 @@ def index():
     }
 
     return render_template('K_index.html',context=context)
+
+@app.route('/start', methods=['GET', 'POST'])
+def start():
+    if request.method=='GET':
+        return render_template('T_game_manager.html')
+    else:
+        return render_template('T_add_game.html')
+
+@app.route('/addGame', methods=['GET', 'POST'])
+def addGame():
+    #初始化时钟
+    # session['TIMENOW']=0
+    # # 创建flag
+    # createFlagIndex()
+    # # 将 flag 写入靶机
+    # writeFlag2Vulhub()
+    if request.method=='GET':
+        return render_template('T_add_game.html')
+    else:
+        return render_template('T_add_game.html')
 
 @app.route('/indexShow', methods=['GET', 'POST'])
 def indexShow():
@@ -369,12 +381,13 @@ def flag():
         return "error"
 
 
-
+# 404 页面
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'),404
 
 
+# 500 页面
 @app.errorhandler(500)
 def page_not_found(e):
     return render_template('500.html'),500
@@ -398,12 +411,6 @@ def saveLog(username,password,ischeck):
     db.session.add(log)
     db.session.commit()
 
-def flushAll():
-    '''
-    每隔一段时间就需要刷新场内的数据，例如分数统计
-    :return:
-    '''
-    return
 
 def newRound():
     '''
@@ -414,6 +421,8 @@ def newRound():
     nowround=int(app.config['TIMENOW']/OneRoundSec)+1
     # 扣除本轮靶机宕机队伍的分数
     delTeamVulDownSource(nowround)
+    # 对攻击成功的事件进行加减分处理
+    teamSourceManage(nowround)
     # 创建flag
     createFlagIndex()
     # 将 flag 写入靶机

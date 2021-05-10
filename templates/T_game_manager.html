@@ -1,0 +1,36 @@
+{% extends 'T_admin_base.html' %}
+{% block title %}比赛管理{% endblock %}
+{% block context %}
+<div id="global">
+      <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-body demo-btn">
+                                   <button type="button" class="btn btn-default" onclick="javascript:window.location.href='{{ url_for('addGame') }}'">新建比赛</button>
+                        </div>
+                                      <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>比赛名</th>
+                                        <th>开始时间</th>
+                                        <th>结束时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="active">
+                                        <th scope="row">1</th>
+                                        <td>test</td>
+                                        <td>starttime</td>
+                                        <td>endtime</td>
+                                        <td> <button type="button" class="btn btn-default" onclick="javascript:window.location.href='#'">开始</button>
+                                            <button type="button" class="btn btn-default" onclick="javascript:window.location.href='#'">结束</button>
+                                       </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+        </div>
+      </div>
+      <footer class="cm-footer"><span class="pull-right">&copy; 凡渡_AWD攻防对抗平台.</span></footer>
+    </div>
+{% endblock %}
