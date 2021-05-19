@@ -1,6 +1,19 @@
 {% extends 'T_admin_base.html' %}
 {% block title %}新建比赛{% endblock %}
 {% block context %}
+<script language="JavaScript" type="text/javascript">
+           function changeState(isChecked)
+          {
+             var chk_list=document.getElementsByTagName("input");
+             for(var i=0;i<chk_list.length;i++)
+               {
+                  if(chk_list[i].type=="checkbox")
+                    {
+                      chk_list[i].checked=isChecked;
+                    }
+               }
+        }
+      </script>
         <div id="global">
       <div class="container-fluid">
         <div class="panel panel-default">
@@ -11,22 +24,46 @@
                             <label>比赛名称</label>
                             <input type="text" class="form-control" placeholder="比赛名称" name="title">
                         </div>
-                    <div class="form-group">
-                        <label>参赛队伍</label>
-                        <br>
-                    <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Option one is this and that&mdash;be sure to include why it's great
-                                    </label>
-                                </div>
-                    <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="">
-                                        Option one is this and that&mdash;be sure to include why it's great
-                                    </label>
-                                </div>
-                    </div>
+                    <table class="table table-hover" style="margin-bottom:0">
+                                    <caption>选择 <code>参赛队伍</code> </caption>
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" value="" onclick="changeState(this.checked)"><code>:)</code></th>
+                                            <th>队伍名</th>
+                                            <th>靶机相关</th>
+                                            <th>token</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"><input type="checkbox" value=""></th>
+                                            <td>Mark</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">show <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#">靶机1</a></li>
+                                                        <li><a href="#">靶机2</a></li>
+                                                        <li><a href="#">靶机3</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><input type="checkbox" value=""></th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><input type="checkbox" value=""></th>
+                                            <td>Larry</td>
+                                            <td>the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                     <div class="form-group" style="margin-bottom:0">
                         <div class="col-sm-offset-2 col-sm-10 text-right">
                             <button type="submit" class="btn btn-primary">提交</button>
