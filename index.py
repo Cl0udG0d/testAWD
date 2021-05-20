@@ -77,14 +77,18 @@ def start():
 
 @app.route('/addGame', methods=['GET', 'POST'])
 def addGame():
-    #初始化时钟
-    # session['TIMENOW']=0
-    # # 创建flag
-    # createFlagIndex()
-    # # 将 flag 写入靶机
-    # writeFlag2Vulhub()
     if request.method=='GET':
-        return render_template('T_add_game.html')
+        context=[]
+        tempInfo={
+            'id':1
+        }
+        teamInfoList=Team.query.all()
+        for team in teamInfoList:
+            print(team)
+            vulhubList=Vulhub.query.filter(Vulhub.tid==team.id)
+            teamInfo={'id':team.id,'teamname':team.teamname,'vulhubList':vulhubList,'token':team.token}
+            context.append(teamInfo)
+        return render_template('T_add_game.html',context=context)
     else:
         return render_template('T_add_game.html')
 

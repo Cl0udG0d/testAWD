@@ -35,33 +35,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    {% for teaminfo in context%}
                                         <tr>
                                             <th scope="row"><input type="checkbox" value=""></th>
-                                            <td>Mark</td>
+                                            <td>{{teaminfo.teamname}}</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">show <span class="caret"></span></button>
                                                     <ul class="dropdown-menu" role="menu">
-                                                        <li><a href="#">靶机1</a></li>
-                                                        <li><a href="#">靶机2</a></li>
-                                                        <li><a href="#">靶机3</a></li>
+                                                        {% for vulhub in teaminfo.vulhubList %}
+                                                        <li><a href="#">{{vulhub.vulname}}</a></li>
+                                                        {% endfor %}
                                                     </ul>
                                                 </div>
                                             </td>
-                                            <td>@mdo</td>
+                                            <td>{{teaminfo.token}}</td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row"><input type="checkbox" value=""></th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><input type="checkbox" value=""></th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                     <div class="form-group" style="margin-bottom:0">
