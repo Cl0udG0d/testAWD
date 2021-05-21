@@ -21,7 +21,7 @@
                     <div class="header_logo fl "><span>凡渡</span>AWD攻防练习赛</div>
                     <div class="header_nav fl  tab-buttons ">
                         <ul>
-                            <li class="tab-button cur" data-tab="four">
+                            <li class="tab-button cur" data-tab="one">
                                 <a href="#" class="nav_current">
                                     <span class="nav1"></span>
                                     <span>指南</span>
@@ -39,7 +39,7 @@
                                     <span> Flag</span>
                                 </a>
                             </li>
-                            <li class="tab-button" data-tab="one">
+                            <li class="tab-button" data-tab="four">
                                 <a href="#">
                                     <span class="nav4"> </span>
                                     <span> 排行榜</span>
@@ -69,10 +69,129 @@
             </div>
         </div>
         <!--头部区域 end-->
+
         <!--主体区域 start-->
         <div class="maindiv tabs">
-            <!--第一个div start-->
-            <div class="tab-item active clearfix" id="tab-one">
+            <!--第一个指南div start-->
+            <div class="tab-item active" id="tab-one">
+                <div class="tborderimg clearfix three-info">
+                    <div class="hostdiv">
+                        <p>主机信息</p>
+                        <p>队伍分配主机，通过指定的端口和密码进行连接;主机上运行一个web或多个服务，需要选手保证其可用性审计代码，攻击其他队伍;通过漏洞获取其他队伍主机权限，读取服务器上的flag并提交到flag服务器</p>
+                    </div>
+                    <div class="attackdiv">
+                        <p>攻击检测</p>
+                        <p>每轮成功攻击，攻击队伍可平分该flag的50分，被攻击者扣除50分;选手需要保证己方服务的可用性，服务故障扣除200分，被服务无故障的队伍平分;得分在下一轮开始时计算</p>
+                    </div>
+                    <div class="otherdiv">
+                        <p>其他</p>
+                        <p>选手可以获取所有的攻击情况以及当前的分数;不允许使用任何形式的DOS攻击</p>
+                    </div>
+                </div>
+
+
+                <div class="guide">
+                    <table>
+                        <thead class="table-head ">
+                            <tr>
+                                <th>标题</th>
+                                <th>SSH用户名</th>
+                                <th>SSH密码</th>
+                                <th>IP</th>
+                                <th>SSH端口</th>
+                                <th>WEB端口</th>
+                                <th>状态</th>
+                                <th>描述</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ssh_info" class="table-need">
+                            {% for vulhub in context.vulhubList %}
+                            <tr>
+                                <td>{{vulhub.vulname}}</td>
+                                <td>{{vulhub.sshname}}</td>
+                                <td>{{vulhub.sshpass}}</td>
+                                <td>{{vulhub.addr}}</td>
+                                <td>{{vulhub.sshport}}</td>
+                                <td>{{vulhub.serviceport}}</td>
+                                {% if vulhub.status %}
+                                <td>正常</td>
+                                {% else %}
+                                <td>宕机</td>
+                                {% endif %}
+                                <td>{{vulhub.detail}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!--第一个指南div end-->
+
+            <!--第2个公告div start-->
+            <div class="tab-item" id="tab-two">
+                <div class="mborderimg" style="padding:15px 9px 35px">
+                    <div class="table-head" style="padding-left:30px">
+                        <h2>公告</h2>
+                    </div>
+                    <ul class="ulist_ul" id='infos'>
+                        {% for notice in context.noticeList %}
+                        <li><span>{{notice.date}}</span><span>{{notice.title}}</span>{{notice.content}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!--第2个公告div end-->
+
+            <!--第3个赛题div start-->
+            <div class="tab-item" id="tab-three">
+                <div class="linfo fl sborderimg">
+                    <div class="ltitle" style="position: absolute; left: 26%;padding-right: 20px;">比赛信息</div>
+                    <div class="tktable">
+                        <div class="tktable_top" style="left: 25%; position: absolute;margin-bottom: 30px;">
+                            <table class="txt" border="0" cellpadding="40" cellspacing="20" style="border-collapse:separate;border-spacing:0px 0px;">
+                                <tr>
+                                    <td>Token</td>
+                                    <td><span id='ctoken'>{{context.team.token}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>提交flag的URL</td>
+                                    <td>curl -X POST https://localhost:8989/flag -H 'Authorization:your_team_token' -d '{"flag":"your_flag_here"}'</td>
+                                </tr>
+                                <tr>
+                                    <td>提交方式</td>
+                                    <td>POST</td>
+                                </tr>
+                                <tr>
+                                    <td>提交格式</td>
+                                    <td><span id='mytoken'>{"flag":"your_flag_here"}</span></td>
+                                </tr>
+                                </thead>
+                            </table>
+
+                        </div>
+                        <div class="search" style="height:60px;position: absolute; left: 25%;">
+                            <form method="POST" id="myform" action="{{url_for('flag')}}">
+                                <input type="text" class="search-input" placeholder="请输入正确的flag" id='flag' name="flag" style="height:100%; font-size: 14px;">
+                                <input class="btn banbutt fr" type="submit" value='提交' style="height: 61px; font-size: 14px;">
+                            </form>
+                        </div>
+
+                        <!--放置回显部分的div start-->
+                        <div class="feedback" id="feedback">
+                        </div>
+                        <!--回显部分 end-->
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <!--第3个赛题div end-->
+
+            <!--第4个排行榜div start-->
+            <div class="tab-item clearfix" id="tab-four">
                 <div class="content mborderimg">
                     <div class="table-head">
                         <table>
@@ -133,122 +252,8 @@
                     </div>
                 </div>
             </div>
-            <!--第一个指南div end-->
-            <!--第2个公告div start-->
-            <div class="tab-item" id="tab-two">
-                <div class="mborderimg" style="padding:15px 9px 35px">
-                    <div class="table-head" style="padding-left:30px">
-                        <h2>公告</h2>
-                    </div>
-                    <ul class="ulist_ul" id='infos'>
-                        {% for notice in context.noticeList %}
-                        <li><span>{{notice.date}}</span><span>{{notice.title}}</span>{{notice.content}}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <!--第2个公告div end-->
-            <!--第3个赛题div start-->
-            <div class="tab-item" id="tab-three">
-                <div class="linfo fl sborderimg">
-                    <div class="ltitle" style="position: absolute; left: 26%;padding-right: 20px;">比赛信息</div>
-                    <div class="tktable">
-                        <div class="tktable_top" style="left: 25%; position: absolute;">
-                            <table class="txt" border="0" cellpadding="40" cellspacing="20" style="border-collapse:separate;border-spacing:0px 0px;">
-                                <tr>
-                                    <td>Token</td>
-                                    <td><span id='ctoken'>{{context.team.token}}</span></td>
-                                </tr>
-                                <tr>
-                                    <td>提交flag的URL</td>
-                                    <td>curl -X POST https://localhost:8989/flag -H 'Authorization:your_team_token' -d '{"flag":"your_flag_here"}'</td>
-                                </tr>
-                                <tr>
-                                    <td>提交方式</td>
-                                    <td>POST</td>
-                                </tr>
-                                <tr>
-                                    <td>提交格式</td>
-                                    <td><span id='mytoken'>{"flag":"your_flag_here"}</span></td>
-                                </tr>
-                                </thead>
-                            </table>
-
-                        </div>
-                        <div class="search" style="height:30px;position: absolute; left: 25%;">
-                            <form method="POST" id="myform" action="{{url_for('flag')}}">
-                                <input type="text" class="search-input" placeholder="请输入正确的flag" id='flag' name="flag">
-                                <input class="btn banbutt fr" type="submit" value='提交'>
-                            </form>
-                        </div>
-
-                        <!--放置回显部分的div start-->
-                        <div class="feedback" id="feedback">
-                        </div>
-                        <!--回显部分 end-->
-
-
-                    </div>
-                </div>
-
-
-            </div>
-            <!--第3个赛题div end-->
-            <!--第4个排行榜div start-->
-            <div class="tab-item" id="tab-four">
-                <div class="tborderimg clearfix three-info">
-                    <div class="hostdiv">
-                        <p>主机信息</p>
-                        <p>队伍分配主机，通过指定的端口和密码进行连接;主机上运行一个web或多个服务，需要选手保证其可用性审计代码，攻击其他队伍;通过漏洞获取其他队伍主机权限，读取服务器上的flag并提交到flag服务器</p>
-                    </div>
-                    <div class="attackdiv">
-                        <p>攻击检测</p>
-                        <p>每轮成功攻击，攻击队伍可平分该flag的50分，被攻击者扣除50分;选手需要保证己方服务的可用性，服务故障扣除200分，被服务无故障的队伍平分;得分在下一轮开始时计算</p>
-                    </div>
-                    <div class="otherdiv">
-                        <p>其他</p>
-                        <p>选手可以获取所有的攻击情况以及当前的分数;不允许使用任何形式的DOS攻击</p>
-                    </div>
-                </div>
-
-
-                <div class="guide">
-                    <table>
-                        <thead class="table-head ">
-                            <tr>
-                                <th>标题</th>
-                                <th>SSH用户名</th>
-                                <th>SSH密码</th>
-                                <th>IP</th>
-                                <th>SSH端口</th>
-                                <th>WEB端口</th>
-                                <th>状态</th>
-                                <th>描述</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ssh_info" class="table-need">
-                            {% for vulhub in context.vulhubList %}
-                            <tr>
-                                <td>{{vulhub.vulname}}</td>
-                                <td>{{vulhub.sshname}}</td>
-                                <td>{{vulhub.sshpass}}</td>
-                                <td>{{vulhub.addr}}</td>
-                                <td>{{vulhub.sshport}}</td>
-                                <td>{{vulhub.serviceport}}</td>
-                                {% if vulhub.status %}
-                                <td>正常</td>
-                                {% else %}
-                                <td>宕机</td>
-                                {% endif %}
-                                <td>{{vulhub.detail}}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
             <!--第4个排行榜div end-->
+
             <!--第5个攻击榜div start-->
             <div class="tab-item" id="tab-five">
                 <div class="mborderimg " style=" width:100%; height:100%;">
