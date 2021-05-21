@@ -1,5 +1,8 @@
 import requests
 
+'''
+    动态导入 checkdown
+'''
 def check(target_ip, target_port):
     """web_example"""
     # try:

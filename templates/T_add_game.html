@@ -22,13 +22,12 @@
                 <form class="form-horizontal" method="post">
                     <div class="form-group">
                             <label>比赛名称</label>
-                            <input type="text" class="form-control" placeholder="比赛名称" name="title">
+                            <input type="text" class="form-control" placeholder="比赛名称" name="gametitle">
                         </div>
                     <table class="table table-hover" style="margin-bottom:0">
-                                    <caption>选择 <code>参赛队伍</code> </caption>
+                                    <label>参赛队伍</label>
                                     <thead>
                                         <tr>
-                                            <th><input type="checkbox" value="" onclick="changeState(this.checked)"><code>:)</code></th>
                                             <th>队伍名</th>
                                             <th>靶机相关</th>
                                             <th>token</th>
@@ -37,11 +36,10 @@
                                     <tbody>
                                     {% for teaminfo in context%}
                                         <tr>
-                                            <th scope="row"><input type="checkbox" value=""></th>
                                             <td>{{teaminfo.teamname}}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">show <span class="caret"></span></button>
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">已分配靶机 <span class="caret"></span></button>
                                                     <ul class="dropdown-menu" role="menu">
                                                         {% for vulhub in teaminfo.vulhubList %}
                                                         <li><a href="#">{{vulhub.vulname}}</a></li>

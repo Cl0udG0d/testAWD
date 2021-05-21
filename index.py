@@ -1,18 +1,21 @@
 import json
 from flask import request, render_template, redirect, url_for, session, jsonify
 from exts import db
-from init import app, scheduler
-from models import Admin,Notice,Flag,Source,AttackRecord,Team,Vulhub,Log,ULog,Time
+from init import app
+from models import Admin,Notice,Flag,Source,AttackRecord,Team,Vulhub,Log,ULog,Time,Game
 from core.flag.saveFlag import authorizationSaveFlag,checkFlagIndex
 from core.unit.decorators import login_required,admin_login_required
 from core.team.createTeam import createTeam
-from core.flag.createFlag import updateFlagIndex,createFlagIndex
-from config import OneRoundSec
-from core.vulHub.vulManage import writeFlag2Vulhub
-from core.flag.calculateTheScore import delTeamVulDownSource
+from core.flag.createFlag import updateFlagIndex
+from config import OneRoundSec,CheckDownPath,OneRoundSec
 
+from time import strftime, localtime
+from apscheduler.schedulers.blocking import BlockingScheduler
+from tasks import checkDownMain, timeCount, newRoundFlush
 
+scheduler = BlockingScheduler()
 
+#===================================== AJAX定时任务 =========================
 @app.route('/lastTime',methods=['GET','POST'])
 def lastTime():
     nowRound = {}
@@ -52,13 +55,14 @@ def sourceList():
     nowSource['source'] =source.source
     return json.dumps(nowSource)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     tid = session.get("tid")
     if not tid:
         tid = 1
     team = Team.query.filter(Team.id == tid).first()
-    vulhubList = Vulhub.query.filter(Vulhub.tid == tid)
+    vulhubList = Vulhub.query.filter(Vulhub.tid == tid).filter(Vulhub.cansee==True)
     noticeList=Notice.query.all()
     context={
         "team":team,
@@ -68,29 +72,74 @@ def index():
 
     return render_template('K_index.html',context=context)
 
+#=============================启动比赛相关
 @app.route('/start', methods=['GET', 'POST'])
 def start():
-    if request.method=='GET':
-        return render_template('T_game_manager.html')
-    else:
-        return render_template('T_add_game.html')
+    gamelist = Game.query.all()
+    return render_template('T_game_manager.html',gamelist=gamelist)
+
+@app.route('/startGame/<gid>', methods=['GET', 'POST'])
+def startGame(gid):
+    '''
+    开始某场比赛
+    1，将比赛 is_start 设置为 True
+    2，参赛选手靶机可见
+    3，比赛开始计时
+    4，定时check脚本开始运行
+    :return:
+    '''
+    if gid is None:
+        return redirect(url_for('start'))
+
+    tempgame = Game.query.filter(Game.id == gid).first()
+    tempgame.is_start=True
+
+    vulhublist = Vulhub.query.all()
+    for vulhub in vulhublist:
+        vulhub.cansee=True
+
+    nowTime=strftime('%Y-%m-%d %H:%M:%S', localtime())
+    tempgame.starttime=nowTime
+
+    db.session.commit()
+
+    intervalTaskStart()
+    return redirect(url_for('start'))
+
+def intervalTaskStart():
+    '''
+    开启定时任务函数
+    :return:
+    '''
+    app.config['TIMENOW'] = 0
+
+    # 比赛计时开始 每秒钟该时间递增
+    scheduler.add_job(func=timeCount, trigger='interval', seconds=1)
+    # 检测宕机任务 宕机检测每15秒一次
+    scheduler.add_job(func=checkDownMain, trigger='interval', seconds=15)
+    scheduler.add_job(func=newRoundFlush, trigger='interval', seconds=OneRoundSec-10)
+
+    scheduler.start()
+    print("定时任务已开启")
+    return
+
 
 @app.route('/addGame', methods=['GET', 'POST'])
 def addGame():
     if request.method=='GET':
         context=[]
-        tempInfo={
-            'id':1
-        }
         teamInfoList=Team.query.all()
         for team in teamInfoList:
-            print(team)
             vulhubList=Vulhub.query.filter(Vulhub.tid==team.id)
             teamInfo={'id':team.id,'teamname':team.teamname,'vulhubList':vulhubList,'token':team.token}
             context.append(teamInfo)
         return render_template('T_add_game.html',context=context)
     else:
-        return render_template('T_add_game.html')
+        gametitle=request.form.get('gametitle')
+        tempgame=Game(gametitle=gametitle)
+        db.session.add(tempgame)
+        db.session.commit()
+        return redirect(url_for('start'))
 
 @app.route('/indexShow', methods=['GET', 'POST'])
 def indexShow():
@@ -101,6 +150,7 @@ def indexShow():
 def adminIndex():
     return render_template('T_admin_index.html')
 
+#===============================日志相关
 @app.route('/loginLog', methods=['GET', 'POST'])
 def loginLog():
     loglist=Log.query.all()
@@ -128,6 +178,30 @@ def delUseLog():
         db.session.commit()
     return redirect(url_for('useLog'))
 
+def saveLog(username,password,ischeck):
+    '''
+    存储登录日志函数
+    :param username:
+    :param ischeck:
+    :return:
+    '''
+    log=Log(username=username,password=password,ischeck=ischeck)
+    db.session.add(log)
+    db.session.commit()
+
+def operateLog():
+    '''
+    记录操作日志:
+    1，攻击事件记录
+    2，提交flag记录
+    3，更新容器flag记录
+    4，轮数记录
+    5，分数记录
+    :return:
+    '''
+    return
+
+#=================================管理员相关
 @app.route('/addTeam', methods=['GET', 'POST'])
 def addTeam():
     if request.method=='GET':
@@ -291,8 +365,7 @@ def addVulhub():
 def sysInfo():
     return render_template('T_SysConfig.html')
 
-
-
+#=============================================登录相关
 @app.route('/login/',methods=['GET','POST'])
 def login():
     if request.method == 'GET':
@@ -341,19 +414,6 @@ def LoginOut():
         return redirect(url_for('login'))
 
 
-
-@app.route('/EditPassword/',methods=['POST'])
-@admin_login_required
-def EditTeamPassword():
-    team1=Team.query.filter(Team.id==session.get('teamid')).first()
-    if request.form.get('oldpassword') == team1.password:
-        team1.password =request.form.get('newpassword')
-        db.session.commit()
-        return redirect(url_for('LoginOut'))
-    else:
-        return redirect(url_for('login'))
-
-
 #curl 提交flag的路由
 #存在两种提交flag的方式
 #一种是网页上直接提交
@@ -385,6 +445,8 @@ def flag():
         return "error"
 
 
+
+#=======================================404 500 测试页面 注释
 # 404 页面
 @app.errorhandler(404)
 def page_not_found(e):
@@ -404,34 +466,6 @@ def test():
     return str(app.config['TIMENOW'])
 
 
-def saveLog(username,password,ischeck):
-    '''
-    存储登录日志函数
-    :param username:
-    :param ischeck:
-    :return:
-    '''
-    log=Log(username=username,password=password,ischeck=ischeck)
-    db.session.add(log)
-    db.session.commit()
-
-
-def newRound():
-    '''
-    新的一轮开始啦
-    需要刷新所有靶机的flag
-    :return:
-    '''
-    nowround=int(app.config['TIMENOW']/OneRoundSec)+1
-    # 扣除本轮靶机宕机队伍的分数
-    delTeamVulDownSource(nowround)
-    # 对攻击成功的事件进行加减分处理
-    teamSourceManage(nowround)
-    # 创建flag
-    createFlagIndex()
-    # 将 flag 写入靶机
-    writeFlag2Vulhub()
-    return
 
 if __name__ == "__main__":
     app.run()

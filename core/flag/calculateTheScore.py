@@ -10,7 +10,7 @@ def delSufferTeamSource(tid):
     :return:
     '''
     with app.app_context():
-        tempSource=Source.query.filter(tid=tid).first()
+        tempSource=Source.query.filter(Source.tid==tid).first()
         tempSource.source-=config.Suffer_Source
         db.session.commit()
     return
@@ -23,11 +23,11 @@ def addAttackTeamSource(tid,round,source):
     :param source:
     :return:
     '''
-    attacklist=AttackRecord.query.filter(goaltid=tid).filter(round=round).all()
+    attacklist=AttackRecord.query.filter(AttackRecord.goaltid==tid).filter(AttackRecord.round==round).all()
     for team in attacklist:
         attacktid=team.tid
         with app.app_context():
-            tempSource=Source.query.filter(tid=attacktid).first()
+            tempSource=Source.query.filter(Source.tid==attacktid).first()
             tempSource.source+=source
             db.session.commit()
     return
@@ -39,7 +39,7 @@ def getSufferNum(tid,round):
     :param round:
     :return:
     '''
-    sufferlist=AttackRecord.query.filter(goaltid=tid,round=round).all()
+    sufferlist=AttackRecord.query.filter(AttackRecord.goaltid==tid).filter(AttackRecord.round==round).all()
     if len(sufferlist)==0:
         return
     else:
@@ -47,13 +47,13 @@ def getSufferNum(tid,round):
         delSufferTeamSource(tid)
         addAttackTeamSource(tid,round,source)
 
-def checkVulhubDown(tid,nowround):
+def checkVulhubDown(tid):
     '''
     检测某个队伍靶机宕机数量
     :param tid:
     :return:
     '''
-    vulList=Vulhub.query.filter(tid=tid).all()
+    vulList=Vulhub.query.filter(Vulhub.tid==tid).all()
     downNum=0
     for tempVulhub in vulList:
         if tempVulhub.status:
@@ -67,7 +67,7 @@ def delDownSource(tid,downNum):
     :return:
     '''
     with app.app_context():
-        tempSource = Source.query.filter(tid=tid).first()
+        tempSource = Source.query.filter(Source.tid==tid).first()
         tempSource.source -=config.CheckDown_Source*downNum
         db.session.commit()
     return
@@ -89,7 +89,7 @@ def calculateTheScoreIndex(round):
             delDownSource(tid,downNum)
     return
 
-def delTeamVulDownSource(nowround):
+def delTeamVulDownSource():
     '''
     在一轮结束后，删除存在宕机靶机队伍对应的分数
     :return:
@@ -97,10 +97,10 @@ def delTeamVulDownSource(nowround):
     teamlist = Team.query.all()
     for tempteam in teamlist:
         tid = tempteam.id
-        downNum = checkVulhubDown(tid,nowround)
+        downNum = checkVulhubDown(tid)
         if downNum != 0:
             delDownSource(tid, downNum)
     return
 
 if __name__ == '__main__':
-    calculateTheScoreIndex()
+    calculateTheScoreIndex(1)

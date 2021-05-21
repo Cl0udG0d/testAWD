@@ -18,15 +18,36 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                 {% for tempgame in gamelist %}
                                     <tr class="active">
-                                        <th scope="row">1</th>
-                                        <td>test</td>
-                                        <td>starttime</td>
-                                        <td>endtime</td>
-                                        <td> <button type="button" class="btn btn-default" onclick="javascript:window.location.href='#'">开始</button>
+                                        <th scope="row">{{tempgame.id}}</th>
+                                        <td>{{tempgame.gametitle}}</td>
+                                        {% if tempgame.starttime %}
+                                        <td>{{tempgame.starttime}}</td>
+                                        {% else %}
+                                        <td>暂无</td>
+                                        {% endif %}
+                                        {% if tempgame.endtime %}
+                                        <td>{{tempgame.endtime}}</td>
+                                        {% else %}
+                                        <td>暂无</td>
+                                        {% endif %}
+                                        <td>
+                                            {% if tempgame.is_start %}
+                                            <button type="button" class="btn btn-default" disabled="disabled" onclick="javascript:window.location.href='{{url_for('startGame',gid=tempgame.id)}}'">开始</button>
+                                            {% else %}
+                                            <button type="button" class="btn btn-default" onclick="javascript:window.location.href='{{url_for('startGame',gid=tempgame.id)}}'">开始</button>
+                                            {% endif %}
+                                            {% if tempgame.is_end %}
+                                            <button type="button" class="btn btn-default" disabled="disabled" onclick="javascript:window.location.href='#'">结束</button>
+                                            {% else %}
                                             <button type="button" class="btn btn-default" onclick="javascript:window.location.href='#'">结束</button>
+                                            {% endif %}
+                                            <button type="button" class="btn btn-default" onclick="javascript:window.location.href='#'">删除</button>
                                        </td>
+
                                     </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
         </div>

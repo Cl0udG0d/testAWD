@@ -34,23 +34,23 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(U
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-JOBS = [
-        {
-            'id': 'job1',
-            'func': 'tasks:checkDown',
-            'args': (),
-            'trigger': 'interval',
-            'seconds': 15
-        },
-        {
-            'id': 'job2',
-            'func': 'tasks:timeCount',
-            'args': (),
-            'trigger': 'interval',
-            'seconds': 1
-        }
-
-    ]
+# JOBS = [
+#         {
+#             'id': 'job1',
+#             'func': 'tasks:checkDown',
+#             'args': (),
+#             'trigger': 'interval',
+#             'seconds': 15
+#         },
+#         {
+#             'id': 'job2',
+#             'func': 'tasks:timeCount',
+#             'args': (),
+#             'trigger': 'interval',
+#             'seconds': 1
+#         }
+#     ]
 
 SCHEDULER_API_ENABLED = True
 
+CheckDownPath='./core/checkDown'

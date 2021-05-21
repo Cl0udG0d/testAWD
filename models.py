@@ -47,6 +47,7 @@ class Vulhub(db.Model):
     __tablename__='vulhub'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     tid=db.Column(db.Integer, nullable=False)
+    cansee=db.Column(db.Boolean,nullable=False,default=False)
     vulname=db.Column(db.String(128),nullable=False)
     addr = db.Column(db.String(64), nullable=False)
     serviceport = db.Column(db.String(64), nullable=False)
@@ -72,6 +73,15 @@ class ULog(db.Model):
     date = db.Column(db.DateTime, default=datetime.now)
 
 class Time(db.Model):
-    _tablename__='time'
+    __tablename__='time'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     timeNow = db.Column(db.Integer, nullable=False,default=0)
+
+class Game(db.Model):
+    __tablename__='game'
+    id=db.Column(db.Integer, primary_key=True, autoincrement=True)
+    gametitle=db.Column(db.String(128), nullable=False)
+    starttime=db.Column(db.String(128))
+    endtime=db.Column(db.String(128))
+    is_start=db.Column(db.Boolean, nullable=False,default=False)
+    is_end=db.Column(db.Boolean, nullable=False,default=False)
