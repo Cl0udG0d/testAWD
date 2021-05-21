@@ -618,7 +618,7 @@ table .icon {
 
 .search-input {
     width: 70%;
-    height: 30px;
+    height: 100%;
     padding: 0 70px 0 20px;
     opacity: 0.7;
     position: absolute;
@@ -1189,7 +1189,7 @@ table.txt tr td:first-child {
     }
     .banbutt {
         width: 90px;
-        height: 34px;
+        height: 62px;
         /* background:url(../images/searchicon.png) no-repeat center; */
         background-size: 14px 14px;
         font-size: 11px;
