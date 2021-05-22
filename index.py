@@ -4,7 +4,7 @@ from flask import request, render_template, redirect, url_for, session, jsonify
 from core.vulHub.vulManage import writeFlag2Vulhub
 from exts import db
 from init import app
-from models import Admin,Notice,Flag,AttackRecord,Team,Vulhub,Log,ULog,Time,Game
+from models import Admin,Notice,Flag,AttackRecord,Team,Vulhub,Log,ULog,Game
 from core.flag.saveFlag import authorizationSaveFlag,checkFlagIndex
 from core.unit.decorators import login_required,admin_login_required
 from core.team.createTeam import createTeam
@@ -13,7 +13,7 @@ from config import OneRoundSec,CheckDownPath,OneRoundSec
 import os
 from time import strftime, localtime
 from apscheduler.schedulers.background import BackgroundScheduler
-from tasks import checkDownMain, timeCount, newRoundFlush
+from tasks import checkDownMain, timeCount,newRoundFlush
 
 scheduler = BackgroundScheduler(timezone='MST')
 
@@ -41,9 +41,8 @@ def currentRound():
 
 @app.route('/currentSource',methods=['GET','POST'])
 def currentSource():
-    tid=session.get('tid')
+    tid=session.get('teamid')
     nowSource = {}
-
     if tid is not None:
         source = Team.query.filter(Team.id == tid).first().source
         nowSource['source'] = source
@@ -51,14 +50,14 @@ def currentSource():
         nowSource['source'] =1000
     return json.dumps(nowSource)
 
-@app.route('/sourceList',methods=['GET','POST'])
-def sourceList():
-    sourceDict={}
-    sourceList = Source.query.all()
-
-    nowSource={}
-    nowSource['source'] =source.source
-    return json.dumps(nowSource)
+# @app.route('/sourceList',methods=['GET','POST'])
+# def sourceList():
+#     sourceDict={}
+#     sourceList = Team.query.all()
+#
+#     nowSource={}
+#     nowSource['source'] =source.source
+#     return json.dumps(nowSource)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -69,10 +68,12 @@ def index():
     team = Team.query.filter(Team.id == tid).first()
     vulhubList = Vulhub.query.filter(Vulhub.tid == tid).filter(Vulhub.cansee==True)
     noticeList=Notice.query.all()
+    sourcelist=Team.query.order_by(Team.source.desc()).all()
     context={
         "team":team,
         "vulhubList":vulhubList,
-        "noticeList":noticeList
+        "noticeList":noticeList,
+        "sourcelist":sourcelist,
     }
 
     return render_template('K_index.html',context=context)
@@ -127,8 +128,7 @@ def intervalTaskStart():
     scheduler.add_job(func=timeCount, trigger='interval', seconds=1)
     # 检测宕机任务 宕机检测每15秒一次
     scheduler.add_job(func=checkDownMain, trigger='interval', seconds=15)
-    scheduler.add_job(func=newRoundFlush, trigger='interval', seconds=OneRoundSec)
-
+    scheduler.add_job(func=newRoundFlush,trigger='interval', seconds=OneRoundSec-3)
     scheduler.start()
     print("定时任务已开启")
     return
@@ -153,7 +153,28 @@ def addGame():
 
 @app.route('/indexShow', methods=['GET', 'POST'])
 def indexShow():
-    return render_template('index_show.html')
+    nowgame=Game.query.order_by(Game.id.desc()).first()
+    if nowgame is None:
+        title="暂未开始"
+    else:
+        title=nowgame.gametitle
+    attackrecord=AttackRecord.query.order_by(AttackRecord.id.desc()).all()
+    attacklist=[]
+    for attack in attackrecord:
+        attackteamname=Team.query.filter(Team.id==attack.sourcetid).first().teamname
+        attedteamname=Team.query.filter(Team.id==attack.goaltid).first().teamname
+        attacklist.append({
+            "time":attack.atttime,
+            "attteamname":attackteamname,
+            "attedteamname":attedteamname,
+        })
+    context={
+        "title":title,
+        "teamlist":Team.query.order_by(Team.source.desc()).all(),
+        "attackrecord":attacklist
+    }
+
+    return render_template('index_show.html',context=context)
 
 
 @app.route('/adminIndex', methods=['GET', 'POST'])
@@ -393,7 +414,16 @@ def delVulhub(vid):
 
 @app.route('/sysInfo', methods=['GET', 'POST'])
 def sysInfo():
-    return render_template('T_SysConfig.html')
+    if request.method == 'GET':
+        return render_template('T_SysConfig.html',context=app.config)
+    else:
+        flagstart=request.form.get('flagstart')
+        flagend=request.form.get('flagend')
+        sshpass=request.form.get('sshpass')
+        app.config['FLAG_START']=flagstart
+        app.config['FLAG_END']=flagend
+        app.config['SSHPASS']=sshpass
+        return render_template('T_SysConfig.html',context=app.config)
 
 #=============================================登录相关
 @app.route('/login/',methods=['GET','POST'])

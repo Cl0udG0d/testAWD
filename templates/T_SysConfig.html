@@ -8,29 +8,26 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">系统配置</div>
                             <div class="panel-body">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" method="post" action="{{url_for('sysInfo')}}">
                                     <div class="form-group">
-                                        <label  class="col-sm-2 control-label">这是啥</label>
+                                        <label  class="col-sm-2 control-label">flag前缀</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" placeholder="这是啥">
+                                            <input name="flagstart" type="text" class="form-control" placeholder="flag前缀" value="{{context.FLAG_START}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label  class="col-sm-2 control-label">这是啥</label>
+                                        <label  class="col-sm-2 control-label">flag后缀</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" placeholder="这是啥">
+                                            <input name="flagend" type="text" class="form-control" placeholder="flag后缀" value="{{context.FLAG_END}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label  class="col-sm-2 control-label">这是啥</label>
+                                        <label  class="col-sm-2 control-label">SSH默认密码</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" placeholder="这是啥">
+                                            <input name="sshpass" type="text" class="form-control" placeholder="SSH默认密码" value="{{context.SSHPASS}}">
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-
-                                    </div>
                                     <div class="form-group" style="margin-bottom:0">
                                         <div class="col-sm-offset-2 col-sm-10 text-right">
 

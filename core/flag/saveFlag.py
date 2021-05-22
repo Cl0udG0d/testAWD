@@ -1,3 +1,5 @@
+from time import strftime, localtime
+
 from init import app
 from models import *
 
@@ -11,7 +13,7 @@ def saveTeamAttackEvant(sourcetid,goaltid,round,flag):
     :return:
     '''
     with app.app_context():
-        event=AttackRecord(sourcetid=sourcetid,goaltid=goaltid,round=round,flag=flag)
+        event=AttackRecord(sourcetid=sourcetid,goaltid=goaltid,round=round,flag=flag,atttime=strftime('%Y-%m-%d %H:%M:%S', localtime()))
         db.session.add(event)
         db.session.commit()
 
@@ -53,7 +55,7 @@ def authorizationSaveFlag(flag,Authorization,round):
         return 0
     if checkFlagAlreadySubmit(sourcetid,round,flag):
         return 2
-    saveTeamAttackEvant(sourcetid,goaltid,round)
+    saveTeamAttackEvant(sourcetid,goaltid,round,flag)
     return 1
 
 def checkFlagAlreadySubmit(sourcetid,flag,round):
@@ -85,6 +87,10 @@ def checkFlagIndex(sourcetid,round,flag):
     :param flag:
     :return:
     '''
+    with app.app_context():
+        tempUlog=ULog(text="队伍id {} 在第{}轮提交flag {}".format(sourcetid,round,flag))
+        db.session.add(tempUlog)
+        db.commit()
     goaltid = getFlagTid(flag)
     if checkFlagIsTrue(flag):
         return 0

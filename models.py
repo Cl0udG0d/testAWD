@@ -31,6 +31,7 @@ class AttackRecord(db.Model):
     goaltid=db.Column(db.Integer, nullable=False)
     round=db.Column(db.Integer, nullable=False)
     flag=db.Column(db.String(128),nullable=False)
+    atttime = db.Column(db.String(128))
 
 class Team(db.Model):
     __tablename__='team'
@@ -69,10 +70,6 @@ class ULog(db.Model):
     text = db.Column(db.String(128), nullable=False)
     date = db.Column(db.DateTime, default=datetime.now)
 
-class Time(db.Model):
-    __tablename__='time'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    timeNow = db.Column(db.Integer, nullable=False,default=0)
 
 class Game(db.Model):
     __tablename__='game'

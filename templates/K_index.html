@@ -209,7 +209,7 @@
                             </colgroup>
                             <thead>
                                 <tr id='teams_tr'>
-                                    <th style="width: 30%;">名次</th>
+                                    <th style="width: 30%;">队伍ID</th>
                                     <th style="width: 33%;">战队</th>
                                     <th style="width: 33%;">得分</th>
                                 </tr>
@@ -230,23 +230,14 @@
                                 <col name="el-table_1_column_9" width="204">
                                 <col name="el-table_1_column_10" width="184">
                             </colgroup>
-
                             <tbody id="team">
+                                {% for source in context.sourcelist %}
                                 <tr>
-                                    <td style="width: 29%;">1</td>
-                                    <td style="width: 34%;">奥特曼</td>
-                                    <td style="width: 32%;">6666</td>
+                                    <td style="width: 29%;">{{source.id}}</td>
+                                    <td style="width: 34%;">{{source.teamname}}</td>
+                                    <td style="width: 32%;">{{source.source}}</td>
                                 </tr>
-                                <tr>
-                                    <td style="width: 29%;">1</td>
-                                    <td style="width: 34%;">奥特曼</td>
-                                    <td style="width: 32%;">6666</td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 29%;">1</td>
-                                    <td style="width: 34%;">奥特曼</td>
-                                    <td style="width: 32%;">6666</td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

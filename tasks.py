@@ -64,8 +64,8 @@ def newRoundFlush():
     3，flag 数据库刷新与 容器刷新
     :return:
     '''
-    print("新的一轮开始了")
     nowround = int(app.config['TIMENOW'] / OneRoundSec) + 1
+    print("新的一轮开始了 {}".format(nowround))
     # 扣除本轮靶机宕机队伍的分数
     # delTeamVulDownSource()
     # 对攻击成功的事件进行加减分处理

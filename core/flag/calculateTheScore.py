@@ -2,7 +2,6 @@ from init import app
 from models import *
 import config
 
-
 def delSufferTeamSource(tid):
     '''
     减去被攻击队伍的分数
@@ -15,7 +14,7 @@ def delSufferTeamSource(tid):
         db.session.commit()
     return
 
-def addAttackTeamSource(tid,round,source):
+def addAttackTeamSource(tid,source):
     '''
     给攻击成功的队伍加分
     :param tid:
@@ -23,12 +22,9 @@ def addAttackTeamSource(tid,round,source):
     :param source:
     :return:
     '''
-    attacklist=AttackRecord.query.filter(AttackRecord.goaltid==tid).filter(AttackRecord.round==round).all()
     with app.app_context():
-        for team in attacklist:
-            attacktid=team.tid
-            tempSource=Team.query.filter(Team.id==attacktid).first()
-            tempSource.source+=source
+        tempSource=Team.query.filter(Team.id==tid).first()
+        tempSource.source+=source
         db.session.commit()
     return
 
@@ -39,13 +35,21 @@ def getSufferNum(tid,round):
     :param round:
     :return:
     '''
+    #被攻击
     sufferlist=AttackRecord.query.filter(AttackRecord.goaltid==tid).filter(AttackRecord.round==round).all()
+    print(len(sufferlist))
     if len(sufferlist)==0:
         return
     else:
         source = int(config.Suffer_Source / len(sufferlist))
-        delSufferTeamSource(tid)
-        addAttackTeamSource(tid,round,source)
+        #如果队伍本局被攻击成功，扣分
+        if len(sufferlist)!=0:
+            delSufferTeamSource(tid)
+        #给攻击成功的队伍加分
+        for sufferteam in sufferlist:
+            sufferteam = db.session.merge(sufferteam)
+            attacktid=sufferteam.sourcetid
+            addAttackTeamSource(attacktid,source)
 
 def checkVulhubDown(tid):
     '''
@@ -56,7 +60,7 @@ def checkVulhubDown(tid):
     vulList=Vulhub.query.filter(Vulhub.tid==tid).all()
     downNum=0
     for tempVulhub in vulList:
-        if tempVulhub.status:
+        if not tempVulhub.status:
             downNum+=1
     return downNum
 
@@ -81,8 +85,9 @@ def calculateTheScoreIndex(round):
     :return:
     '''
     with app.app_context():
-        teamlist=Team.query.all()
+        teamlist = Team.query.all()
         for tempteam in teamlist:
+            tempteam = db.session.merge(tempteam)
             tid=tempteam.id
             #攻击扣分
             getSufferNum(tid,round)
