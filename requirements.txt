@@ -1,3 +1,4 @@
+-i https://pypi.tuna.tsinghua.edu.cn/simple
 alembic==1.5.8
 APScheduler==3.7.0
 bidict==0.21.2
