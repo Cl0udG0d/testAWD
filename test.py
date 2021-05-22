@@ -1,23 +1,21 @@
-import os
+from init import app
+from models import *
+def calculateTheScoreIndex(round):
+    '''
+    获得所有的团队的 id
+    传递至 getSufferNum,进行本轮被攻击扣分计算
+    传递至 checkVulhubDown,进行本轮宕机扣分计算
+    :param round:
+    :return:
+    '''
+    with app.app_context():
+        teamlist=Team.query.all()
+        for tempteam in teamlist:
+            tid=tempteam.id
+            print(tid)
 
-# import importlib
-#
-# name='web_example'
-# model_filename = "core.checkDown." + name
-# # 根据指定的args.model来导入本地models文件夹中的相应args.model + '_model.py'模块
-# # 假设如果args.model = cycle_gan，则导入模块models.cycle_gan_model
-# modellib = importlib.import_module(model_filename)
-# print(modellib.test())
-from apscheduler.schedulers.blocking import BlockingScheduler
-import datetime
+        db.session.commit()
+    return
 
-
-def aps_test():
-    print("a")
-
-
-scheduler = BlockingScheduler()
-
-scheduler.add_job(func=aps_test, trigger='interval', seconds=5)
-
-scheduler.start()
+if __name__ == '__main__':
+    calculateTheScoreIndex(1)

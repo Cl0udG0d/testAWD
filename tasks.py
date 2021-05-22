@@ -4,7 +4,7 @@ from init import app
 from config import OneRoundSec
 from core.vulHub.vulManage import writeFlag2Vulhub
 from core.flag.calculateTheScore import delTeamVulDownSource,calculateTheScoreIndex
-from core.flag.createFlag import createFlagIndex
+from core.flag.createFlag import createFlagIndex, updateFlagIndex
 
 '''
     https://www.cnblogs.com/wanghui-garcia/p/11233515.html
@@ -64,13 +64,14 @@ def newRoundFlush():
     3，flag 数据库刷新与 容器刷新
     :return:
     '''
+    print("新的一轮开始了")
     nowround = int(app.config['TIMENOW'] / OneRoundSec) + 1
     # 扣除本轮靶机宕机队伍的分数
     # delTeamVulDownSource()
     # 对攻击成功的事件进行加减分处理
     calculateTheScoreIndex(nowround)
-    # 创建flag
-    createFlagIndex()
+
+    updateFlagIndex()
     # 将 flag 写入靶机
     writeFlag2Vulhub()
     return

@@ -26,13 +26,13 @@ def createFlagIndex():
     :return:
     '''
     teamList=Team.query.all()
-    for tempteam in teamList:
-        tid=tempteam.id
-        flag=createFlagModel()
-        with app.app_context():
+    with app.app_context():
+        for tempteam in teamList:
+            tid=tempteam.id
+            flag=createFlagModel()
             tempFlag = Flag(tid=tid, flag=flag)
             db.session.add(tempFlag)
-            db.session.commit()
+        db.session.commit()
     return
 
 def updateFlagIndex():
@@ -40,11 +40,12 @@ def updateFlagIndex():
     更新 flag 表中的每个 flag
     :return:
     '''
-    flaglist=Flag.query.all()
     with app.app_context():
+        flaglist = Flag.query.all()
         for tempflag in flaglist:
             tempflag.flag=createFlagModel()
             db.session.commit()
+    print("数据库flag更新成功")
     return
 
 if __name__ == '__main__':

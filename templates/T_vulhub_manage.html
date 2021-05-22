@@ -40,6 +40,7 @@
                                          <td>{{vulhub.detail}}</td>
                                        <td>
                                            <button type="button" class="btn btn-default" onclick="javascript:window.location.href='{{ url_for('editVulhub',vid=vulhub.id) }}'">编辑</button>
+                                           <button type="button" class="btn btn-danger" onclick="javascript:window.location.href='{{ url_for('delVulhub',vid=vulhub.id) }}'">删除</button>
                                        </td>
                                     </tr>
                                 {% endfor %}

@@ -23,11 +23,6 @@ class Flag(db.Model):
     tid=db.Column(db.Integer, nullable=False)
     flag=db.Column(db.String(128),nullable=False)
 
-class Source(db.Model):
-    __tablename__='source'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    tid = db.Column(db.Integer, nullable=False)
-    source=db.Column(db.Integer, nullable=False)
 
 class AttackRecord(db.Model):
     __tablename__='attackrecord'
@@ -35,6 +30,7 @@ class AttackRecord(db.Model):
     sourcetid=db.Column(db.Integer, nullable=False)
     goaltid=db.Column(db.Integer, nullable=False)
     round=db.Column(db.Integer, nullable=False)
+    flag=db.Column(db.String(128),nullable=False)
 
 class Team(db.Model):
     __tablename__='team'
@@ -42,6 +38,7 @@ class Team(db.Model):
     teamname=db.Column(db.String(128),nullable=False)
     password=db.Column(db.String(128),nullable=False)
     token=db.Column(db.String(128),nullable=False)
+    source = db.Column(db.Integer, nullable=False,default=1000)
 
 class Vulhub(db.Model):
     __tablename__='vulhub'

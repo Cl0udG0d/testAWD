@@ -8,48 +8,77 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">新建靶机</div>
                             <div class="panel-body">
+                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">当前队伍 <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                    {% for team in teamlist %}
+                                                        <li><a href="#">{{team.teamname}}</a></li>
+                                                    {% endfor %}
+                                                    </ul>
+                                                </div>
+                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">靶机名称 <span class="caret"></span></button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                    {% for vulhub in checklist %}
+                                                        <li><a href="#">{{vulhub}}</a></li>
+                                                    {% endfor %}
+                                                    </ul>
+                                                </div>
+                                <hr>
                                 <form class="form-horizontal" method="post">
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">队伍ID</label>
+                                        <label class="col-sm-2 control-label">队伍名</label>
                                         <div class="col-sm-10">
-                                            <input name="tid" class="form-control"  placeholder="队伍ID">
+                                            <input name="tname" class="form-control"  placeholder="队伍名">
                                         </div>
+                                    </div>
+                                    <div class="form-group">
                                          <label class="col-sm-2 control-label">靶机名</label>
                                         <div class="col-sm-10">
                                             <input name="vulname" class="form-control"  placeholder="靶机名" >
                                         </div>
+                                    </div>
+                                    <div class="form-group">
                                          <label class="col-sm-2 control-label">IP</label>
                                         <div class="col-sm-10">
                                             <input name="addr" class="form-control"  placeholder="IP" >
                                         </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-2 control-label">服务端口</label>
                                         <div class="col-sm-10">
                                             <input name="serviceport" class="form-control"  placeholder="服务端口" >
                                         </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-2 control-label">SSH端口</label>
                                         <div class="col-sm-10">
                                             <input name="sshport" class="form-control"  placeholder="SSH端口" >
                                         </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-2 control-label">SSHName</label>
                                         <div class="col-sm-10">
                                             <input name="sshname" class="form-control"  placeholder="SSHName" >
                                         </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-2 control-label">SSHPass</label>
                                         <div class="col-sm-10">
                                             <input name="sshpass" class="form-control"  placeholder="SSHPass" >
                                         </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-2 control-label">DockerId</label>
                                         <div class="col-sm-10">
                                             <input name="dockerid" class="form-control"  placeholder="DockerId" >
                                         </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-2 control-label">描述</label>
                                         <div class="col-sm-10">
                                             <input name="detail" class="form-control"  placeholder="描述" >
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-
                                     </div>
                                     <div class="form-group" style="margin-bottom:0">
                                         <div class="col-sm-offset-2 col-sm-10 text-right">

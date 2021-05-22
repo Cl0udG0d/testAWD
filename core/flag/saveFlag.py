@@ -1,7 +1,7 @@
 from init import app
 from models import *
 
-def saveTeamAttackEvant(sourcetid,goaltid,round):
+def saveTeamAttackEvant(sourcetid,goaltid,round,flag):
     '''
     该函数记录成功的攻击事件 存储在AttackRecord表中
     存储数据为 攻击队伍ID 被攻击队伍ID 当前是第几轮 round
@@ -11,7 +11,7 @@ def saveTeamAttackEvant(sourcetid,goaltid,round):
     :return:
     '''
     with app.app_context():
-        event=AttackRecord(sourcetid=sourcetid,goaltid=goaltid,round=round)
+        event=AttackRecord(sourcetid=sourcetid,goaltid=goaltid,round=round,flag=flag)
         db.session.add(event)
         db.session.commit()
 
@@ -64,7 +64,7 @@ def checkFlagAlreadySubmit(sourcetid,flag,round):
     :param round:
     :return:
     '''
-    return AttackRecord.query.filter(AttackRecord.round == round).filer(AttackRecord.sourcetid==sourcetid).filter(AttackRecord.flag==flag).first() != None
+    return AttackRecord.query.filter(AttackRecord.round == round).filter(AttackRecord.sourcetid==sourcetid).filter(AttackRecord.flag==flag).first() != None
 
 def checkFlagIsTrue(flag):
     '''
@@ -90,7 +90,7 @@ def checkFlagIndex(sourcetid,round,flag):
         return 0
     elif checkFlagAlreadySubmit(sourcetid,round,flag):
         return 2
-    saveTeamAttackEvant(sourcetid, goaltid, round)
+    saveTeamAttackEvant(sourcetid, goaltid, round,flag)
     return 1
 
 

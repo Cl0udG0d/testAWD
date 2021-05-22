@@ -1,19 +1,21 @@
 import json
 from flask import request, render_template, redirect, url_for, session, jsonify
+
+from core.vulHub.vulManage import writeFlag2Vulhub
 from exts import db
 from init import app
-from models import Admin,Notice,Flag,Source,AttackRecord,Team,Vulhub,Log,ULog,Time,Game
+from models import Admin,Notice,Flag,AttackRecord,Team,Vulhub,Log,ULog,Time,Game
 from core.flag.saveFlag import authorizationSaveFlag,checkFlagIndex
 from core.unit.decorators import login_required,admin_login_required
 from core.team.createTeam import createTeam
-from core.flag.createFlag import updateFlagIndex
+from core.flag.createFlag import updateFlagIndex, createFlagIndex
 from config import OneRoundSec,CheckDownPath,OneRoundSec
-
+import os
 from time import strftime, localtime
-from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 from tasks import checkDownMain, timeCount, newRoundFlush
 
-scheduler = BlockingScheduler()
+scheduler = BackgroundScheduler(timezone='MST')
 
 #===================================== AJAX定时任务 =========================
 @app.route('/lastTime',methods=['GET','POST'])
@@ -40,10 +42,13 @@ def currentRound():
 @app.route('/currentSource',methods=['GET','POST'])
 def currentSource():
     tid=session.get('tid')
+    nowSource = {}
 
-    source = Source.query.filter(Source.tid == tid).first()
-    nowSource={}
-    nowSource['source'] =1000
+    if tid is not None:
+        source = Team.query.filter(Team.id == tid).first().source
+        nowSource['source'] = source
+    else:
+        nowSource['source'] =1000
     return json.dumps(nowSource)
 
 @app.route('/sourceList',methods=['GET','POST'])
@@ -58,7 +63,7 @@ def sourceList():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    tid = session.get("tid")
+    tid = session.get("teamid")
     if not tid:
         tid = 1
     team = Team.query.filter(Team.id == tid).first()
@@ -84,6 +89,7 @@ def startGame(gid):
     开始某场比赛
     1，将比赛 is_start 设置为 True
     2，参赛选手靶机可见
+    3，写入flag
     3，比赛开始计时
     4，定时check脚本开始运行
     :return:
@@ -98,6 +104,10 @@ def startGame(gid):
     for vulhub in vulhublist:
         vulhub.cansee=True
 
+    #创建 flag
+    createFlagIndex()
+    #写入 flag
+    writeFlag2Vulhub()
     nowTime=strftime('%Y-%m-%d %H:%M:%S', localtime())
     tempgame.starttime=nowTime
 
@@ -117,7 +127,7 @@ def intervalTaskStart():
     scheduler.add_job(func=timeCount, trigger='interval', seconds=1)
     # 检测宕机任务 宕机检测每15秒一次
     scheduler.add_job(func=checkDownMain, trigger='interval', seconds=15)
-    scheduler.add_job(func=newRoundFlush, trigger='interval', seconds=OneRoundSec-10)
+    scheduler.add_job(func=newRoundFlush, trigger='interval', seconds=OneRoundSec)
 
     scheduler.start()
     print("定时任务已开启")
@@ -324,7 +334,11 @@ def editVulhub(vid):
         vid=1
     vulhub = Vulhub.query.filter(Vulhub.id == vid).first()
     if request.method=='GET':
-        return render_template('T_edit_vulhub.html', vulhub=vulhub)
+        checklist = list()
+        for tempfile in os.listdir(CheckDownPath):
+            if tempfile.endswith('.py'):
+                checklist.append(tempfile.split('.')[0])
+        return render_template('T_edit_vulhub.html', vulhub=vulhub,checklist=checklist)
     else:
         vulname=request.form.get('vulname')
         addr=request.form.get('addr')
@@ -338,15 +352,20 @@ def editVulhub(vid):
         with app.app_context():
             vulhub.vulname,vulhub.addr,vulhub.serviceport,vulhub.sshport,vulhub.sshname,vulhub.sshpass,vulhub.dockerid,vulhub.status,vulhub.detail=vulname,addr,serviceport,sshport,sshname,sshpass,dockerid,status,detail
             db.session.commit()
-        vulhub = Vulhub.query.filter(Vulhub.id == vid).first()
-        return render_template('T_edit_vulhub.html',vulhub=vulhub)
+        return redirect(url_for('vulhubManage'))
 
 @app.route('/addVulhub', methods=['GET', 'POST'])
 def addVulhub():
     if request.method=='GET':
-        return render_template('T_add_vulhub.html')
+        teamlist=Team.query.all()
+        checklist=list()
+        for tempfile in os.listdir(CheckDownPath):
+            if tempfile.endswith('.py'):
+                checklist.append(tempfile.split('.')[0])
+        return render_template('T_add_vulhub.html',teamlist=teamlist,checklist=checklist)
     else:
-        tid=request.form.get('tid')
+        tname=request.form.get('tname')
+        team = Team.query.filter(Team.teamname == tname).first()
         vulname=request.form.get('vulname')
         addr=request.form.get('addr')
         serviceport=request.form.get('serviceport')
@@ -356,8 +375,19 @@ def addVulhub():
         dockerid=request.form.get('dockerid')
         detail=request.form.get('detail')
         with app.app_context():
-            vulhub=Vulhub(tid=tid,vulname=vulname,addr=addr,serviceport=serviceport,sshport=sshport,sshname=sshname,sshpass=sshpass,dockerid=dockerid,detail=detail)
+            vulhub=Vulhub(tid=team.id,vulname=vulname,addr=addr,serviceport=serviceport,sshport=sshport,sshname=sshname,sshpass=sshpass,dockerid=dockerid,detail=detail)
             db.session.add(vulhub)
+            db.session.commit()
+        return redirect(url_for('vulhubManage'))
+
+@app.route('/delVulhub/<vid>', methods=['GET', 'POST'])
+def delVulhub(vid):
+    if vid is None:
+        return redirect(url_for('vulhubManage'))
+    else:
+        with app.app_context():
+            vulhub = Vulhub.query.filter(Vulhub.id == vid).first()
+            db.session.delete(vulhub)
             db.session.commit()
         return redirect(url_for('vulhubManage'))
 
@@ -441,7 +471,8 @@ def flag():
             return "flag is right!"
         else:
             return "error"
-    except:
+    except Exception as e:
+        print(e)
         return "error"
 
 
