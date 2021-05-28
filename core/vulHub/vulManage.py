@@ -29,7 +29,7 @@ def resetVulhubFlag(flag,dockerid):
     :param dockerid:
     :return:
     '''
-    commend="echo {} > flag.txt && docker cp ./flag.txt {}:/flag.txt && rm ./flag.txt".format(flag,dockerid)
+    commend="echo {} > flag.txt && docker cp ./flag.txt {}:/flag.txt".format(flag,dockerid)
     # print(commend)
     os.system(commend)
     return

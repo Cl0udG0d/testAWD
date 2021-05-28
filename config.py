@@ -1,5 +1,9 @@
 import os
 
+from concurrent.futures import ThreadPoolExecutor
+
+MAXWORKERS=2
+EXECUTOR = ThreadPoolExecutor(max_workers=MAXWORKERS)
 
 FLAG_START="BiuCtf{"
 FLAG_END="}"
@@ -17,6 +21,7 @@ OneRoundSec=30
 
 STARTTIME=0
 TIMENOW=-1
+CURRENTROUND=1
 
 DEBUG = True
 # DEBUG = False

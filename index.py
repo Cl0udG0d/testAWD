@@ -13,7 +13,7 @@ from config import OneRoundSec,CheckDownPath,OneRoundSec
 import os
 from time import strftime, localtime
 from apscheduler.schedulers.background import BackgroundScheduler
-from tasks import checkDownMain, timeCount,newRoundFlush
+from tasks import checkDownMain, timeCount,newRoundFlushCheck
 
 scheduler = BackgroundScheduler(timezone='MST')
 
@@ -49,15 +49,6 @@ def currentSource():
     else:
         nowSource['source'] =1000
     return json.dumps(nowSource)
-
-# @app.route('/sourceList',methods=['GET','POST'])
-# def sourceList():
-#     sourceDict={}
-#     sourceList = Team.query.all()
-#
-#     nowSource={}
-#     nowSource['source'] =source.source
-#     return json.dumps(nowSource)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -128,7 +119,7 @@ def intervalTaskStart():
     scheduler.add_job(func=timeCount, trigger='interval', seconds=1)
     # 检测宕机任务 宕机检测每15秒一次
     scheduler.add_job(func=checkDownMain, trigger='interval', seconds=15)
-    scheduler.add_job(func=newRoundFlush,trigger='interval', seconds=OneRoundSec-3)
+    scheduler.add_job(func=newRoundFlushCheck,trigger='interval', seconds=1)
     scheduler.start()
     print("定时任务已开启")
     return
@@ -523,8 +514,10 @@ def page_not_found(e):
 #测试路由
 @app.route('/test/')
 def test():
-    app.config['TIMENOW'] = 0
-    return str(app.config['TIMENOW'])
+    def add():
+        print(1+1)
+    app.config['EXECUTOR'].submit(add)
+    return str(app.config['CURRENTROUND'])
 
 
 

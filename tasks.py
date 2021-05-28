@@ -21,8 +21,7 @@ def timeCount():
     :return:
     '''
     with app.app_context():
-        timeNow=app.config['TIMENOW']
-        if timeNow==-1:
+        if app.config['TIMENOW']==-1:
             pass
         else:
             app.config['TIMENOW']+=1
@@ -52,11 +51,11 @@ def checkDownMain():
         for vulhub in vulhubList:
             status=checkOneVulhub(vulhub.vulname,vulhub.addr,vulhub.serviceport)
             vulhub.status = status
-            db.session.commit()
+        db.session.commit()
     print("check service down :)")
     return
 
-def newRoundFlush():
+def newRoundFlushCheck():
     '''
     新一轮刷新：
     1，攻击成功分数瓜分与扣分
@@ -65,18 +64,24 @@ def newRoundFlush():
     :return:
     '''
     nowround = int(app.config['TIMENOW'] / OneRoundSec) + 1
-    print("新的一轮开始了 {}".format(nowround))
+    if nowround==int(app.config['CURRENTROUND']):
+        return
+
+    #线程池执行异步任务，降低延时
+    app.config['EXECUTOR'].submit(newRoundFlushExecutor,nowround)
+    return
+
+def newRoundFlushExecutor(nowround):
     # 扣除本轮靶机宕机队伍的分数
     # delTeamVulDownSource()
     # 对攻击成功的事件进行加减分处理
-    calculateTheScoreIndex(nowround)
-
+    app.config['CURRENTROUND'] += 1
+    print("新的一轮开始了 {}".format(nowround))
+    calculateTheScoreIndex(nowround - 1)
     updateFlagIndex()
     # 将 flag 写入靶机
     writeFlag2Vulhub()
     return
-
-
 
 
 if __name__ == '__main__':
