@@ -95,6 +95,9 @@ def calculateTheScoreIndex(round):
             downNum=checkVulhubDown(tid)
             if downNum!=0:
                 delDownSource(tid,downNum)
+            text="{}队伍宕机数量为{}".format(tempteam.teamname,downNum)
+            ulog = ULog(text=text)
+            db.session.add(ulog)
         db.session.commit()
     return
 

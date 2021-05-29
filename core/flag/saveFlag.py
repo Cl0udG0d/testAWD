@@ -13,7 +13,12 @@ def saveTeamAttackEvant(sourcetid,goaltid,round,flag):
     :return:
     '''
     with app.app_context():
+        sourceTeamName=Team.query.filter(Team.id==sourcetid).first().teamname
+        goalTeamName=Team.query.filter(Team.id==goaltid).first().teamname
+        text="{} 在{}轮 攻击 {} ,flag为{}".format(sourceTeamName,goalTeamName,round,flag)
+        ulog = ULog(text=text)
         event=AttackRecord(sourcetid=sourcetid,goaltid=goaltid,round=round,flag=flag,atttime=strftime('%Y-%m-%d %H:%M:%S', localtime()))
+        db.session.add(ulog)
         db.session.add(event)
         db.session.commit()
 

@@ -52,8 +52,13 @@ def writeFlag2Vulhub():
     with app.app_context():
         flaglist=Flag.query.all()
         for tempflag in flaglist:
+            teamName=Team.query.filter(Team.id==tempflag.tid).first().teamname
+            text="{}队伍靶机flag:{}已更新".format(teamName,tempflag.flag)
+            ulog = ULog(text=text)
+            db.session.add(ulog)
             tempVul=Vulhub.query.filter(Vulhub.tid==tempflag.tid).first()
             resetVulhubFlag(tempflag.flag, tempVul.dockerid)
+    db.session.commit()
     print("docker flag更新成功")
 
 

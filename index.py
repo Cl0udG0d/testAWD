@@ -108,6 +108,10 @@ def startGame(gid):
     intervalTaskStart()
     return redirect(url_for('start'))
 
+def startGameFactor():
+    return
+
+
 def intervalTaskStart():
     '''
     开启定时任务函数
@@ -161,7 +165,7 @@ def indexShow():
         })
     context={
         "title":title,
-        "teamlist":Team.query.order_by(Team.source.desc()).all(),
+        "teamlist":zip(range(len(Team.query.order_by(Team.source.desc()).all())),Team.query.order_by(Team.source.desc()).all()),
         "attackrecord":attacklist
     }
 
@@ -211,16 +215,20 @@ def saveLog(username,password,ischeck):
     db.session.add(log)
     db.session.commit()
 
-def operateLog():
+def operateLog(text):
     '''
     记录操作日志:
     1，攻击事件记录
     2，提交flag记录
     3，更新容器flag记录
     4，轮数记录
-    5，分数记录
+    5，宕机记录
     :return:
     '''
+    with app.app_context():
+        ulog = ULog(text=text)
+        db.session.add(ulog)
+        db.session.commit()
     return
 
 #=================================管理员相关
@@ -470,6 +478,7 @@ def LoginOut():
 #一种是网页上直接提交
 #另一种是编写脚本文件进行批量定时提交
 #两种方式各有千秋，推荐编写脚本自动提交，方便拿到shell维权后躺赢
+#消息闪现
 @app.route('/flag',methods=['POST'])
 def flag():
     nowRound = int(app.config['TIMENOW'] / OneRoundSec) + 1
@@ -484,7 +493,7 @@ def flag():
             flag=json.loads(request.get_data().decode('ascii'))['flag']
             if not Authorization:
                 return "need Authorization"
-            status=authorizationSaveFlag(flag,Authorization,1)
+            status=authorizationSaveFlag(flag,Authorization,nowRound)
             if status==0:
                 return "error flag"
             elif status==2:

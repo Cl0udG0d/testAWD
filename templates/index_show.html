@@ -62,9 +62,13 @@
                             </tr>
                         </thead>
                         <tbody class="scroll" id="score">
-                            {% for source in context.teamlist %}
+                            {% for rank,source in context.teamlist %}
                             <tr>
-                                <td style="background:url(../static/images/jp.png) no-repeat center;">{{source.id}}</td>
+                                {%if rank<3 %}
+                                <td style="background:url(../static/images/jp.png) no-repeat center;">{{rank+1}}</td>
+                                {% else %}
+                                <td style="no-repeat center;">{{rank+1}}</td>
+                                {% endif %}
                                 <td style="text-align: center;">{{source.teamname}}</td>
                                 <td>{{source.source}}</td>
                             </tr>

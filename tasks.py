@@ -75,8 +75,13 @@ def newRoundFlushExecutor(nowround):
     # 扣除本轮靶机宕机队伍的分数
     # delTeamVulDownSource()
     # 对攻击成功的事件进行加减分处理
+    text="新的一轮开始了 {}".format(nowround)
+    with app.app_context():
+        ulog = ULog(text=text)
+        db.session.add(ulog)
+        db.session.commit()
+
     app.config['CURRENTROUND'] += 1
-    print("新的一轮开始了 {}".format(nowround))
     calculateTheScoreIndex(nowround - 1)
     updateFlagIndex()
     # 将 flag 写入靶机
