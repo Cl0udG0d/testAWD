@@ -123,6 +123,22 @@
                         </tbody>
                     </table>
                 </div>
+                <!--放置回显部分的div start-->
+                            {% for msg in get_flashed_messages(category_filter=['success']) %}
+                        <div class="feedback"  style="left: 500px;color:green">
+                                {{ msg }}
+                                                    </div>
+                            {% endfor %}
+                        <div class="feedback"  style="left: 500px;color:red">
+                            {% for msg in get_flashed_messages(category_filter=['error']) %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                        <div class="feedback"  style="left: 500px;color:yellow">
+                            {% for msg in get_flashed_messages(category_filter=['submitted']) %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
 
             </div>
             <!--第一个指南div end-->
@@ -155,7 +171,7 @@
                                 </tr>
                                 <tr>
                                     <td>提交flag的URL</td>
-                                    <td>curl -X POST https://localhost:8989/flag -H 'Authorization:your_team_token' -d '{"flag":"your_flag_here"}'</td>
+                                    <td>curl -X POST http://localhost:5000/flag -H 'Authorization:your_team_token' -d '{"flag":"your_flag_here"}'</td>
                                 </tr>
                                 <tr>
                                     <td>提交方式</td>
@@ -176,13 +192,8 @@
                             </form>
                         </div>
 
-                        <!--放置回显部分的div start-->
-                        <div class="feedback" id="feedback" style="left: 500px;">
-                            提交错误
-                        </div>
+
                         <!--回显部分 end-->
-
-
                     </div>
                 </div>
 

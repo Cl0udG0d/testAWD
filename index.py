@@ -1,5 +1,5 @@
 import json
-from flask import request, render_template, redirect, url_for, session, jsonify
+from flask import request, render_template, redirect, url_for, session, jsonify, flash
 
 from core.vulHub.vulManage import writeFlag2Vulhub
 from exts import db
@@ -486,7 +486,8 @@ def flag():
         if session.get('teamid'):
             teamid= session.get('teamid')
             flag = request.form.get('flag')
-            status=checkFlagIndex(teamid,nowRound,flag)
+            msg,status=checkFlagIndex(teamid,nowRound,flag)
+            flash(msg, status)  # 添加闪现信息
             return redirect(url_for('index'))
         elif request.headers.get('Authorization'):
             Authorization=request.headers.get('Authorization')
@@ -500,7 +501,7 @@ def flag():
                 return "flag already submit"
             return "flag is right!"
         else:
-            return "error"
+            return redirect(url_for('login'))
     except Exception as e:
         print(e)
         return "error"

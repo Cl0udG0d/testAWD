@@ -95,14 +95,14 @@ def checkFlagIndex(sourcetid,round,flag):
     with app.app_context():
         tempUlog=ULog(text="队伍id {} 在第{}轮提交flag {}".format(sourcetid,round,flag))
         db.session.add(tempUlog)
-        db.commit()
+        db.session.commit()
     goaltid = getFlagTid(flag)
     if checkFlagIsTrue(flag):
-        return 0
+        return "flag错误","error"
     elif checkFlagAlreadySubmit(sourcetid,round,flag):
-        return 2
+        return "flag已提交","submitted"
     saveTeamAttackEvant(sourcetid, goaltid, round,flag)
-    return 1
+    return "flag正确","success"
 
 
 

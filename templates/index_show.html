@@ -84,7 +84,7 @@
                         <div class="status scroll clearfix">
                             <ul class="clearfix" id='showrounds'>
                                 {% for attack in context.attackrecord %}
-                                <li class="spaceAround">{{attack[0]}}<i class="yellow">[{{attack[1]}}]</i> <i class="red">攻陷</i> <i class="blue">[{{attack[2]}}]</i> </li>
+                                <li class="spaceAround">{{attack.time}}<i class="yellow">[{{attack.attteamname}}]</i> <i class="red">攻陷</i> <i class="blue">[{{attack.attedteamname}}]</i> </li>
                                 {% endfor %}
                             </ul>
                         </div>
