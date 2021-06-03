@@ -10,7 +10,7 @@ CREATE TABLE `admin` (
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `user` (`id`, `adminname`, `password`)
+INSERT INTO `admin` (`id`, `adminname`, `password`)
 VALUES
 (1,'admin','123456');
 
@@ -23,74 +23,74 @@ CREATE TABLE `notice` (
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `baseinfo` (
+CREATE TABLE `flag` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`url` varchar(50) NOT NULL,
-`status` varchar(4) NOT NULL,
-`title` varchar(50),
-`date` varchar(30) NOT NULL,
-`responseheader` TEXT NOT NULL,
-`Server` TEXT,
-`portserver` TEXT,
-`sendir` TEXT,
-`boolcheck` tinyint(1),
+`tid` int(11) unsigned NOT NULL,
+`flag` varchar(128) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `ipinfo` (
+CREATE TABLE `attackrecord` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`baseinfoid` int(11) NOT NULL,
-`bindingdomain` TEXT,
-`sitestation` TEXT,
-`CMessage` TEXT NOT NULL,
-`ipaddr` varchar(100) NOT NULL,
+`sourcetid` int(11) NOT NULL,
+`goaltid` int(11) NOT NULL,
+`round` int(11) NOT NULL,
+`flag` varchar(128) NOT NULL,
+`atttime` varchar(128) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `domaininfo` (
+CREATE TABLE `team` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`baseinfoid` int(11) NOT NULL,
-`subdomain` TEXT,
-`whois` TEXT,
-`bindingip` TEXT,
-`sitestation` TEXT,
-`recordinfo` TEXT,
-`domainaddr` varchar(200),
+`teamname` varchar(128) NOT NULL,
+`password` varchar(128) NOT NULL,
+`token` varchar(128) NOT NULL,
+`source` int(11) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `buglist` (
+CREATE TABLE `vulhub` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`oldurl` varchar(50),
-`bugurl` varchar(200),
-`bugname` varchar(100) NOT NULL,
-`buggrade` varchar(7) NOT NULL,
-`payload` varchar(100),
-`bugdetail` TEXT,
+`tid` int(11) NOT NULL,
+`cansee` tinyint(1) NOT NULL,
+`vulname` varchar(128),
+`addr` varchar(64),
+`serviceport` varchar(64) NOT NULL,
+`sshport` int(11) NOT NULL,
+`sshname` varchar(128) NOT NULL,
+`sshpass` varchar(128) NOT NULL,
+`dockerid` varchar(128) NOT NULL,
+`status` tinyint(1) NOT NULL,
+`detail` TEXT,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `poc` (
-`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`name` varchar(100) NOT NULL,
-`rule` TEXT,
-`expression` TEXT,
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `log` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`ip` varchar(20) NOT NULL,
-`email` varchar(50) NOT NULL,
+`username` varchar(128) NOT NULL,
+`password` varchar(128) NOT NULL,
+`ischeck` tinyint(1) NOT NULL,
+`date` DATE,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ulog` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`text` varchar(128) NOT NULL,
 `date` DATE,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `invitationcode` (
+CREATE TABLE `game` (
 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-`code` varchar(36) NOT NULL,
+`gametitle` varchar(128) NOT NULL,
+`starttime` varchar(128) NOT NULL,
+`endtime` varchar(128) NOT NULL,
+`is_start` tinyint(1) NOT NULL,
+`is_end` tinyint(1) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

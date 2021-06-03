@@ -1,7 +1,7 @@
 version: '3'
 services:
   mysql:
-    image: cl0udgod/fandu_awdmysql
+    build: ./mysql
     environment:
       - TZ=Asia/Shanghai
       - MYSQL_DATABASE=fandu_awd
@@ -15,7 +15,7 @@ services:
     ]
 
   web:
-    image: cl0udgod/fandu_awdhub
+    build: .
     ports:
      - "5000:5000"
     links:
