@@ -27,10 +27,10 @@ DEBUG = True
 # DEBUG = False
 SECRET_KEY = os.urandom(24)
 
-# HOSTNAME = 'mysql'
+#HOSTNAME = 'mysql'
 HOSTNAME = '127.0.0.1'
 PORT = '3306'
-DATABASE = 'FanDu_AWD'
+DATABASE = 'fandu_awd'
 USERNAME = 'root'
 # PASSWORD = '123mysql'
 PASSWORD = 'root'

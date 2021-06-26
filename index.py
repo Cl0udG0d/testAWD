@@ -386,6 +386,8 @@ def addVulhub():
     else:
         tname=request.form.get('tname')
         team = Team.query.filter(Team.teamname == tname).first()
+        if team is None:
+            return "无此队伍信息"
         vulname=request.form.get('vulname')
         addr=request.form.get('addr')
         serviceport=request.form.get('serviceport')
@@ -438,10 +440,10 @@ def login():
         if team1:
             saveLog(teamname, password,True)
             session['teamid'] = team1.id
-            return redirect(url_for('index'))
+            return "success"
         else:
             saveLog(teamname, password,False)
-            return render_template('login.html')
+            return "wrong"
 
 @app.route('/login_manager/',methods=['GET','POST'])
 def adminLogin():

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登陆</title>
+    <style>
+        body {
+            background: url('../static/images/login2.jpg') no-repeat;
+            background-size: 100% auto;
+        }
+        
+        #login_box {
+            width: 20%;
+            height: 230px;
+            background-color: #00000060;
+            margin: auto;
+            margin-top: 7%;
+            text-align: center;
+            border-radius: 10px;
+            padding: 50px 50px;
+        }
+        
+        #login_box input,
+        #login_box button {
+            outline: none;
+        }
+        
+        #login_box h2 {
+            color: #ffffff90;
+            margin-top: 5%;
+        }
+        
+        #login_box #form #input_box {
+            margin-top: 5%;
+        }
+        
+        #login_box #form #input_box input {
+            border: 0;
+            width: 60%;
+            font-size: 15px;
+            color: #ffffff;
+            background: #ffffff00;
+            border-bottom: 2px solid #ffffff;
+            padding: 5px 10px;
+            margin-top: 10px;
+        }
+        
+        #login_box button {
+            margin-top: 50px;
+            width: 40%;
+            height: 20px;
+            border-radius: 10px;
+            border: 0;
+            color: #fff;
+            font-size: 15px;
+            background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+            cursor: pointer;
+        }
+        /* #login_box #sign_up {
+            margin-top: 45%;
+        }
+        
+        #login_box #sign_up a {
+            color: #b94648;
+        } */
+    </style>
+</head>
+
+<body style="overflow-y: hidden">
+    <div id="login_box" style="justify-content: center;">
+        <h2>登录</h2>
+        <form action="" method="post">
+            <div id="form">
+                <div id="input_box">
+                    <input type="text" placeholder="用户名" name="username">
+                </div>
+                <div id="input_box">
+                    <input type="password" placeholder="密码" name="password">
+                </div>
+            </div>
+            <div>
+                <button id="sign_in" style="height: 32px;">登录</button>
+                <!-- <button id="sign_up" style="height: 32px;">注册</button> -->
+            </div>
+        </form>
+        <br>
+    </div>
+</body>
+</html>

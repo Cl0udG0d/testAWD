@@ -1,91 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            background: url('../static/images/login2.jpg') no-repeat;
-            background-size: 100% auto;
-        }
-        
-        #login_box {
-            width: 20%;
-            height: 230px;
-            background-color: #00000060;
-            margin: auto;
-            margin-top: 7%;
-            text-align: center;
-            border-radius: 10px;
-            padding: 50px 50px;
-        }
-        
-        #login_box input,
-        #login_box button {
-            outline: none;
-        }
-        
-        #login_box h2 {
-            color: #ffffff90;
-            margin-top: 5%;
-        }
-        
-        #login_box #form #input_box {
-            margin-top: 5%;
-        }
-        
-        #login_box #form #input_box input {
-            border: 0;
-            width: 60%;
-            font-size: 15px;
-            color: #ffffff;
-            background: #ffffff00;
-            border-bottom: 2px solid #ffffff;
-            padding: 5px 10px;
-            margin-top: 10px;
-        }
-        
-        #login_box button {
-            margin-top: 50px;
-            width: 40%;
-            height: 20px;
-            border-radius: 10px;
-            border: 0;
-            color: #fff;
-            font-size: 15px;
-            background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
-            cursor: pointer;
-        }
-        /* #login_box #sign_up {
-            margin-top: 45%;
-        }
-        
-        #login_box #sign_up a {
-            color: #b94648;
-        } */
-    </style>
+  <meta charset="utf-8">
+  <title>凡渡AWD</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/css/layui.css"  media="all">
+  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+  <style type="text/css">
+    .container{
+      width: 430px;
+      height: 330px;
+    min-height: 330px;  
+    max-height: 330px;  
+    position: absolute;   
+    top: 0;  
+    left: 0;  
+    bottom: 0;  
+    right: 0;  
+    margin: auto;  
+    padding: 20px;  
+    z-index: 130;  
+    border-radius: 8px;  
+    background-color: rgba(255, 255, 255, 0.787);  
+    box-shadow: 0 3px 18px rgba(100, 0, 0, .5); 
+    font-size: 16px;
+    }
+    body {
+    background-image: url("/static/images/sign-bj.png");
+    }
+  </style>
 </head>
+<body>
 
-<body style="overflow-y: hidden">
-    <div id="login_box" style="justify-content: center;">
-        <h2>登录</h2>
-        <form action="" method="post">
-            <div id="form">
-                <div id="input_box">
-                    <input type="text" placeholder="用户名" name="username">
-                </div>
-                <div id="input_box">
-                    <input type="password" placeholder="密码" name="password">
-                </div>
-            </div>
-            <div>
-                <button id="sign_in" style="height: 32px;">登录</button>
-                <!-- <button id="sign_up" style="height: 32px;">注册</button> -->
-            </div>
-        </form>
-        <br>
-    </div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="container">
+  <br>
+  <h1>
+    <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;凡渡AWD 登 陆 界 面</strong><br>
+  </h1>
+  <br>
+  <br>
+  
+  <em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以我之矛，攻彼之盾</em>
+  <div class="layui-col-md-offset0">
+    <br>
+    <form class="layui-form layui-form-pane" action="">
+      <div class="layui-form-item">
+        <label class="layui-form-label">&nbsp;&nbsp;用户名</label>
+        <div class="layui-input-block">
+          <input type="text" name="username" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">&nbsp;&nbsp;密码</label>
+        <div class="layui-input-block">
+          <input type="text" name="password" lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="layui-btn layui-btn-lg layui-btn-normal" lay-submit="" lay-filter="demo2">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>
+        <button type="reset" class="layui-btn layui-btn-lg layui-btn-danger">&nbsp;&nbsp;重&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;置&nbsp;&nbsp;</button>
+      </div>
+    </form>
+  </div> 
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/layui.js" charset="utf-8"></script>
+<script>
+layui.use(['form'], function(){
+  var form = layui.form
+  ,layer = layui.layer;
+  
+  form.on('submit(demo2)', function(data){
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.open('POST', '/login/', true); 
+  httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//注：post方式必须设置请求头
+  httpRequest.send("username="+data.field.username+"&password="+data.field.password);
+  /**
+   * 获取数据后的处理程序
+   */
+  httpRequest.onreadystatechange = function () {//请求后的回调接口
+    if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+      var text = httpRequest.responseText;//获取到服务端返回的数据
+      if (text == "wrong"){
+        layer.alert('对不起，您的用户名或者密码错误'), {
+          title: '提示'
+        };
+      }
+      else if (text == "success"){
+        window.location.replace("/");
+      }
+      else{
+        layer.alert("对不起，服务器可能出现点了小问题"), {
+          title: '错误提示'
+        };
+      }
+    }
+  };
+  return false;
+  });
+
+  //监听提交
+  // form.on('submit(demo2)', function(data){
+  //   layer.alert(JSON.stringify(data.field), {
+  //     title: '最终的提交信息'
+  //   })
+  //   return false;
+  // });
+  
+});
+</script>
 </body>
 </html>
