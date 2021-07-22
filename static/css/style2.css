@@ -71,7 +71,6 @@ input:-ms-input-placeholder {
 }
 body,html {
     background:url(../images/big2.jpg) no-repeat center fixed;
-    height:auto;
     -webkit-background-size:cover;
     -moz-background-size:cover;
     -o-background-size:cover;
