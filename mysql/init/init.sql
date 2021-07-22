@@ -18,7 +18,7 @@ CREATE TABLE `notice` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
     `title` varchar(128) NOT NULL,
     `content` TEXT NOT NULL,
-    `date` DATE DEFAULT(getdate()),
+    `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -72,14 +72,14 @@ CREATE TABLE `log` (
     `username` varchar(128) NOT NULL,
     `password` varchar(128) NOT NULL,
     `ischeck` tinyint(1) NOT NULL,
-    `date` DATE DEFAULT(getdate()),
+    `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ulog` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
     `text` varchar(128) NOT NULL,
-    `date` DATE DEFAULT(getdate()),
+    `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
