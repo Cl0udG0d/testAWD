@@ -32,6 +32,12 @@
                                     <span> 公告</span>
                                 </a>
                             </li>
+                            <li class="tab-button" data-tab="six">
+                                <a href="#">
+                                    <span class="nav6"> </span>
+                                    <span> 靶机</span>
+                                </a>
+                            </li>
                             <li class="tab-button" data-tab="three">
                                 <a href="#">
                                     <span class="nav3"> </span>
@@ -123,22 +129,6 @@
                         </tbody>
                     </table>
                 </div>
-                <!--放置回显部分的div start-->
-                            {% for msg in get_flashed_messages(category_filter=['success']) %}
-                        <div class="feedback"  style="left: 500px;color:green">
-                                {{ msg }}
-                                                    </div>
-                            {% endfor %}
-                        <div class="feedback"  style="left: 500px;color:red">
-                            {% for msg in get_flashed_messages(category_filter=['error']) %}
-                                {{ msg }}
-                            {% endfor %}
-                        </div>
-                        <div class="feedback"  style="left: 500px;color:yellow">
-                            {% for msg in get_flashed_messages(category_filter=['submitted']) %}
-                                {{ msg }}
-                            {% endfor %}
-                        </div>
 
             </div>
             <!--第一个指南div end-->
@@ -158,6 +148,47 @@
             </div>
             <!--第2个公告div end-->
 
+            <!--靶机div start-->
+            <div class="tab-item" id="tab-six">
+                <div class="guide" style="top: 40px;">
+                    <table>
+                        <thead class="table-head ">
+                            <tr>
+                                <th>标题</th>
+                                <th>SSH用户名</th>
+                                <th>SSH密码</th>
+                                <th>IP</th>
+                                <th>SSH端口</th>
+                                <th>WEB端口</th>
+                                <th>状态</th>
+                                <th>描述</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ssh_info" class="table-need">
+                            {% for vulhub in context.vulhubList %}
+                            <tr>
+                                <td>{{vulhub.vulname}}</td>
+                                <td>{{vulhub.sshname}}</td>
+                                <td>{{vulhub.sshpass}}</td>
+                                <td>{{vulhub.addr}}</td>
+                                <td>{{vulhub.sshport}}</td>
+                                <td>{{vulhub.serviceport}}</td>
+                                {% if vulhub.status %}
+                                <td>正常</td>
+                                {% else %}
+                                <td>宕机</td>
+                                {% endif %}
+                                <td>{{vulhub.detail}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!--靶机div end-->
+
+
             <!--第3个赛题div start-->
             <div class="tab-item" id="tab-three">
                 <div class="linfo fl sborderimg">
@@ -171,7 +202,7 @@
                                 </tr>
                                 <tr>
                                     <td>提交flag的URL</td>
-                                    <td>curl -X POST http://localhost:5000/flag -H 'Authorization:your_team_token' -d '{"flag":"your_flag_here"}'</td>
+                                    <td>curl -X POST https://localhost:8989/flag -H 'Authorization:your_team_token' -d '{"flag":"your_flag_here"}'</td>
                                 </tr>
                                 <tr>
                                     <td>提交方式</td>
@@ -192,8 +223,13 @@
                             </form>
                         </div>
 
-
+                        <!--放置回显部分的div start-->
+                        <div class="feedback" id="feedback" style="left: 500px;">
+                            提交错误
+                        </div>
                         <!--回显部分 end-->
+
+
                     </div>
                 </div>
 

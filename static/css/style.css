@@ -131,11 +131,11 @@ input:-ms-input-placeholder {
 body,
 html {
     background: url(../images/bg4.jpg) no-repeat center fixed;
-    -webkit-background-size:cover;
-    -moz-background-size:cover;
-    -o-background-size:cover;
-    background-size:cover;
-    color:rgba(255,255,255,.95)
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: rgba(255, 255, 255, .95)
 }
 
 ul,
@@ -1651,8 +1651,8 @@ b {
 
 .guide {
     position: absolute;
-    top: 370px;
-    bottom: 0px;
+    /* top: 370px; */
+    /* bottom: 0px; */
     width: 100%;
     overflow: hidden;
     border-top: 1px solid #02a0d8;
