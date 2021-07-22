@@ -1,118 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>凡渡AWD</title>
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/css/layui.css"  media="all">
-  <link rel="stylesheet" href="../static/css/bootstrap.css"  media="all">
-  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-  <style type="text/css">
-    .container{
-      width: 430px;
-      height: 500px;
-    min-height: 330px;  
-    max-height: 400px;
-    position: absolute;   
-    top: 0;  
-    left: 0;  
-    bottom: 0;  
-    right: 0;  
-    margin: auto;  
-    padding: 20px;  
-    z-index: 130;  
-    border-radius: 8px;  
-    background-color: rgba(255, 255, 255, 0.787);  
-    box-shadow: 0 3px 18px rgba(100, 0, 0, .5); 
-    font-size: 16px;
-    }
-    body {
-    background-image: url("/static/images/sign-bj.png");
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>登录</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../static/css/animate.min.css" rel="stylesheet">
+    <link href="../static/css/style.min.css" rel="stylesheet">
+    <link href="../static/css/login.min.css" rel="stylesheet">
+    <script>
+        if(window.top!==window.self){window.top.location=window.location};
+    </script>
+
 </head>
-<body>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<div class="container" style="text-align:center;">
-  <br>
-  <h1>
-    <strong>凡渡AWD 登 陆 界 面</strong><br>
-  </h1>
-  <br>
-  <br>
-  
-  <em>以我之矛，攻彼之盾</em>
-  <div class="layui-col-md-offset0">
-    <br>
-    <form class="layui-form layui-form-pane" action="">
-      <div class="layui-form-item">
-        <label class="layui-form-label">&nbsp;&nbsp;用户名</label>
-        <div class="layui-input-block">
-          <input type="text" name="username" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+<body class="signin">
+    <div class="signinpanel  loginscreen  animated fadeInDown" >
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="signin-info">
+                    <div class="logopanel m-b">
+                        <h1>[ 凡渡 ]</h1>
+                    </div>
+                    <div class="m-b"></div>
+                    <h4>欢迎使用 <strong>凡渡-AWD攻防对抗平台</strong></h4>
+                    {#获取闪现#}
+                    {% for msg in get_flashed_messages() %}
+                        <div class="alert alert-warning" role="alert"><strong>Warning!</strong> {{ msg }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <form method="post" action="{{url_for('login')}}" class="m-t" role="form">
+                    <h4 class="no-margins">登录</h4>
+                    <input name="username" type="text" class="form-control uname" required=""  placeholder="用户名" />
+                    <input name="password" type="password" class="form-control pword m-b" required=""  placeholder="密码" />
+                    <button class="btn btn-success btn-block" >登录</button>
+                </form>
+            </div>
         </div>
-      </div>
-      <div class="layui-form-item">
-        <label class="layui-form-label">&nbsp;&nbsp;密码</label>
-        <div class="layui-input-block">
-          <input type="text" name="password" lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2021 All Rights Reserved. 风起于青萍之末
+            </div>
         </div>
-      </div>
-      <div class="layui-form-item">
-        <button class="btn layui-btn layui-btn-lg layui-btn-normal" lay-submit="" lay-filter="demo2">&nbsp;&nbsp;提&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交&nbsp;&nbsp;</button>
-        <button type="reset" class="btn layui-btn layui-btn-lg layui-btn-danger">&nbsp;&nbsp;重&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;置&nbsp;&nbsp;</button>
-      </div>
-    </form>
-  </div> 
-</div>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/layui.js" charset="utf-8"></script>
-<script>
-layui.use(['form'], function(){
-  var form = layui.form
-  ,layer = layui.layer;
-  
-  form.on('submit(demo2)', function(data){
-  var httpRequest = new XMLHttpRequest();
-  httpRequest.open('POST', '/login/', true); 
-  httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//注：post方式必须设置请求头
-  httpRequest.send("username="+data.field.username+"&password="+data.field.password);
-  /**
-   * 获取数据后的处理程序
-   */
-  httpRequest.onreadystatechange = function () {//请求后的回调接口
-    if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
-      var text = httpRequest.responseText;//获取到服务端返回的数据
-      if (text == "wrong"){
-        layer.alert('对不起，您的用户名或者密码错误'), {
-          title: '提示'
-        };
-      }
-      else if (text == "success"){
-        window.location.replace("/");
-      }
-      else{
-        layer.alert("对不起，服务器可能出现点了小问题"), {
-          title: '错误提示'
-        };
-      }
-    }
-  };
-  return false;
-  });
-
-  //监听提交
-  // form.on('submit(demo2)', function(data){
-  //   layer.alert(JSON.stringify(data.field), {
-  //     title: '最终的提交信息'
-  //   })
-  //   return false;
-  // });
-  
-});
-</script>
+    </div>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
 </body>
 </html>

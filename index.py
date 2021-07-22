@@ -434,16 +434,17 @@ def login():
     else:
         teamname = request.form.get('username')
         password = request.form.get('password')
-        #print("{} {}".format(username,password))
+        print("{} {}".format(teamname,password))
         team1 = Team.query.filter(Team.teamname == teamname).filter(Team.password==password).first()
         #print(user1)
         if team1:
             saveLog(teamname, password,True)
             session['teamid'] = team1.id
-            return "success"
+            return redirect(url_for('index'))
         else:
             saveLog(teamname, password,False)
-            return "wrong"
+            flash('账号或密码错误')
+            return redirect(url_for('login'))
 
 @app.route('/login_manager/',methods=['GET','POST'])
 def adminLogin():
@@ -460,6 +461,7 @@ def adminLogin():
             return redirect(url_for('adminIndex'))
         else:
             saveLog(adminname, password,False)
+            flash('账号或密码错误')
             return render_template('login_manager.html')
 
 

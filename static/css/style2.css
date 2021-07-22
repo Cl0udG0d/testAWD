@@ -70,8 +70,13 @@ input:-ms-input-placeholder {
     font-weight:100;
 }
 body,html {
-    background:url(../images/bag.jpg) no-repeat;
-    background-size:100% 100%;
+    background:url(../images/big2.jpg) no-repeat center fixed;
+    height:auto;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    color:rgba(255,255,255,.95)
 }
 ul,li {
     list-style:none;

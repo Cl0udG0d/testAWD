@@ -38,6 +38,10 @@
                 <button class="login-button" style="border: 0; margin: 10px 43px; outline: none;">
                 登陆
             </button>
+                {#获取闪现#}
+                    {% for msg in get_flashed_messages() %}
+                        <div class="alert alert-warning" role="alert" style="margin-left:50px;margin-top:20px;color:blue"><strong>Warning!</strong> {{ msg }}</div>
+                    {% endfor %}
             </div>
             <div class="sk-rotating-plane"></div>
         </form>
