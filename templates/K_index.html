@@ -93,43 +93,6 @@
                         <p>选手可以获取所有的攻击情况以及当前的分数;不允许使用任何形式的DOS攻击</p>
                     </div>
                 </div>
-
-
-                <div class="guide">
-                    <table>
-                        <thead class="table-head ">
-                            <tr>
-                                <th>标题</th>
-                                <th>SSH用户名</th>
-                                <th>SSH密码</th>
-                                <th>IP</th>
-                                <th>SSH端口</th>
-                                <th>WEB端口</th>
-                                <th>状态</th>
-                                <th>描述</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ssh_info" class="table-need">
-                            {% for vulhub in context.vulhubList %}
-                            <tr>
-                                <td>{{vulhub.vulname}}</td>
-                                <td>{{vulhub.sshname}}</td>
-                                <td>{{vulhub.sshpass}}</td>
-                                <td>{{vulhub.addr}}</td>
-                                <td>{{vulhub.sshport}}</td>
-                                <td>{{vulhub.serviceport}}</td>
-                                {% if vulhub.status %}
-                                <td>正常</td>
-                                {% else %}
-                                <td>宕机</td>
-                                {% endif %}
-                                <td>{{vulhub.detail}}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-
             </div>
             <!--第一个指南div end-->
 
