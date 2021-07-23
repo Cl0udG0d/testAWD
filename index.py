@@ -51,7 +51,9 @@ def currentSource():
     return json.dumps(nowSource)
 
 
+
 @app.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     tid = session.get("teamid")
     if not tid:
@@ -172,7 +174,8 @@ def indexShow():
     return render_template('index_show.html',context=context)
 
 
-@app.route('/adminIndex', methods=['GET', 'POST'])
+@app.route('/adminIndex/', methods=['GET', 'POST'])
+@admin_login_required
 def adminIndex():
     return render_template('T_admin_index.html')
 
