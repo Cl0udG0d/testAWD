@@ -27,8 +27,8 @@ DEBUG = True
 # DEBUG = False
 SECRET_KEY = os.urandom(24)
 
-HOSTNAME = 'mysql'
-# HOSTNAME = '127.0.0.1'
+# HOSTNAME = 'mysql'
+HOSTNAME = '127.0.0.1'
 PORT = '3306'
 DATABASE = 'fandu_awd'
 USERNAME = 'root'

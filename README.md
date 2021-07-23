@@ -30,7 +30,7 @@ ______         ______
 
 `项目结构：`
 
-![项目结构](https://github.com/Cl0udG0d/testAWD/blob/main/static/image/process.jpg)
+![项目结构](https://github.com/Cl0udG0d/testAWD/blob/main/static/images/process.jpg)
 
 ### 安装
 
@@ -86,4 +86,4 @@ ______         ______
 
 一经发现，严肃处理，保留追究其法律责任的权力。
 
-商务合作可直接联系微信：`Cl0udG0d`
+商务合作可直接联系微信：`Cl0udG0d` 
