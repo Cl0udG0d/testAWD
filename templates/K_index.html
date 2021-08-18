@@ -185,11 +185,23 @@
                                 <input class="btn banbutt fr" type="submit" value='提交' style="height: 61px; font-size: 14px;">
                             </form>
                         </div>
-
-                        <!--放置回显部分的div start-->
-                        <div class="feedback" id="feedback" style="left: 500px;">
-                            提交错误
+                        {% for msg in get_flashed_messages(category_filter=['error']) %}
+                        <div class="feedback alert alert-error" role="alert" id="feedback" style="left: 500px;">
+                            {{ msg }}
                         </div>
+                    {% endfor %}
+                        {% for msg in get_flashed_messages(category_filter=['submitted']) %}
+                        <div class="feedback alert alert-info" role="alert"  style="left: 500px;">
+                            {{ msg }}
+                        </div>
+                    {% endfor %}
+                        {% for msg in get_flashed_messages(category_filter=['success']) %}
+                        <div class="feedback alert alert-success" role="alert"  style="left: 500px;">
+                            {{ msg }}
+                        </div>
+                    {% endfor %}
+                        <!--放置回显部分的div start-->
+
                         <!--回显部分 end-->
 
 
